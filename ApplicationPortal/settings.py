@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'registry',
     'cookielaw',
-    'alumni',
+    'hacker',
     'django_forms_uikit',
     'django_countries',
     'django.contrib.admin',

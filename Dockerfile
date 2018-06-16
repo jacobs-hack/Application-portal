@@ -9,7 +9,7 @@ ADD docker/django.conf /etc/nginx/django.conf
 # Install Django App and setup the setting module
 ADD manage.py /app/
 ADD requirements.txt /app/
-ADD alumni/ /app/alumni/
+ADD hacker/ /app/hacker/
 ADD django_forms_uikit/ /app/django_forms_uikit/
 ADD ApplicationPortal/ /app/ApplicationPortal/
 ADD registry/ /app/registry/

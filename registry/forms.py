@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import password_validation
 
-from alumni.models import Alumni, Address, JacobsData, SocialMedia, \
+from hacker.models import Alumni, Address, JacobsData, SocialMedia, \
     JobInformation, PaymentInformation, Skills
 from django.contrib.auth.models import User
 from django_forms_uikit.widgets import DatePickerInput

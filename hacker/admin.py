@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from alumni.actions import export_as_csv_action, export_as_xslx_action
+from hacker.actions import export_as_csv_action, export_as_xslx_action
 from .models import Alumni, Address, JobInformation, SocialMedia, \
     JacobsData, Approval, PaymentInformation, Skills
 
