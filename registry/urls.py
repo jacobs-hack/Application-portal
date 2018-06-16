@@ -20,7 +20,6 @@ from django.views.generic import TemplateView
 from .views import registry as registry_views
 from .views import setup as setup_views
 from .views import edit as edit_views
-from .views import view as view_views
 
 
 urlpatterns = [
