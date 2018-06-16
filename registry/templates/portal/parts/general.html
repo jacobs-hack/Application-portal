@@ -29,29 +29,10 @@
                     <td>E-Mail</td>
                     <td>{{ user.hacker.email|safe }}</td>
                 </tr>
-
-                <tr>
-                    <td>Sex</td>
-                    <td>{{ user.hacker|get_choice_field:"sex"}}</td>
-                </tr>
-
-                <tr>
-                    <td>Birthday</td>
-                    <td>{{ user.hacker.birthday|safe }}</td>
-                </tr>
-                <tr>
-                    <td>Birthday Visible to others</td>
-                    <td>{{ user.hacker.birthdayVisible|print_boolean }}</td>
-                </tr>
-
+                
                 <tr>
                     <td>Nationality</td>
                     <td>{{ user.hacker |get_choice_field:"nationality"|join:"\n"|safe }}</td>
-                </tr>
-
-                <tr>
-                    <td>Category</td>
-                    <td>{{ user.hacker |get_choice_field:"category"|safe }}</td>
                 </tr>
             </tbody>
         </table>

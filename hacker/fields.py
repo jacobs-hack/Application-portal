@@ -17,58 +17,6 @@ class CountryField(OriginalCountryField):
     def to_python(self, value):
         return self.get_clean_value(value)
 
-
-class GenderField(models.CharField):
-    FEMALE = 'fe'
-    MALE = 'ma'
-    OTHER = 'ot'
-    UNSPECIFIED = 'un'
-    SEX_CHOICES = (
-        (FEMALE, 'Female'),
-        (MALE, 'Male'),
-        (OTHER, 'Non-binary'),
-        (UNSPECIFIED, 'Prefer not to say'),
-    )
-
-    def __init__(self, **kwargs):
-        kwargs['max_length'] = 2
-        kwargs['choices'] = GenderField.SEX_CHOICES
-        kwargs['default'] = GenderField.UNSPECIFIED
-        super(GenderField, self).__init__(**kwargs)
-
-    def deconstruct(self):
-        name, path, args, kwargs = super(GenderField, self).deconstruct()
-        del kwargs["max_length"]
-        del kwargs['choices']
-        del kwargs['default']
-        return name, path, args, kwargs
-
-
-class AlumniCategoryField(models.CharField):
-    REGULAR = 're'
-    FACULTY = 'fa'
-    FRIEND = 'fr'
-    CATEGORY_CHOICES = (
-        (REGULAR, 'Alumni (Former Student)'),
-        (FACULTY, 'Faculty or Staff'),
-        (FRIEND, 'Friend Of The Association')
-    )
-
-    def __init__(self, *args, **kwargs):
-        kwargs['max_length'] = 2
-        kwargs['choices'] = AlumniCategoryField.CATEGORY_CHOICES
-        kwargs['default'] = AlumniCategoryField.REGULAR
-        super(AlumniCategoryField, self).__init__(*args, **kwargs)
-
-    def deconstruct(self):
-        name, path, args, kwargs = super(AlumniCategoryField,
-                                         self).deconstruct()
-        del kwargs["max_length"]
-        del kwargs['choices']
-        del kwargs['default']
-        return name, path, args, kwargs
-
-
 class CollegeField(models.IntegerField):
     KRUPP = 1
     MERCATOR = 2

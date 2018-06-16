@@ -55,25 +55,22 @@ class HackerAdmin(admin.ModelAdmin):
                AlumniJobsInline, SkillsInline]
 
     # search through names and emails
-    search_fields = ['firstName', 'middleName', 'lastName', 'email',
-                     'existingEmail', 'approval__gsuite']
+    search_fields = ['firstName', 'middleName', 'lastName', 'email', 'approval__gsuite']
 
     list_display = (
         # basic information
-        'fullName', 'email', 'userApproval', 'completedSetup', 'userGSuite', 'sex', 'birthday',
-        'category',
+        'fullName', 'email', 'userApproval', 'completedSetup', 'userGSuite',
 
         # Jacobs information
         'jacobs_degree', 'jacobs_graduation', 'jacobs_major', 'jacobs_college',
     )
 
     list_filter = (
-        'approval__approval', SetupCompleted, 'category', 'jacobs__degree',
+        'approval__approval', SetupCompleted, 'jacobs__degree',
         'jacobs__graduation',
         'jacobs__major')
 
-    legacy_export_fields = list_display + ('existingEmail',
-                                           'resetExistingEmailPassword')
+    legacy_export_fields = list_display + ('',)
     csv_export = export_as_csv_action("Export as CSV (Legacy)",
                                       fields=legacy_export_fields)
 
@@ -83,9 +80,7 @@ class HackerAdmin(admin.ModelAdmin):
         'profile__date_joined', 'profile__last_login',
 
         # Alumni Model
-        'firstName', 'middleName', 'lastName', 'email', 'existingEmail',
-        'resetExistingEmailPassword', 'sex', 'birthday', 'birthdayVisible',
-        'nationality', 'category',
+        'firstName', 'middleName', 'lastName', 'email', 'nationality',
 
         # Address Data
         'address__address_line_1', 'address__address_line_2', 'address__city',

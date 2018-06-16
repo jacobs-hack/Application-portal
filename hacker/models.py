@@ -29,24 +29,11 @@ class Hacker(models.Model):
         return ' '.join(names)
 
     email = models.EmailField(help_text="Your private email address", unique=True)
-    existingEmail = models.EmailField(blank=True, null=True,
-                                      help_text="Existing <em>@jacobs-alumni.de</em> email address (if you have one)")
-    resetExistingEmailPassword = models.BooleanField(blank=True, default=False, help_text='Reset password to existing email address')
-
-    # gender, nationality, birthday
-    sex = fields.GenderField()
-    birthday = models.DateField(
-        help_text="Your birthday in YYYY-MM-DD format")
-    birthdayVisible = models.BooleanField(default=False, blank=True,
-                                          help_text="Make birthday visible to others")
-
+    
     # TODO: Better handling of multiple nationalities
     nationality = fields.CountryField(
         help_text="You can select multiple options by holding the <em>Ctrl</em> key (or <em>Command</em> on Mac) while clicking",
         multiple=True)
-
-    # kind
-    category = fields.AlumniCategoryField()
 
     #
     # COMPONENTS MANAGEMENT

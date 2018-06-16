@@ -10,8 +10,8 @@ from django_forms_uikit.widgets import DatePickerInput
 class RegistrationForm(forms.ModelForm):
     """ A form for registering users """
     username = forms.SlugField(label='Username',
-                               help_text='Select your username for the membership portal. '
-                                         'We recommend your alumni email username, e.g. <em>ppan</em> for <em>Peter Pan</em>')
+                               help_text='Select your username for the JacobsHack Application Portal. '
+                                         'We recommend the first leter of your first name and full last name e.g. <em>ppan</em> for <em>Peter Pan</em>')
     password1 = forms.CharField(
         label="Password",
         widget=forms.PasswordInput,
@@ -25,32 +25,43 @@ class RegistrationForm(forms.ModelForm):
         help_text='Re-enter your password'
     )
 
-    _tos_help_text = 'I confirm that I have read and agree to the ' \
-                     '<a target="_blank" href="/privacy">Terms and Conditions' \
-                     '</a>, the <a target="_blank" href="' \
-                     'https://jacobs-alumni.de/charter">Charter</a>, and the ' \
-                     '<a target="_blank" href="https://www.jacobs-alumni.de/by-laws">Contributions By-Laws</a>. '
+    # TODO: Update text to point to:
+    ## * MLH Contest Terms and Conditions ()
+    ## * MLH Privacy Policy (https://mlh.io/privacy). Please note that you may receive pre and post-event informational e-mails and occasional messages about hackathons from MLH as per the MLH Privacy Policy.
+    ## * Major League Hacking Code of Conduct https://mlh.io/code-of-conduct while at the event. 
+    ## * Custom Privacy Policy
+    ## TODO: place a trick phrase into the JacobsHack terms and conditions stating something like
+    # "to claim any jacobshack prize, we might ask you a couple questions to confirm that you have read and agree to this policy. ""
+    _tos_help_text = """
+        I confirm that I have read, understood, and agree to: <br />
+
+        <ul>
+            <li>
+                JacobsHack Terms and Conditions
+            </li>
+            <li>
+                MLH Contest Terms and Conditions
+            </li>
+            <li>
+                MLH Privacy Policy
+            </li>
+            <>
+            <li>
+                Major League Hacking Code of Conduct
+            </li>
+        </ul>
+    """
+
     tos = forms.BooleanField(label='Terms and Conditions',
                              help_text=_tos_help_text)
 
     class Meta:
         model = Hacker
-        fields = ['firstName', 'middleName', 'lastName', 'email',
-                  'existingEmail', 'resetExistingEmailPassword', 'sex',
-                  'birthday', 'birthdayVisible', 'nationality', 'category']
-        widgets = {
-            'birthday': DatePickerInput()
-        }
+        fields = ['firstName', 'middleName', 'lastName', 'email', 'nationality']
         labels = {
             "firstName": "First Name",
             "middleName": "Middle Name",
             "lastName": "Last Name",
-            "birthdayVisible": "",
-            "existingEmail": "",
-            "resetExistingEmailPassword": ""
-        }
-        help_texts = {
-            "birthday": "",
         }
 
     def clean(self):
@@ -85,15 +96,7 @@ class RegistrationForm(forms.ModelForm):
 class AlumniForm(forms.ModelForm):
     class Meta:
         model = Hacker
-        fields = ['firstName', 'middleName', 'lastName', 'email', 'sex',
-                  'birthday', 'nationality', 'category']
-        widgets = {
-            'birthday': DatePickerInput()
-        }
-        help_texts = {
-            "birthday": "",
-        }
-
+        fields = ['firstName', 'middleName', 'lastName', 'email', 'nationality']
 
 class AddressForm(forms.ModelForm):
     """ A form for the Address of an Alumni """
