@@ -15,7 +15,7 @@ python manage.py migrate --noinput
 
 
 # Start gunicorn for wsgi on localhost:8000
-gunicorn MemberManagement.wsgi:application --bind 127.0.0.1:8000 &
+gunicorn ApplicationPortal.wsgi:application --bind 127.0.0.1:8000 &
 
 # Run nginx with django configuration
 nginx -c /etc/nginx/django.conf

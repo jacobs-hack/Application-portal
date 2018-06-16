@@ -11,11 +11,11 @@ ADD manage.py /app/
 ADD requirements.txt /app/
 ADD alumni/ /app/alumni/
 ADD django_forms_uikit/ /app/django_forms_uikit/
-ADD MemberManagement/ /app/MemberManagement/
+ADD ApplicationPortal/ /app/ApplicationPortal/
 ADD registry/ /app/registry/
 ADD static/ /app/static/
 
-ENV DJANGO_SETTINGS_MODULE "MemberManagement.docker_settings"
+ENV DJANGO_SETTINGS_MODULE "ApplicationPortal.docker_settings"
 
 # /entrypoint.sh
 ADD docker/entrypoint.sh /entrypoint.sh
@@ -42,7 +42,7 @@ ENV DJANGO_ALLOWED_HOSTS "localhost"
 # Database settings
 ## Use SQLITE out of the box
 ENV DJANGO_DB_ENGINE "django.db.backends.sqlite3"
-ENV DJANGO_DB_NAME "/data/MemberManagment.db"
+ENV DJANGO_DB_NAME "/data/ApplicationPortal.db"
 ENV DJANGO_DB_USER ""
 ENV DJANGO_DB_PASSWORD ""
 ENV DJANG_DB_HOST ""

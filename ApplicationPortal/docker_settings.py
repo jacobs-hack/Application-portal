@@ -1,5 +1,5 @@
 """
-Django Docker settings for MemberManagement project.
+Django Docker settings for ApplicationPortal project.
 Reads all relevant setting from the environment
 """
 from .settings import *
