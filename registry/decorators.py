@@ -4,14 +4,14 @@ from django.http import HttpResponseForbidden
 
 
 def require_alumni(view):
-    """ A decorator for views that ensures an alumni exists """
+    """ A decorator for views that ensures a hacker exists """
 
     @login_required
     def wrapper(request, *args, **kwargs):
 
-        # Try to retrieve the alumni
+        # Try to retrieve the hacker
         try:
-            _ = request.user.alumni
+            _ = request.user.hacker
 
         # return to retrieve a forbidden response if it does not exist
         except ObjectDoesNotExist:
@@ -30,7 +30,7 @@ def require_unset_component(component, alternative):
         @require_alumni
         def wrapper(request, *args, **kwargs):
             # if the given component does not exist, go to the alternate view
-            if request.user.alumni.has_component(component):
+            if request.user.hacker.has_component(component):
                 return alternative(request, *args, **kwargs)
 
             # else use the normal one
@@ -44,13 +44,13 @@ def require_unset_component(component, alternative):
 
 
 def require_setup_completed(alternative):
-    """ A decorator for views that ensures that and alumni has setup all components """
+    """ A decorator for views that ensures that and hacker has setup all components """
 
     def decorator(view):
         @require_alumni
         def wrapper(request, *args, **kwargs):
             # if we are missing a component, return to the main page
-            if request.user.alumni.get_first_unset_component() is not None:
+            if request.user.hacker.get_first_unset_component() is not None:
                 return alternative(request, *args, **kwargs)
 
             # else use the normal one

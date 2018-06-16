@@ -5,34 +5,34 @@
     <div class="uk-card-body">
         <table class="uk-table uk-table-small">
             <tbody>
-                {% if user.alumni.social.facebook %}
+                {% if user.hacker.social.facebook %}
                     <tr>
                         <td>Facebook</td>
-                        <td>{{ user.alumni.social.facebook|safe }}</td>
+                        <td>{{ user.hacker.social.facebook|safe }}</td>
                     </tr>
                 {% endif %}
-                {% if user.alumni.social.twitter %}
+                {% if user.hacker.social.twitter %}
                     <tr>
                         <td>Twitter</td>
-                        <td>{{ user.alumni.social.twitter|safe }}</td>
+                        <td>{{ user.hacker.social.twitter|safe }}</td>
                     </tr>
                 {% endif %}
-                {% if user.alumni.social.linkedin %}
+                {% if user.hacker.social.linkedin %}
                     <tr>
                         <td>LinkedIn</td>
-                        <td>{{ user.alumni.social.linkedin|safe }}</td>
+                        <td>{{ user.hacker.social.linkedin|safe }}</td>
                     </tr>
                 {% endif %}
-                {% if user.alumni.social.instagram %}
+                {% if user.hacker.social.instagram %}
                     <tr>
                         <td>Instagram</td>
-                        <td>{{ user.alumni.social.instagram|safe }}</td>
+                        <td>{{ user.hacker.social.instagram|safe }}</td>
                     </tr>
                 {% endif %}
-                {% if user.alumni.social.homepage %}
+                {% if user.hacker.social.homepage %}
                     <tr>
                         <td>Homepage</td>
-                        <td>{{ user.alumni.social.homepage|safe }}</td>
+                        <td>{{ user.hacker.social.homepage|safe }}</td>
                     </tr>
                 {% endif %}
             </tbody>

@@ -9,30 +9,30 @@
             <tbody>
                 <tr>
                     <td>Alumni Mentor</td>
-                    <td>{{ user.alumni.skills.mentor|print_boolean }}</td>
+                    <td>{{ user.hacker.skills.mentor|print_boolean }}</td>
                 </tr>
-                {% if user.alumni.skills.otherDegrees %}
+                {% if user.hacker.skills.otherDegrees %}
                     <tr>
                         <td>Other Degrees</td>
-                        <td>{{ user.alumni.skills.otherDegrees|safe }}</td>
+                        <td>{{ user.hacker.skills.otherDegrees|safe }}</td>
                     </tr>
                 {% endif %}
-                {% if user.alumni.skills.spokenLanguages %}
+                {% if user.hacker.skills.spokenLanguages %}
                     <tr>
                         <td>Spoken Languages</td>
-                        <td>{{ user.alumni.skills.spokenLanguages|safe }}</td>
+                        <td>{{ user.hacker.skills.spokenLanguages|safe }}</td>
                     </tr>
                 {% endif %}
-                {% if user.alumni.skills.programmingLanguages %}
+                {% if user.hacker.skills.programmingLanguages %}
                     <tr>
                         <td>Programming Languages</td>
-                        <td>{{ user.alumni.skills.programmingLanguages|safe }}</td>
+                        <td>{{ user.hacker.skills.programmingLanguages|safe }}</td>
                     </tr>
                 {% endif %}
-                {% if user.alumni.skills.areasOfInterest %}
+                {% if user.hacker.skills.areasOfInterest %}
                     <tr>
                         <td>Areas of Interest</td>
-                        <td>{{ user.alumni.skills.areasOfInterest|safe }}</td>
+                        <td>{{ user.hacker.skills.areasOfInterest|safe }}</td>
                     </tr>
                 {% endif %}
             </tbody>

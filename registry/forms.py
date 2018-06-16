@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import password_validation
 
-from hacker.models import Alumni, Address, JacobsData, SocialMedia, \
+from hacker.models import Hacker, Address, JacobsData, SocialMedia, \
     JobInformation, Skills
 from django.contrib.auth.models import User
 from django_forms_uikit.widgets import DatePickerInput
@@ -34,7 +34,7 @@ class RegistrationForm(forms.ModelForm):
                              help_text=_tos_help_text)
 
     class Meta:
-        model = Alumni
+        model = Hacker
         fields = ['firstName', 'middleName', 'lastName', 'email',
                   'existingEmail', 'resetExistingEmailPassword', 'sex',
                   'birthday', 'birthdayVisible', 'nationality', 'category']
@@ -84,7 +84,7 @@ class RegistrationForm(forms.ModelForm):
 
 class AlumniForm(forms.ModelForm):
     class Meta:
-        model = Alumni
+        model = Hacker
         fields = ['firstName', 'middleName', 'lastName', 'email', 'sex',
                   'birthday', 'nationality', 'category']
         widgets = {

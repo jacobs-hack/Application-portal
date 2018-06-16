@@ -66,7 +66,7 @@ def register(request):
 def setup(request):
     """ Generates a setup page according to the given component. """
 
-    component = request.user.alumni.get_first_unset_component()
+    component = request.user.hacker.get_first_unset_component()
 
     # if we have finished everything, return the all done page
     if component is None:
@@ -97,7 +97,7 @@ def setupViewFactory(prop, FormClass, name, subtitle):
 
                 # Create the data instance
                 instance = form.save(commit=False)
-                instance.member = request.user.alumni
+                instance.member = request.user.hacker
                 instance.save()
 
                 # and then continue to the main setup page

@@ -26,9 +26,9 @@ def editViewFactory(prop, FormClass, name):
 
         # load the instance
         if prop is None:
-            instance = request.user.alumni
+            instance = request.user.hacker
         else:
-            instance = getattr(request.user.alumni, prop)
+            instance = getattr(request.user.hacker, prop)
 
         if request.method == 'POST':
             # load the form
@@ -74,7 +74,7 @@ skills = editViewFactory('skills', SkillsForm, 'Education and Skills')
 @require_setup_completed(default_alternative)
 def password(request):
     # if we have something that needs to be setup return to the main page
-    if request.user.alumni.get_first_unset_component() is not None:
+    if request.user.hacker.get_first_unset_component() is not None:
         return redirect(reverse('portal'))
 
     if request.method == 'POST':

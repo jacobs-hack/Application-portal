@@ -7,8 +7,8 @@ from jsonfield import JSONField
 from . import fields
 
 
-class Alumni(models.Model):
-    """ The information about an Alumni Member """
+class Hacker(models.Model):
+    """ The information about a Hacker """
 
     profile = models.OneToOneField(User)
 
@@ -82,14 +82,14 @@ class Alumni(models.Model):
         return None
 
     def __str__(self):
-        return "Alumni [{}]".format(self.fullName)
+        return "Hacker [{}]".format(self.fullName)
 
 
-@Alumni.register_component
+@Hacker.register_component
 class Address(models.Model):
-    """ The address of an Alumni Member """
+    """ The address of an Hacker Member """
 
-    member = models.OneToOneField(Alumni, related_name='address')
+    member = models.OneToOneField(Hacker, related_name='address')
 
     address_line_1 = models.CharField(max_length=255,
                                       help_text="E.g. Campus Ring 1")
@@ -105,11 +105,11 @@ class Address(models.Model):
                                          help_text="Include me on the alumni map (only your city will be visible to others)")
 
 
-@Alumni.register_component
+@Hacker.register_component
 class SocialMedia(models.Model):
-    """ The social media data of a Jacobs Alumni """
+    """ The social media data of a Hacker """
 
-    member = models.OneToOneField(Alumni, related_name='social')
+    member = models.OneToOneField(Hacker, related_name='social')
 
     facebook = models.URLField(null=True, blank=True,
                                help_text="Your Facebook Profile (optional)")
@@ -123,11 +123,11 @@ class SocialMedia(models.Model):
                                help_text="Your Homepage or Blog")
 
 
-@Alumni.register_component
+@Hacker.register_component
 class JacobsData(models.Model):
-    """ The jacobs data of an Alumni Member"""
+    """ The jacobs data of an Hacker """
 
-    member = models.OneToOneField(Alumni, related_name='jacobs')
+    member = models.OneToOneField(Hacker, related_name='jacobs')
 
     college = fields.CollegeField(null=True, blank=True)
     graduation = fields.ClassField()
@@ -138,8 +138,8 @@ class JacobsData(models.Model):
 
 
 class Approval(models.Model):
-    """ The approval status of a member """
-    member = models.OneToOneField(Alumni, related_name='approval')
+    """ The approval status of a hacker """
+    member = models.OneToOneField(Hacker, related_name='approval')
 
     approval = models.BooleanField(default=False, blank=True,
                                    help_text="Has the user been approved by an admin?")
@@ -148,11 +148,11 @@ class Approval(models.Model):
                                help_text="The G-Suite E-Mail of the user", unique=True)
 
 
-@Alumni.register_component
+@Hacker.register_component
 class JobInformation(models.Model):
-    """ The jobs of an Alumni Member"""
+    """ The jobs of a Hacker"""
 
-    member = models.OneToOneField(Alumni, related_name='job')
+    member = models.OneToOneField(Hacker, related_name='job')
 
     employer = models.CharField(max_length=255, null=True, blank=True,
                                 help_text="Your employer (optional)")
@@ -162,11 +162,11 @@ class JobInformation(models.Model):
     job = fields.JobField()
 
 
-@Alumni.register_component
+@Hacker.register_component
 class Skills(models.Model):
-    """ The skills of an Alumni member """
+    """ The skills of a Hacker """
 
-    member = models.OneToOneField(Alumni, related_name='skills')
+    member = models.OneToOneField(Hacker, related_name='skills')
 
     otherDegrees = models.TextField(null=True, blank=True)
     spokenLanguages = models.TextField(null=True, blank=True)

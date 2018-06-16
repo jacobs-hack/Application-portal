@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from hacker.actions import export_as_csv_action, export_as_xslx_action
-from .models import Alumni, Address, JobInformation, SocialMedia, \
+from .models import Hacker, Address, JobInformation, SocialMedia, \
     JacobsData, Approval, Skills
 
 
@@ -49,7 +49,7 @@ class SetupCompleted(admin.SimpleListFilter):
             return queryset
 
 
-class AlumniAdmin(admin.ModelAdmin):
+class HackerAdmin(admin.ModelAdmin):
     inlines = [AlumniApprovalInline, AlumniAddressInline,
                AlumniSocialMediaInline, AlumniJacobsDataInline,
                AlumniJobsInline, SkillsInline]
@@ -173,7 +173,7 @@ class AlumniAdmin(admin.ModelAdmin):
     jacobs_college.admin_order_field = 'jacobs__college'
 
 
-admin.site.register(Alumni, AlumniAdmin)
+admin.site.register(Hacker, HackerAdmin)
 
 from django.contrib.auth.models import Group
 admin.site.unregister(Group)

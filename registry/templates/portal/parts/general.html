@@ -10,48 +10,48 @@
             <tbody>
                 <tr>
                     <td>First Name</td>
-                    <td>{{ user.alumni.firstName | safe }}</td>
+                    <td>{{ user.hacker.firstName | safe }}</td>
                 </tr>
 
-                {% if user.alumni.middleName is not None %}
+                {% if user.hacker.middleName is not None %}
                     <tr>
                         <td>Middle Name</td>
-                        <td>{{ user.alumni.middleName | safe }}</td>
+                        <td>{{ user.hacker.middleName | safe }}</td>
                     </tr>
                 {% endif %}
 
                 <tr>
                     <td>Last Name</td>
-                    <td>{{ user.alumni.lastName|safe }}</td>
+                    <td>{{ user.hacker.lastName|safe }}</td>
                 </tr>
 
                 <tr>
                     <td>E-Mail</td>
-                    <td>{{ user.alumni.email|safe }}</td>
+                    <td>{{ user.hacker.email|safe }}</td>
                 </tr>
 
                 <tr>
                     <td>Sex</td>
-                    <td>{{ user.alumni|get_choice_field:"sex"}}</td>
+                    <td>{{ user.hacker|get_choice_field:"sex"}}</td>
                 </tr>
 
                 <tr>
                     <td>Birthday</td>
-                    <td>{{ user.alumni.birthday|safe }}</td>
+                    <td>{{ user.hacker.birthday|safe }}</td>
                 </tr>
                 <tr>
                     <td>Birthday Visible to others</td>
-                    <td>{{ user.alumni.birthdayVisible|print_boolean }}</td>
+                    <td>{{ user.hacker.birthdayVisible|print_boolean }}</td>
                 </tr>
 
                 <tr>
                     <td>Nationality</td>
-                    <td>{{ user.alumni |get_choice_field:"nationality"|join:"\n"|safe }}</td>
+                    <td>{{ user.hacker |get_choice_field:"nationality"|join:"\n"|safe }}</td>
                 </tr>
 
                 <tr>
                     <td>Category</td>
-                    <td>{{ user.alumni |get_choice_field:"category"|safe }}</td>
+                    <td>{{ user.hacker |get_choice_field:"category"|safe }}</td>
                 </tr>
             </tbody>
         </table>

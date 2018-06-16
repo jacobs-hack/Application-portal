@@ -7,28 +7,28 @@
     <div class="uk-card-body">
         <table class="uk-table uk-table-small">
             <tbody>
-                    {% if user.alumni.job.employer %}
+                    {% if user.hacker.job.employer %}
                         <tr>
                             <td>Employer</td>
-                            <td>{{ user.alumni.job.employer|safe }}</td>
+                            <td>{{ user.hacker.job.employer|safe }}</td>
                         </tr>
                     {% endif %}
 
-                    {% if user.alumni.job.position %}
+                    {% if user.hacker.job.position %}
                         <tr>
                             <td>Position</td>
-                            <td>{{ user.alumni.job.position|safe }}</td>
+                            <td>{{ user.hacker.job.position|safe }}</td>
                         </tr>
                     {% endif %}
 
                     <tr>
                         <td>Job</td>
-                        <td>{{ user.alumni.job|get_choice_field:"job"|safe }}</td>
+                        <td>{{ user.hacker.job|get_choice_field:"job"|safe }}</td>
                     </tr>
 
                     <tr>
                         <td>Industry</td>
-                        <td>{{ user.alumni.job|get_choice_field:"industry"|safe }}</td>
+                        <td>{{ user.hacker.job|get_choice_field:"industry"|safe }}</td>
                     </tr>
 
             </tbody>
