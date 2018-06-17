@@ -28,8 +28,7 @@ urlpatterns = [
 
     # Static requirements
     url(r'^imprint/$', TemplateView.as_view(template_name="static/imprint.html"), name='imprint'),
-    url(r'^privacy/$', TemplateView.as_view(template_name="static/privacy.html"), name='privacy'),
-    url(r'^privacy/old/$', TemplateView.as_view(template_name="static/privacy_old.html"), name='privacy_old'),
+    url(r'^terms/$', TemplateView.as_view(template_name="static/terms.html"), name='terms'),
 
     # Login / Logout
     url(r'^login/$', auth_views.login, {'template_name': 'auth/login.html'},
@@ -40,6 +39,7 @@ urlpatterns = [
     url('^register/$', setup_views.register, name='register'),
 
     # Initial data Setup
+    # TODO: Update URLs
     url(r'^setup/$', setup_views.setup, name='setup'),
     url(r'^setup/address/$', setup_views.address, name='setup_address'),
     url(r'^setup/social/$', setup_views.social, name='setup_social'),
@@ -51,6 +51,7 @@ urlpatterns = [
     url(r'portal/', registry_views.portal, name='portal'),
 
     # Edit views
+    # TODO: Update URLs
     url(r'^edit/$', edit_views.edit, name='edit'),
     url(r'^edit/password/$', edit_views.password, name='edit_password'),
     url(r'^edit/address/$', edit_views.address, name='edit_address'),

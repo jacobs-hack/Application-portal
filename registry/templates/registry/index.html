@@ -3,71 +3,30 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+    <!-- TODO: Update txet -->
 <article class="uk-article">
     <h1 class="uk-article-title">
-        Join the Jacobs Alumni Association e.V
+        Apply for JacobsHack!
     </h1>
 
     <div>
         <p class="uk-text-lead">
-            In order to become a member of the Association, you need to provide some personal information about yourself, which will require about 10 minutes of your time.
+            Some motivating text
         </p>
 
         <p>
-            If you are an existing member, please use this opportunity to update your data and enable the recurring payment of the membership fees.
-            The fee for 2017 is due by the end of the year.
-            The registration process will feel like a new application but rest assured that your Jacobs Alumni Google account remains intact.
+            Stuff
         </p>
 
         <div class="uk-margin uk-button-group">
-            <a href="/register/" class="uk-button uk-button-primary">
-                Register
+            <a href="{% url 'register' %}" class="uk-button uk-button-primary">
+                Apply now!
             </a>
 
-            <a href="/login/" class="uk-button uk-button-secondary">
+            <a href="{% url 'login' %}" class="uk-button uk-button-secondary">
                 Login
             </a>
         </div>
-
-        <p>
-            If you are registering with the Association for the first time, you will enjoy the following benefits:
-            <ul>
-                <li>
-                    Google account <em>@jacobs-alumni.de</em> e-mail and access to various apps
-                </li>
-                <li>
-                    Unlimited Google Drive space
-                </li>
-                <li>
-                    More easily connect with other alumni via our membership portal
-                </li>
-                <li>
-                    Stay in touch with the University via regular newsletters
-                </li>
-                <li>
-                    Career services in collaboration with the University
-                </li>
-                <li>
-                    Invitations to University events and alumni events
-                </li>
-            </ul>
-        </p>
-
-        <p>
-            You can choose one of the three membership tiers at the end of the registration process:
-
-            <ul>
-                <li>
-                    Contributor – Standard membership for 39€ p.a.
-                </li>
-                <li>
-                    Patron – Premium membership (incl. additional benefits) for 249€ p.a.
-                </li>
-                <li>
-                    Starter – Membership for fresh graduates (or those in financial need) for 0.01€ (1 symbolic cent) p.a.
-                </li>
-            </ul>
-        </p>
 
     </div>
 </article>

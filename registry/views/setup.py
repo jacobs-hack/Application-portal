@@ -1,10 +1,8 @@
-import stripe
-from django.conf import settings
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 
 from hacker.models import Approval
 from registry.decorators import require_unset_component
@@ -12,9 +10,10 @@ from registry.views.registry import default_alternative
 from ..forms import RegistrationForm, AddressForm, JacobsForm, SocialMediaForm, \
     JobInformationForm, SkillsForm
 
+# TODO: Update Components
 
 def register(request):
-    """ Implements the new Alumni Registration Page"""
+    """ Implements the Hackathon Application Page"""
 
     # not for already logged in users
     if request.user.is_authenticated():

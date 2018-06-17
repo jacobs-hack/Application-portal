@@ -4,8 +4,8 @@ from django.contrib.auth import password_validation
 from hacker.models import Hacker, Address, JacobsData, SocialMedia, \
     JobInformation, Skills
 from django.contrib.auth.models import User
-from django_forms_uikit.widgets import DatePickerInput
 
+# TODO: Update forms
 
 class RegistrationForm(forms.ModelForm):
     """ A form for registering users """
@@ -25,31 +25,38 @@ class RegistrationForm(forms.ModelForm):
         help_text='Re-enter your password'
     )
 
-    # TODO: Update text to point to:
-    ## * MLH Contest Terms and Conditions ()
-    ## * MLH Privacy Policy (https://mlh.io/privacy). Please note that you may receive pre and post-event informational e-mails and occasional messages about hackathons from MLH as per the MLH Privacy Policy.
-    ## * Major League Hacking Code of Conduct https://mlh.io/code-of-conduct while at the event. 
-    ## * Custom Privacy Policy
-    ## TODO: place a trick phrase into the JacobsHack terms and conditions stating something like
-    # "to claim any jacobshack prize, we might ask you a couple questions to confirm that you have read and agree to this policy. ""
+    # TODO: Update text for terms and conditions
     _tos_help_text = """
-        I confirm that I have read, understood, and agree to: <br />
-
-        <ul>
-            <li>
-                JacobsHack Terms and Conditions
-            </li>
-            <li>
-                MLH Contest Terms and Conditions
-            </li>
-            <li>
-                MLH Privacy Policy
-            </li>
-            <>
-            <li>
-                Major League Hacking Code of Conduct
-            </li>
-        </ul>
+        I confirm that I have read, understood, and agree to each of the following:
+        
+        <p>
+            <ul>
+                <li>
+                    <a href="/terms/" target="_blank">
+                        JacobsHack Terms, Conditions &amp; Privacy Policy
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/MLH/mlh-policies/blob/master/prize-terms-and-conditions/contest-terms.md" target="_blank">
+                        MLH Contest Terms and Conditions
+                    </a>
+                </li>
+                <li>
+                    <a href="https://mlh.io/privacy" target="_blank">
+                        MLH Privacy Policy
+                    </a>
+                </li>
+                <li>
+                    <a href="https://mlh.io/code-of-conduct" target="_blank">
+                        Major League Hacking Code of Conduct
+                    </a>
+                </li>
+            </ul>
+            
+            In particular, I understand that I may be contacted via email by
+            JacobsHack, MLH, or any of the sponsors as detailed in the 
+            documents above. 
+        </p>
     """
 
     tos = forms.BooleanField(label='Terms and Conditions',
@@ -65,7 +72,8 @@ class RegistrationForm(forms.ModelForm):
         }
 
     def clean(self):
-        cleaned_data = self.cleaned_data  # individual field's clean methods have already been called
+        # individual field's clean methods have already been called
+        cleaned_data = self.cleaned_data
 
         # check that the passwords are identical
         password1 = cleaned_data.get("password1")
@@ -93,7 +101,7 @@ class RegistrationForm(forms.ModelForm):
         return super(RegistrationForm, self).clean()
 
 
-class AlumniForm(forms.ModelForm):
+class HackerForm(forms.ModelForm):
     class Meta:
         model = Hacker
         fields = ['firstName', 'middleName', 'lastName', 'email', 'nationality']

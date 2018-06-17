@@ -2,10 +2,8 @@ import collections
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from jsonfield import JSONField
 
 from . import fields
-
 
 class Hacker(models.Model):
     """ The information about a Hacker """
