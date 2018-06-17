@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import password_validation
 
-from hacker.models import Hacker, HackathonApplication, AcademicData, SocialMedia, Skills
+from hacker.models import Hacker, HackathonApplication, AcademicData, Skills
 from django.contrib.auth.models import User
 
 # TODO: Update forms
@@ -140,14 +140,6 @@ class AcademicForm(forms.ModelForm):
 
 
 # TODO: Check that social media links are actually valid links for the platform
-class SocialMediaForm(forms.ModelForm):
-    """ A form for saving the users Social Media Data """
-
-    class Meta:
-        model = SocialMedia
-        fields = ['facebook', 'linkedin', 'twitter', 'instagram', 'homepage']
-
-
 class SkillsForm(forms.ModelForm):
     """ A form for saving the users Skills Data """
 

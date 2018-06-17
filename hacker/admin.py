@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from hacker.actions import export_as_xslx_action
-from .models import Hacker, HackathonApplication, SocialMedia, \
+from .models import Hacker, HackathonApplication, \
     AcademicData, Approval, Skills
 
 
@@ -18,9 +18,6 @@ class HackerHackathonApplicationInline(admin.StackedInline):
 
 
 # TODO: This
-class AlumniSocialMediaInline(admin.StackedInline):
-    model = SocialMedia
-
 class SkillsInline(admin.StackedInline):
     model = Skills
 
@@ -51,7 +48,6 @@ class HackerAdmin(admin.ModelAdmin):
         HackerApprovalInline,
         HackerAcademicDataInline,
         HackerHackathonApplicationInline,
-        AlumniSocialMediaInline,
         SkillsInline
     ]
 
@@ -82,6 +78,9 @@ class HackerAdmin(admin.ModelAdmin):
         'profile__username', 'profile__is_staff', 'profile__is_superuser',
         'profile__date_joined', 'profile__last_login',
 
+        # 'Approval' Data
+        'approval__approval',
+
         # Hacker Model
         'firstName', 'middleName', 'lastName', 'email', 'nationality',
 
@@ -94,13 +93,6 @@ class HackerAdmin(admin.ModelAdmin):
         'application__city', 'application__zip', 'application__state',
         'application__country', 'application__addressVisible',
 
-        # 'Social' Data
-        'social__facebook', 'social__linkedin', 'social__twitter',
-        'social__instagram', 'social__homepage',
-
-
-        # 'Approval' Data
-                         'approval__approval',
 
         # Skills Data
         'skills__otherDegrees', 'skills__spokenLanguages',

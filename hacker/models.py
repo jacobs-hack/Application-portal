@@ -113,24 +113,6 @@ class HackathonApplication(models.Model):
     addressVisible = models.BooleanField(default=False, blank=True,
                                          help_text="Include me on the alumni map (only your city will be visible to others)")
 
-
-@Hacker.register_component
-class SocialMedia(models.Model):
-    """ The social media data of a Hacker """
-
-    member = models.OneToOneField(Hacker, related_name='social')
-
-    facebook = models.URLField(null=True, blank=True,
-                               help_text="Your Facebook Profile (optional)")
-    linkedin = models.URLField(null=True, blank=True,
-                               help_text="Your LinkedIn Profile (optional)")
-    twitter = models.URLField(null=True, blank=True,
-                              help_text="Your Twitter Account (optional)")
-    instagram = models.URLField(null=True, blank=True,
-                                help_text="Your Instagram (optional)")
-    homepage = models.URLField(null=True, blank=True,
-                               help_text="Your Homepage or Blog")
-
 @Hacker.register_component
 class Skills(models.Model):
     """ The skills of a Hacker """
