@@ -24,7 +24,7 @@ def require_hacker(view):
 
 
 def require_unset_component(component, alternative):
-    """ A decorator for views that ensures a given alumni property does not exist """
+    """ A decorator for views that ensures a given hacker property does not exist """
 
     def decorator(view):
         @require_hacker

@@ -50,7 +50,7 @@ class Hacker(models.Model):
         return f
 
     def has_component(self, component):
-        """ Checks if this alumni has a given component"""
+        """ Checks if this hacker has a given component"""
         try:
             _ = getattr(self, component)
             return True
