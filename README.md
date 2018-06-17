@@ -14,14 +14,17 @@ As a reminder:
 
 ```bash
 # Setup a virtualenv
-python3 -m virtualenv env
+python -m virtualenv env
 
 # Enter virtualenv
 source env/bin/activate
 
 # Install dependencies
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
+
+# run migrations
+python manage.py migrate
 
 # run a development server
-python3 manage.py runserver
+python manage.py runserver
 ```
