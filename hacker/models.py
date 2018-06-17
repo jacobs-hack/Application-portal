@@ -134,20 +134,6 @@ class Approval(models.Model):
 
 
 @Hacker.register_component
-class JobInformation(models.Model):
-    """ The jobs of a Hacker"""
-
-    member = models.OneToOneField(Hacker, related_name='job')
-
-    employer = models.CharField(max_length=255, null=True, blank=True,
-                                help_text="Your employer (optional)")
-    position = models.CharField(max_length=255, null=True, blank=True,
-                                help_text="Your position (optional)")
-    industry = fields.IndustryField()
-    job = fields.JobField()
-
-
-@Hacker.register_component
 class Skills(models.Model):
     """ The skills of a Hacker """
 

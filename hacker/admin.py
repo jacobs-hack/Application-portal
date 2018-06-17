@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from hacker.actions import export_as_csv_action, export_as_xslx_action
-from .models import Hacker, Address, JobInformation, SocialMedia, \
+from .models import Hacker, Address, SocialMedia, \
     JacobsData, Approval, Skills
 
 
@@ -15,10 +15,6 @@ class AlumniSocialMediaInline(admin.StackedInline):
 
 class AlumniAddressInline(admin.StackedInline):
     model = Address
-
-
-class AlumniJobsInline(admin.StackedInline):
-    model = JobInformation
 
 
 class AlumniApprovalInline(admin.StackedInline):
@@ -51,8 +47,7 @@ class SetupCompleted(admin.SimpleListFilter):
 
 class HackerAdmin(admin.ModelAdmin):
     inlines = [AlumniApprovalInline, AlumniAddressInline,
-               AlumniSocialMediaInline, AlumniJacobsDataInline,
-               AlumniJobsInline, SkillsInline]
+               AlumniSocialMediaInline, AlumniJacobsDataInline, SkillsInline]
 
     # search through names and emails
     search_fields = ['firstName', 'middleName', 'lastName', 'email', 'approval__gsuite']
@@ -97,9 +92,6 @@ class HackerAdmin(admin.ModelAdmin):
 
         # 'Approval' Data
                          'approval__approval',
-
-        # Job Data
-        'job__employer', 'job__position', 'job__industry', 'job__job',
 
         # Skills Data
         'skills__otherDegrees', 'skills__spokenLanguages',

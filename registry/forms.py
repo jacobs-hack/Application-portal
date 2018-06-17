@@ -1,17 +1,22 @@
 from django import forms
 from django.contrib.auth import password_validation
 
-from hacker.models import Hacker, Address, JacobsData, SocialMedia, \
-    JobInformation, Skills
+from hacker.models import Hacker, Address, JacobsData, SocialMedia, Skills
 from django.contrib.auth.models import User
 
 # TODO: Update forms
 
 class RegistrationForm(forms.ModelForm):
     """ A form for registering users """
+
+    _username_help_text = """
+        Select your username for the JacobsHack Application Portal. 
+        We recommend the first leter of your first name and full last name 
+        e.g. <em>hackerman</em> for <em>Huber Ackerman</em>
+    """
+
     username = forms.SlugField(label='Username',
-                               help_text='Select your username for the JacobsHack Application Portal. '
-                                         'We recommend the first leter of your first name and full last name e.g. <em>ppan</em> for <em>Peter Pan</em>')
+                               help_text=_username_help_text)
     password1 = forms.CharField(
         label="Password",
         widget=forms.PasswordInput,
@@ -159,11 +164,3 @@ class SkillsForm(forms.ModelForm):
             'areasOfInterest': 'Areas of interest/expertise',
             'alumniMentor': ''
         }
-
-
-class JobInformationForm(forms.ModelForm):
-    """ A form for saving the users Job Information Data """
-
-    class Meta:
-        model = JobInformation
-        fields = ['employer', 'position', 'industry', 'job']

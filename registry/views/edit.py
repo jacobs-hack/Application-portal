@@ -8,8 +8,7 @@ from django.shortcuts import render, redirect
 from registry.views.registry import default_alternative
 from ..decorators import require_setup_completed
 
-from ..forms import HackerForm, AddressForm, JacobsForm, SocialMediaForm, \
-    JobInformationForm, SkillsForm
+from ..forms import HackerForm, AddressForm, JacobsForm, SocialMediaForm, SkillsForm
 
 
 def editViewFactory(prop, FormClass, name):
@@ -68,7 +67,6 @@ edit = editViewFactory(None, HackerForm, 'General Information')
 address = editViewFactory('address', AddressForm, 'Address')
 jacobs = editViewFactory('jacobs', JacobsForm, 'Jacobs Data')
 social = editViewFactory('social', SocialMediaForm, 'Social Media')
-job = editViewFactory('job', JobInformationForm, 'Job Information')
 skills = editViewFactory('skills', SkillsForm, 'Education and Skills')
 
 

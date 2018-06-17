@@ -7,8 +7,7 @@ from django.urls import reverse
 from hacker.models import Approval
 from registry.decorators import require_unset_component
 from registry.views.registry import default_alternative
-from ..forms import RegistrationForm, AddressForm, JacobsForm, SocialMediaForm, \
-    JobInformationForm, SkillsForm
+from ..forms import RegistrationForm, AddressForm, JacobsForm, SocialMediaForm, SkillsForm
 
 # TODO: Update Components
 
@@ -123,6 +122,4 @@ address = setupViewFactory('address', AddressForm,
 social = setupViewFactory('social', SocialMediaForm, 'Social Media Data', '')
 jacobs = setupViewFactory('jacobs', JacobsForm, 'Alumni Data',
                           'tell us what you did at Jacobs')
-job = setupViewFactory('job', JobInformationForm, 'Professional information',
-                       'What did you do after Jacobs?')
 skills = setupViewFactory('skills', SkillsForm, 'Education and Skills', '')
