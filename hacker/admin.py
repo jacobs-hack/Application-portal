@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from hacker.actions import export_as_xslx_action
 from .models import Hacker, HackathonApplication, \
-    AcademicData, Approval, Skills
+    AcademicData, Approval, Organizational
 
 
 class HackerApprovalInline(admin.StackedInline):
@@ -17,9 +17,8 @@ class HackerHackathonApplicationInline(admin.StackedInline):
     model = HackathonApplication
 
 
-# TODO: This
-class SkillsInline(admin.StackedInline):
-    model = Skills
+class HackerOrganizationalInline(admin.StackedInline):
+    model = Organizational
 
 
 class SetupCompleted(admin.SimpleListFilter):
@@ -34,11 +33,9 @@ class SetupCompleted(admin.SimpleListFilter):
     
     def queryset(self, request, queryset):
         if self.value() == '1':
-            # TODO: Use last field
-            return queryset.filter(skills__isnull=False)
+            return queryset.filter(organizational__isnull=False)
         elif self.value() == '0':
-            # TODO: Use last field
-            return queryset.filter(skills__isnull=True)
+            return queryset.filter(organizational__isnull=True)
         else:
             return queryset
 
@@ -48,7 +45,7 @@ class HackerAdmin(admin.ModelAdmin):
         HackerApprovalInline,
         HackerAcademicDataInline,
         HackerHackathonApplicationInline,
-        SkillsInline
+        HackerOrganizationalInline
     ]
 
     # Fields that should be searchable
@@ -84,20 +81,20 @@ class HackerAdmin(admin.ModelAdmin):
         # Hacker Model
         'firstName', 'middleName', 'lastName', 'email', 'nationality',
 
-        # 'Academic Data'
+        # Academic Data
         'academic__college', 'academic__graduation', 'academic__degree',
         'academic__major', 'academic__comments'
 
-        # 'Hackathon Application'
+        # Hackathon Application
         'application__address_line_1', 'application__address_line_2',
         'application__city', 'application__zip', 'application__state',
         'application__country', 'application__addressVisible',
 
 
-        # Skills Data
-        'skills__otherDegrees', 'skills__spokenLanguages',
-        'skills__programmingLanguages', 'skills__areasOfInterest',
-        'skills__alumniMentor',
+        # Organizational Data
+        'organizational__otherDegrees', 'organizational__spokenLanguages',
+        'organizational__programmingLanguages', 'organizational__areasOfInterest',
+        'organizational__alumniMentor',
     )
 
 
@@ -131,7 +128,7 @@ class HackerAdmin(admin.ModelAdmin):
             return False
     completedSetup.short_description = 'Setup Done'
     completedSetup.boolean = True
-    completedSetup.admin_order_field = 'skills__id'
+    completedSetup.admin_order_field = 'organizational__id'
 
 
 admin.site.register(Hacker, HackerAdmin)

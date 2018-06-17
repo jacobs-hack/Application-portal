@@ -42,9 +42,7 @@ urlpatterns = [
     url(r'^setup/$', setup_views.setup, name='setup'),
     url(r'^setup/academic/$', setup_views.academic, name='setup_academic'),
     url(r'^setup/application/$', setup_views.application, name='setup_application'),
-
-    # TODO: Update URLs
-    url(r'^setup/skills/$', setup_views.skills, name='setup_skills'),
+    url(r'^setup/organizational/$', setup_views.organizational, name='setup_organizational'),
 
     # the portal for the user
     url(r'portal/', registry_views.portal, name='portal'),
@@ -54,7 +52,5 @@ urlpatterns = [
     url(r'^edit/password/$', edit_views.password, name='edit_password'),
     url(r'^edit/academic/$', edit_views.academic, name='edit_academic'),
     url(r'^edit/application/$', edit_views.application, name='edit_application'),
-
-    # TODO: Update URLs
-    url(r'^edit/skills/$', edit_views.skills, name='edit_skills'),
+    url(r'^edit/organizational/$', edit_views.organizational, name='edit_organizational'),
 ]

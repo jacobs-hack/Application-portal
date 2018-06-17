@@ -5,7 +5,7 @@
     {{ block.super }}
 
     <!-- TODO: Last component -->
-    {% if original.payment and original.payment.customer %}{% else %}
+    {% if original.organizational %}{% else %}
         <p class="errornote">
             Hacker has not completed application.
         </p>

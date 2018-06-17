@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import password_validation
 
-from hacker.models import Hacker, HackathonApplication, AcademicData, Skills
+from hacker.models import Hacker, HackathonApplication, AcademicData, Organizational
 from django.contrib.auth.models import User
 
 # TODO: Update forms
@@ -124,6 +124,7 @@ class ApplicationForm(forms.ModelForm):
             'addressVisible': ''
         }
 
+
 class AcademicForm(forms.ModelForm):
     """ A form for saving the users academic data """
 
@@ -139,12 +140,11 @@ class AcademicForm(forms.ModelForm):
         }
 
 
-# TODO: Check that social media links are actually valid links for the platform
-class SkillsForm(forms.ModelForm):
-    """ A form for saving the users Skills Data """
+class OrganizationalForm(forms.ModelForm):
+    """ A form for saving the users Organizational Data"""
 
     class Meta:
-        model = Skills
+        model = Organizational
         fields = [
             'otherDegrees', 'spokenLanguages', 'programmingLanguages',
             'areasOfInterest', 'alumniMentor'

@@ -2,43 +2,43 @@
 
 <div class="uk-card uk-card-default">
     <div class="uk-card-header">
-        <h3 class="uk-card-title uk-margin-remove-bottom">Education and Skills</h3>
+        <h3 class="uk-card-title uk-margin-remove-bottom">Organizational Details</h3>
     </div>
     <div class="uk-card-body">
         <table class="uk-table uk-table-small">
             <tbody>
                 <tr>
                     <td>Alumni Mentor</td>
-                    <td>{{ user.hacker.skills.mentor|print_boolean }}</td>
+                    <td>{{ user.hacker.organizational.mentor|print_boolean }}</td>
                 </tr>
-                {% if user.hacker.skills.otherDegrees %}
+                {% if user.hacker.organizational.otherDegrees %}
                     <tr>
                         <td>Other Degrees</td>
-                        <td>{{ user.hacker.skills.otherDegrees|safe }}</td>
+                        <td>{{ user.hacker.organizational.otherDegrees|safe }}</td>
                     </tr>
                 {% endif %}
-                {% if user.hacker.skills.spokenLanguages %}
+                {% if user.hacker.organizational.spokenLanguages %}
                     <tr>
                         <td>Spoken Languages</td>
-                        <td>{{ user.hacker.skills.spokenLanguages|safe }}</td>
+                        <td>{{ user.hacker.organizational.spokenLanguages|safe }}</td>
                     </tr>
                 {% endif %}
-                {% if user.hacker.skills.programmingLanguages %}
+                {% if user.hacker.organizational.programmingLanguages %}
                     <tr>
                         <td>Programming Languages</td>
-                        <td>{{ user.hacker.skills.programmingLanguages|safe }}</td>
+                        <td>{{ user.hacker.organizational.programmingLanguages|safe }}</td>
                     </tr>
                 {% endif %}
-                {% if user.hacker.skills.areasOfInterest %}
+                {% if user.hacker.organizational.areasOfInterest %}
                     <tr>
                         <td>Areas of Interest</td>
-                        <td>{{ user.hacker.skills.areasOfInterest|safe }}</td>
+                        <td>{{ user.hacker.organizational.areasOfInterest|safe }}</td>
                     </tr>
                 {% endif %}
             </tbody>
         </table>
     </div>
     <div class="uk-card-footer">
-        <a href="{% url 'edit_skills' %}" class="uk-button uk-button-text">Edit Education and Skills</a>
+        <a href="{% url 'edit_organizational' %}" class="uk-button uk-button-text">Edit Organizational Details</a>
     </div>
 </div>

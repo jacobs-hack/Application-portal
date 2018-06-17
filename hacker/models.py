@@ -113,11 +113,12 @@ class HackathonApplication(models.Model):
     addressVisible = models.BooleanField(default=False, blank=True,
                                          help_text="Include me on the alumni map (only your city will be visible to others)")
 
-@Hacker.register_component
-class Skills(models.Model):
-    """ The skills of a Hacker """
 
-    member = models.OneToOneField(Hacker, related_name='skills')
+@Hacker.register_component
+class Organizational(models.Model):
+    """ The organizational information about a Hacker """
+
+    member = models.OneToOneField(Hacker, related_name='organizational')
 
     otherDegrees = models.TextField(null=True, blank=True)
     spokenLanguages = models.TextField(null=True, blank=True)
