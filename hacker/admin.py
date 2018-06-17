@@ -1,28 +1,29 @@
 from django.contrib import admin
 
-from hacker.actions import export_as_csv_action, export_as_xslx_action
-from .models import Hacker, Address, SocialMedia, \
-    JacobsData, Approval, Skills
+from hacker.actions import export_as_xslx_action
+from .models import Hacker, HackathonApplication, SocialMedia, \
+    AcademicData, Approval, Skills
 
 
-class AlumniJacobsDataInline(admin.StackedInline):
-    model = JacobsData
-
-
-class AlumniSocialMediaInline(admin.StackedInline):
-    model = SocialMedia
-
-
-class AlumniAddressInline(admin.StackedInline):
-    model = Address
-
-
-class AlumniApprovalInline(admin.StackedInline):
+class HackerApprovalInline(admin.StackedInline):
     model = Approval
 
 
+class HackerAcademicDataInline(admin.StackedInline):
+    model = AcademicData
+
+
+class HackerHackathonApplicationInline(admin.StackedInline):
+    model = HackathonApplication
+
+
+# TODO: This
+class AlumniSocialMediaInline(admin.StackedInline):
+    model = SocialMedia
+
 class SkillsInline(admin.StackedInline):
     model = Skills
+
 
 class SetupCompleted(admin.SimpleListFilter):
     title = 'Setup Status'
@@ -46,49 +47,57 @@ class SetupCompleted(admin.SimpleListFilter):
 
 
 class HackerAdmin(admin.ModelAdmin):
-    inlines = [AlumniApprovalInline, AlumniAddressInline,
-               AlumniSocialMediaInline, AlumniJacobsDataInline, SkillsInline]
+    inlines = [
+        HackerApprovalInline,
+        HackerAcademicDataInline,
+        HackerHackathonApplicationInline,
+        AlumniSocialMediaInline,
+        SkillsInline
+    ]
 
-    # search through names and emails
-    search_fields = ['firstName', 'middleName', 'lastName', 'email', 'approval__gsuite']
+    # Fields that should be searchable
+    # TODO: We probably want the university (once we have that field)
+    search_fields = [
+        'firstName', 'middleName', 'lastName', 'email',
+    ]
 
+    # Fields that are displayed in the admin view
+    # TODO: We want to clean up the basic fields to be shown here
     list_display = (
         # basic information
-        'fullName', 'email', 'userApproval', 'completedSetup', 'userGSuite',
+        'fullName', 'email', 'userApproval', 'completedSetup',
 
-        # Jacobs information
-        'jacobs_degree', 'jacobs_graduation', 'jacobs_major', 'jacobs_college',
     )
 
+    # Fields that can be dynamically filtered for
+    # TODO: We want to have all sorts of fields here
     list_filter = (
-        'approval__approval', SetupCompleted, 'jacobs__degree',
-        'jacobs__graduation',
-        'jacobs__major')
+        'approval__approval', SetupCompleted,
+    )
 
-    legacy_export_fields = list_display + ('',)
-    csv_export = export_as_csv_action("Export as CSV (Legacy)",
-                                      fields=legacy_export_fields)
-
+    # List of all fields, for the xslx export
+    # TODO: Do this properly
     full_export_fields = (
         # Profile data
         'profile__username', 'profile__is_staff', 'profile__is_superuser',
         'profile__date_joined', 'profile__last_login',
 
-        # Alumni Model
+        # Hacker Model
         'firstName', 'middleName', 'lastName', 'email', 'nationality',
 
-        # Address Data
-        'address__address_line_1', 'address__address_line_2', 'address__city',
-        'address__zip', 'address__state', 'address__country',
-        'address__addressVisible',
+        # 'Academic Data'
+        'academic__college', 'academic__graduation', 'academic__degree',
+        'academic__major', 'academic__comments'
+
+        # 'Hackathon Application'
+        'application__address_line_1', 'application__address_line_2',
+        'application__city', 'application__zip', 'application__state',
+        'application__country', 'application__addressVisible',
 
         # 'Social' Data
         'social__facebook', 'social__linkedin', 'social__twitter',
         'social__instagram', 'social__homepage',
 
-        # 'Jacobs Data'
-        'jacobs__college', 'jacobs__graduation', 'jacobs__degree',
-        'jacobs__major', 'jacobs__comments'
 
         # 'Approval' Data
                          'approval__approval',
@@ -98,6 +107,10 @@ class HackerAdmin(admin.ModelAdmin):
         'skills__programmingLanguages', 'skills__areasOfInterest',
         'skills__alumniMentor',
     )
+
+
+    # Actions
+
     xslx_export = export_as_xslx_action("Export as XSLX",
                                         fields=full_export_fields)
 
@@ -108,7 +121,6 @@ class HackerAdmin(admin.ModelAdmin):
 
     def fullName(self, x):
         return x.fullName
-    
     fullName.short_description = 'Full Name'
 
     def userApproval(self, x):
@@ -128,36 +140,6 @@ class HackerAdmin(admin.ModelAdmin):
     completedSetup.short_description = 'Setup Done'
     completedSetup.boolean = True
     completedSetup.admin_order_field = 'skills__id'
-
-    def userGSuite(self, x):
-        return x.approval.gsuite
-    
-    userGSuite.short_description = 'Alumni E-Mail'
-    userGSuite.admin_order_field = 'approval__gsuite'
-
-    def jacobs_degree(self, x):
-        return x.jacobs.degree
-
-    jacobs_degree.short_description = 'Degree'
-    jacobs_degree.admin_order_field = 'jacobs__degree'
-
-    def jacobs_graduation(self, x):
-        return x.jacobs.graduation
-
-    jacobs_graduation.short_description = 'Class'
-    jacobs_graduation.admin_order_field = 'jacobs__graduation'
-
-    def jacobs_major(self, x):
-        return x.jacobs.major
-
-    jacobs_major.short_description = 'Major'
-    jacobs_major.admin_order_field = 'jacobs__major'
-
-    def jacobs_college(self, x):
-        return x.jacobs.college
-
-    jacobs_college.short_description = 'College'
-    jacobs_college.admin_order_field = 'jacobs__college'
 
 
 admin.site.register(Hacker, HackerAdmin)

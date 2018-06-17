@@ -2,30 +2,30 @@
 
 <div class="uk-card uk-card-default">
     <div class="uk-card-header">
-        <h3 class="uk-card-title uk-margin-remove-bottom">My Jacobs Data</h3>
+        <h3 class="uk-card-title uk-margin-remove-bottom">My Academic Data</h3>
     </div>
     <div class="uk-card-body">
         <table class="uk-table uk-table-small">
             <tbody>
-                {% if user.hacker.jacobs.college %}
+                {% if user.hacker.academic.college %}
                     <tr>
                         <td>College</td>
-                        <td>{{ user.hacker.jacobs|get_choice_field:"college"|safe }}</td>
+                        <td>{{ user.hacker.academic|get_choice_field:"college"|safe }}</td>
                     </tr>
                 {% endif %}
-                {% if user.hacker.jacobs.degree %}
+                {% if user.hacker.academic.degree %}
                     <tr>
                         <td>Degree</td>
-                        <td>{{ user.hacker.jacobs|get_choice_field:"degree"|safe }}</td>
+                        <td>{{ user.hacker.academic|get_choice_field:"degree"|safe }}</td>
                     </tr>
                 {% endif %}
                 <tr>
                     <td>Graduation</td>
-                    <td>{{ user.hacker.jacobs|get_choice_field:"graduation"|safe }}</td>
+                    <td>{{ user.hacker.academic|get_choice_field:"graduation"|safe }}</td>
                 </tr>
                 <tr>
                     <td>Major</td>
-                    <td>{{ user.hacker.jacobs|get_choice_field:"major"|safe }}</td>
+                    <td>{{ user.hacker.academic|get_choice_field:"major"|safe }}</td>
                 </tr>
 
                 {% if user.hacker.comments %}
@@ -38,6 +38,6 @@
         </table>
     </div>
     <div class="uk-card-footer">
-        <a href="{% url 'edit_jacobs' %}" class="uk-button uk-button-text">Edit Jacobs Data</a>
+        <a href="{% url 'edit_academic' %}" class="uk-button uk-button-text">Edit Academic Data</a>
     </div>
 </div>

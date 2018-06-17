@@ -7,7 +7,7 @@ from django.urls import reverse
 from hacker.models import Approval
 from registry.decorators import require_unset_component
 from registry.views.registry import default_alternative
-from ..forms import RegistrationForm, AddressForm, JacobsForm, SocialMediaForm, SkillsForm
+from ..forms import RegistrationForm, ApplicationForm, AcademicForm, SocialMediaForm, SkillsForm
 
 # TODO: Update Components
 
@@ -55,8 +55,8 @@ def register(request):
     return render(request, 'setup/setup.html', {
         'form': form,
         'title': 'Register',
-        'subtitle': 'Enter your General Information - just the basics',
-        'next_text': 'Join the Alumni Association'
+        'subtitle': 'Enter your General Information',
+        'next_text': 'Start JacobsHack Application'
     })
 
 
@@ -116,10 +116,12 @@ def setupViewFactory(prop, FormClass, name, subtitle):
 
     return setup
 
+academic = setupViewFactory('academic', AcademicForm, 'Academic Data',
+                            'tell us why you are eligible for JacobsHack')
+application = setupViewFactory('application', ApplicationForm,
+                               'JacobsHack Application',
+                               'tell us your reasons for applying')
 
-address = setupViewFactory('address', AddressForm,
-                           'General Information - Residential Address', '')
 social = setupViewFactory('social', SocialMediaForm, 'Social Media Data', '')
-jacobs = setupViewFactory('jacobs', JacobsForm, 'Alumni Data',
-                          'tell us what you did at Jacobs')
+
 skills = setupViewFactory('skills', SkillsForm, 'Education and Skills', '')

@@ -69,12 +69,36 @@ class Hacker(models.Model):
     def __str__(self):
         return "Hacker [{}]".format(self.fullName)
 
+class Approval(models.Model):
+    """ The approval status of a hacker """
+    member = models.OneToOneField(Hacker, related_name='approval')
+
+    approval = models.BooleanField(default=False, blank=True,
+                                   help_text="Has the user been approved by an admin?")
+
+    gsuite = models.EmailField(blank=True, null=True,
+                               help_text="The G-Suite E-Mail of the user", unique=True)
+
 
 @Hacker.register_component
-class Address(models.Model):
-    """ The address of an Hacker Member """
+class AcademicData(models.Model):
+    """ The academic data of a Hacker """
 
-    member = models.OneToOneField(Hacker, related_name='address')
+    member = models.OneToOneField(Hacker, related_name='academic')
+
+    college = fields.CollegeField(null=True, blank=True)
+    graduation = fields.ClassField()
+    degree = fields.DegreeField(null=True, blank=True)
+    major = fields.MajorField()
+    comments = models.TextField(null=True, blank=True,
+                                help_text="e.g. exchange semester, several degrees etc.")
+
+
+@Hacker.register_component
+class HackathonApplication(models.Model):
+    """ The hackathon application  """
+
+    member = models.OneToOneField(Hacker, related_name='application')
 
     address_line_1 = models.CharField(max_length=255,
                                       help_text="E.g. Campus Ring 1")
@@ -106,32 +130,6 @@ class SocialMedia(models.Model):
                                 help_text="Your Instagram (optional)")
     homepage = models.URLField(null=True, blank=True,
                                help_text="Your Homepage or Blog")
-
-
-@Hacker.register_component
-class JacobsData(models.Model):
-    """ The jacobs data of an Hacker """
-
-    member = models.OneToOneField(Hacker, related_name='jacobs')
-
-    college = fields.CollegeField(null=True, blank=True)
-    graduation = fields.ClassField()
-    degree = fields.DegreeField(null=True, blank=True)
-    major = fields.MajorField()
-    comments = models.TextField(null=True, blank=True,
-                                help_text="e.g. exchange semester, several degrees etc.")
-
-
-class Approval(models.Model):
-    """ The approval status of a hacker """
-    member = models.OneToOneField(Hacker, related_name='approval')
-
-    approval = models.BooleanField(default=False, blank=True,
-                                   help_text="Has the user been approved by an admin?")
-
-    gsuite = models.EmailField(blank=True, null=True,
-                               help_text="The G-Suite E-Mail of the user", unique=True)
-
 
 @Hacker.register_component
 class Skills(models.Model):

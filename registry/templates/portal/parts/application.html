@@ -2,7 +2,7 @@
 
 <div class="uk-card uk-card-default">
     <div class="uk-card-header">
-        <h3 class="uk-card-title uk-margin-remove-bottom">My Address</h3>
+        <h3 class="uk-card-title uk-margin-remove-bottom">My JacobsHack Application</h3>
     </div>
     <div class="uk-card-body">
         <table class="uk-table uk-table-small">
@@ -10,37 +10,37 @@
                 <tr>
                     <td>Address</td>
                     <td>
-                        {{ user.hacker.address.address_line_1|safe }}
+                        {{ user.hacker.application.address_line_1|safe }}
 
-                        {% if user.hacker.address.address_line_2 %}
+                        {% if user.hacker.application.address_line_2 %}
                             <br />
-                            {{ user.hacker.address.address_line_2|safe }}
+                            {{ user.hacker.application.address_line_2|safe }}
                         {% endif %}
                     </td>
                 </tr>
 
                 <tr>
                     <td>ZIP</td>
-                    <td>{{ user.hacker.address.zip | safe }}</td>
+                    <td>{{ user.hacker.application.zip | safe }}</td>
                 </tr>
                 <tr>
                     <td>City</td>
-                    <td>{{ user.hacker.address.city | safe }}</td>
+                    <td>{{ user.hacker.application.city | safe }}</td>
                 </tr>
 
                 <tr>
                     <td>Included on Alumni Map</td>
-                    <td>{{ user.hacker.address.addressVisible|print_boolean }}</td>
+                    <td>{{ user.hacker.application.addressVisible|print_boolean }}</td>
                 </tr>
 
                 <tr>
                     <td>Country</td>
-                    <td>{{ user.hacker.address |get_choice_field:"country"|safe }}</td>
+                    <td>{{ user.hacker.application |get_choice_field:"country"|safe }}</td>
                 </tr>
             </tbody>
         </table>
     </div>
     <div class="uk-card-footer">
-        <a href="{% url 'edit_address' %}" class="uk-button uk-button-text">Edit Address</a>
+        <a href="{% url 'edit_application' %}" class="uk-button uk-button-text">Edit Application</a>
     </div>
 </div>

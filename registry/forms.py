@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import password_validation
 
-from hacker.models import Hacker, Address, JacobsData, SocialMedia, Skills
+from hacker.models import Hacker, HackathonApplication, AcademicData, SocialMedia, Skills
 from django.contrib.auth.models import User
 
 # TODO: Update forms
@@ -111,11 +111,12 @@ class HackerForm(forms.ModelForm):
         model = Hacker
         fields = ['firstName', 'middleName', 'lastName', 'email', 'nationality']
 
-class AddressForm(forms.ModelForm):
-    """ A form for the Address of an Alumni """
+
+class ApplicationForm(forms.ModelForm):
+    """ A form for the Application of a Hacker """
 
     class Meta:
-        model = Address
+        model = HackathonApplication
         fields = ['address_line_1', 'address_line_2', 'zip', 'city',
                   'addressVisible', 'state',
                   'country']
@@ -123,12 +124,11 @@ class AddressForm(forms.ModelForm):
             'addressVisible': ''
         }
 
-
-class JacobsForm(forms.ModelForm):
-    """ A form for saving the users Jacobs Data """
+class AcademicForm(forms.ModelForm):
+    """ A form for saving the users academic data """
 
     class Meta:
-        model = JacobsData
+        model = AcademicData
         fields = ['college', 'degree', 'graduation', 'major', 'comments']
         labels = {
             'college': 'College',

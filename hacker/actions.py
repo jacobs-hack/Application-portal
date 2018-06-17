@@ -47,46 +47,6 @@ def get_model_prop(modeladmin, obj, field, default=None):
     except ObjectDoesNotExist:
         return default
 
-
-def export_as_csv_action(description="Export selected objects as CSV file",
-                         fields=None, header=True):
-    """
-        Return an action that exports the given fields as CSV files
-    """
-
-    def export_as_csv(modeladmin, request, queryset):
-
-        # Get fields to export
-        opts = modeladmin.model._meta
-        if not fields:
-            field_names = [field.name for field in opts.fields]
-        else:
-            field_names = fields
-
-        # write a response header
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename=%s.csv' % str(
-            opts).replace('.', '_')
-
-        # Create a CSV file
-        writer = unicodecsv.writer(response, encoding='utf-8')
-
-        # Write the header
-        if header:
-            writer.writerow(field_names)
-
-        # Write the content rows
-        for obj in queryset:
-            row = [get_model_prop(modeladmin, obj, field) for field in
-                   field_names]
-            writer.writerow(row)
-
-        # And return
-        return response
-
-    export_as_csv.short_description = description
-    return export_as_csv
-
 def to_excel(value):
     """ Turns any value into a value understood by excel """
 

@@ -41,9 +41,10 @@ urlpatterns = [
     # Initial data Setup
     # TODO: Update URLs
     url(r'^setup/$', setup_views.setup, name='setup'),
-    url(r'^setup/address/$', setup_views.address, name='setup_address'),
+    url(r'^setup/academic/$', setup_views.academic, name='setup_academic'),
+    url(r'^setup/application/$', setup_views.application, name='setup_application'),
+
     url(r'^setup/social/$', setup_views.social, name='setup_social'),
-    url(r'^setup/jacobs/$', setup_views.jacobs, name='setup_jacobs'),
     url(r'^setup/skills/$', setup_views.skills, name='setup_skills'),
 
     # the portal for the user
@@ -53,8 +54,9 @@ urlpatterns = [
     # TODO: Update URLs
     url(r'^edit/$', edit_views.edit, name='edit'),
     url(r'^edit/password/$', edit_views.password, name='edit_password'),
-    url(r'^edit/address/$', edit_views.address, name='edit_address'),
+    url(r'^edit/academic/$', edit_views.academic, name='edit_academic'),
+    url(r'^edit/application/$', edit_views.application, name='edit_application'),
+
     url(r'^edit/social/$', edit_views.social, name='edit_social'),
-    url(r'^edit/jacobs/$', edit_views.jacobs, name='edit_jacobs'),
     url(r'^edit/skills/$', edit_views.skills, name='edit_skills'),
 ]
