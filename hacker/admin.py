@@ -32,6 +32,7 @@ class SetupCompleted(admin.SimpleListFilter):
         ]
     
     def queryset(self, request, queryset):
+        # TODO: Check if this still works
         if self.value() == '1':
             return queryset.filter(organizational__isnull=False)
         elif self.value() == '0':
@@ -49,27 +50,33 @@ class HackerAdmin(admin.ModelAdmin):
     ]
 
     # Fields that should be searchable
-    # TODO: We probably want the university (once we have that field)
     search_fields = [
-        'firstName', 'middleName', 'lastName', 'email',
+        'firstName', 'middleName', 'lastName', 'email', 'academic__university',
     ]
 
     # Fields that are displayed in the admin view
-    # TODO: We want to clean up the basic fields to be shown here
     list_display = (
         # basic information
         'fullName', 'email', 'userApproval', 'completedSetup',
 
+        'university', 'degree', 'year',
+
+        'shirtSize',
     )
 
     # Fields that can be dynamically filtered for
-    # TODO: We want to have all sorts of fields here
     list_filter = (
         'approval__approval', SetupCompleted,
+
+        'academic__university', 'academic__degree', 'academic__year',
+
+        'application__firstHackathon',
+
+        'organizational__shirtSize',
     )
 
     # List of all fields, for the xslx export
-    # TODO: Do this properly
+
     full_export_fields = (
         # Profile data
         'profile__username', 'profile__is_staff', 'profile__is_superuser',
@@ -82,19 +89,16 @@ class HackerAdmin(admin.ModelAdmin):
         'firstName', 'middleName', 'lastName', 'email', 'nationality',
 
         # Academic Data
-        'academic__college', 'academic__graduation', 'academic__degree',
-        'academic__major', 'academic__comments'
+        'academic__university', 'academic__degree', 'academic__year',
 
         # Hackathon Application
-        'application__address_line_1', 'application__address_line_2',
-        'application__city', 'application__zip', 'application__state',
-        'application__country', 'application__addressVisible',
+        'application__whyJacobsHack', 'application__firstHackathon',
+        'application__whatHaveYouBuilt',
 
 
         # Organizational Data
-        'organizational__otherDegrees', 'organizational__spokenLanguages',
-        'organizational__programmingLanguages', 'organizational__areasOfInterest',
-        'organizational__alumniMentor',
+        'organizational__shirtSize', 'organizational__needVisa',
+        'organizational__dietaryRequirements', 'organizational__comments'
     )
 
 
@@ -118,9 +122,29 @@ class HackerAdmin(admin.ModelAdmin):
     userApproval.boolean = 'true'
     userApproval.admin_order_field = 'approval__approval'
 
-    def completedSetup(self, x):# TODO: Use last field
+    def university(self, x):
+        return x.academic.university
+    university.short_description = 'University'
+    university.admin_order_field = 'academic__university'
+
+    def degree(self, x):
+        return x.academic.degree
+    university.short_description = 'Degree'
+    university.admin_order_field = 'academic__degree'
+
+    def year(self, x):
+        return x.academic.year
+    university.short_description = 'Year'
+    university.admin_order_field = 'academic__year'
+
+    def shirtSize(self, x):
+        return x.organizational.shirtSize
+    shirtSize.short_description = 'Shirt Size'
+    shirtSize.admin_order_field = 'organizational__shirtSize'
+
+    def completedSetup(self, x):
         try:
-            if x.skills:
+            if x.organizational:
                 return True
             else:
                 return False

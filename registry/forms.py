@@ -4,7 +4,6 @@ from django.contrib.auth import password_validation
 from hacker.models import Hacker, HackathonApplication, AcademicData, Organizational
 from django.contrib.auth.models import User
 
-# TODO: Update forms
 
 class RegistrationForm(forms.ModelForm):
     """ A form for registering users """
@@ -112,31 +111,34 @@ class HackerForm(forms.ModelForm):
         fields = ['firstName', 'middleName', 'lastName', 'email', 'nationality']
 
 
-class ApplicationForm(forms.ModelForm):
-    """ A form for the Application of a Hacker """
-
-    class Meta:
-        model = HackathonApplication
-        fields = ['address_line_1', 'address_line_2', 'zip', 'city',
-                  'addressVisible', 'state',
-                  'country']
-        labels = {
-            'addressVisible': ''
-        }
-
-
 class AcademicForm(forms.ModelForm):
     """ A form for saving the users academic data """
 
     class Meta:
         model = AcademicData
-        fields = ['college', 'degree', 'graduation', 'major', 'comments']
+        fields = [
+            'university', 'degree', 'year',
+        ]
         labels = {
-            'college': 'College',
+            'university': 'Which university are you from?',
             'degree': 'Degree',
-            'graduation': 'Class (first graduation)',
-            'major': 'Major',
-            'comments': 'Comments'
+            'year': 'Expected Graduation',
+        }
+
+
+class ApplicationForm(forms.ModelForm):
+    """ A form for the Application of a Hacker """
+
+    class Meta:
+        model = HackathonApplication
+        fields = [
+            'whyJacobsHack', 'whatHaveYouBuilt', 'firstHackathon',
+        ]
+        labels = {
+            'whyJacobsHack': 'Why do you want to come to JacobsHack?',
+            'whatHaveYouBuilt': 'What projects have you worked on?<br />' +
+                                'What have you built?',
+            'firstHackathon': ''
         }
 
 
@@ -146,13 +148,11 @@ class OrganizationalForm(forms.ModelForm):
     class Meta:
         model = Organizational
         fields = [
-            'otherDegrees', 'spokenLanguages', 'programmingLanguages',
-            'areasOfInterest', 'alumniMentor'
+            'shirtSize', 'needVisa', 'dietaryRequirements', 'comments'
         ]
         labels = {
-            'otherDegrees': 'Degrees from other instiutions:',
-            'spokenLanguages': 'Spoken Languages:',
-            'programmingLanguages': 'Programming Languages',
-            'areasOfInterest': 'Areas of interest/expertise',
-            'alumniMentor': ''
+            'shirtSize': 'T-Shirt Size',
+            'needVisa': '',
+            'dietaryRequirements': 'Dietary Requirements',
+            'comments': 'Other Organizational Comments'
         }

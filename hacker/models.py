@@ -5,6 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from . import fields
 
+
 class Hacker(models.Model):
     """ The information about a Hacker """
 
@@ -26,7 +27,7 @@ class Hacker(models.Model):
         names.append(self.lastName)
         return ' '.join(names)
 
-    email = models.EmailField(help_text="Your private email address", unique=True)
+    email = models.EmailField(help_text="Your email address", unique=True)
     
     # TODO: Better handling of multiple nationalities
     nationality = fields.CountryField(
@@ -44,7 +45,7 @@ class Hacker(models.Model):
     def register_component(cls, f):
         """ A decorator to add a component to the list of components """
 
-        name = f.member.field.remote_field.name
+        name = f.hacker.field.remote_field.name
         cls.components[name] = f
         return f
 
@@ -69,61 +70,55 @@ class Hacker(models.Model):
     def __str__(self):
         return "Hacker [{}]".format(self.fullName)
 
+
 class Approval(models.Model):
     """ The approval status of a hacker """
-    member = models.OneToOneField(Hacker, related_name='approval')
+    hacker = models.OneToOneField(Hacker, related_name='approval')
 
     approval = models.BooleanField(default=False, blank=True,
-                                   help_text="Has the user been approved by an admin?")
-
-    gsuite = models.EmailField(blank=True, null=True,
-                               help_text="The G-Suite E-Mail of the user", unique=True)
+                                   help_text="Has the application been approved?")
 
 
 @Hacker.register_component
 class AcademicData(models.Model):
     """ The academic data of a Hacker """
 
-    member = models.OneToOneField(Hacker, related_name='academic')
+    hacker = models.OneToOneField(Hacker, related_name='academic')
 
-    college = fields.CollegeField(null=True, blank=True)
-    graduation = fields.ClassField()
-    degree = fields.DegreeField(null=True, blank=True)
-    major = fields.MajorField()
-    comments = models.TextField(null=True, blank=True,
-                                help_text="e.g. exchange semester, several degrees etc.")
+    degree = fields.DegreeField(help_text="Which academic degree are you hoping to achieve?")
+    year = fields.YearField(help_text="estimate the year during which you are expected to graduate")
+    university = fields.UniField(help_text="use other if not listed")
 
 
 @Hacker.register_component
 class HackathonApplication(models.Model):
     """ The hackathon application  """
 
-    member = models.OneToOneField(Hacker, related_name='application')
+    hacker = models.OneToOneField(Hacker, related_name='application')
 
-    address_line_1 = models.CharField(max_length=255,
-                                      help_text="E.g. Campus Ring 1")
-    address_line_2 = models.CharField(max_length=255, blank=True, null=True,
-                                      help_text="E.g. Apt 007 (optional)")
-    city = models.CharField(max_length=255, help_text="E.g. Bremen")
-    zip = models.CharField(max_length=255, help_text="E.g. 28759")
-    state = models.CharField(max_length=255, blank=True, null=True,
-                             help_text="E.g. Bremen (optional)")
-    country = fields.CountryField()
+    whyJacobsHack = models.TextField()
 
-    addressVisible = models.BooleanField(default=False, blank=True,
-                                         help_text="Include me on the alumni map (only your city will be visible to others)")
+    firstHackathon = models.BooleanField(default=False, blank=True,
+                                   help_text="JacobsHack is my first Hackathon")
+
+    whatHaveYouBuilt = models.TextField(help_text="E.g. GitHub Link, Devpost, Personal Projects ...")
+
+    # TODO: Add a field for CV
 
 
 @Hacker.register_component
 class Organizational(models.Model):
     """ The organizational information about a Hacker """
 
-    member = models.OneToOneField(Hacker, related_name='organizational')
+    hacker = models.OneToOneField(Hacker, related_name='organizational')
 
-    otherDegrees = models.TextField(null=True, blank=True)
-    spokenLanguages = models.TextField(null=True, blank=True)
-    programmingLanguages = models.TextField(null=True, blank=True)
-    areasOfInterest = models.TextField(null=True, blank=True,
-                                       help_text="E.g. Start-Ups, Surfing, Big Data, Human Rights, etc")
-    alumniMentor = models.BooleanField(default=False, blank=True,
-                                       help_text="I would like to sign up as an alumni mentor")
+    shirtSize = fields.ShirtSizeField(help_text="Select your EU T-Shirt size. ")
+
+    needVisa = models.BooleanField(default=False, blank=True,
+                                   help_text="I need a Visa to come to Germany and attend JacobsHack")
+
+    dietaryRequirements = models.TextField(blank=True,
+                                           help_text="e.g. Vegan, Vegetarian, Gluten-free ...")
+
+    comments = models.TextField(blank=True,
+                                help_text="If you are applying as a Team, mention the names of your teammates here. ")

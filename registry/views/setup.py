@@ -32,13 +32,13 @@ def register(request):
             user = User.objects.create_user(username, None, password=password)
             user.save()
 
-            # Create the Alumni Data Object
+            # Create the Hacker Object
             instance = form.save(commit=False)
             instance.profile = user
             instance.save()
 
             # create an empty approval object
-            approval = Approval(member=instance, approval=False, gsuite=None)
+            approval = Approval(hacker=instance, approval=False)
             approval.save()
 
             # Authenticate the user for this request
@@ -95,7 +95,7 @@ def setupViewFactory(prop, FormClass, name, subtitle):
 
                 # Create the data instance
                 instance = form.save(commit=False)
-                instance.member = request.user.hacker
+                instance.hacker = request.user.hacker
                 instance.save()
 
                 # and then continue to the main setup page

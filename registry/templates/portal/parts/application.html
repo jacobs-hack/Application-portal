@@ -8,34 +8,25 @@
         <table class="uk-table uk-table-small">
             <tbody>
                 <tr>
-                    <td>Address</td>
+                    <td>Why do you want to come to JacobsHack?</td>
                     <td>
-                        {{ user.hacker.application.address_line_1|safe }}
-
-                        {% if user.hacker.application.address_line_2 %}
-                            <br />
-                            {{ user.hacker.application.address_line_2|safe }}
-                        {% endif %}
+                        {{ user.hacker.application.whyJacobsHack|safe }}
                     </td>
                 </tr>
-
                 <tr>
-                    <td>ZIP</td>
-                    <td>{{ user.hacker.application.zip | safe }}</td>
+                    <td>Is JacobsHack your first Hackathon</td>
+                    <td>
+                        {{ user.hacker.application.whyJacobsHack|print_boolean }}
+                    </td>
                 </tr>
                 <tr>
-                    <td>City</td>
-                    <td>{{ user.hacker.application.city | safe }}</td>
-                </tr>
-
-                <tr>
-                    <td>Included on Alumni Map</td>
-                    <td>{{ user.hacker.application.addressVisible|print_boolean }}</td>
-                </tr>
-
-                <tr>
-                    <td>Country</td>
-                    <td>{{ user.hacker.application |get_choice_field:"country"|safe }}</td>
+                    <td>
+                        What projects have you worked on? <br />
+                        What have you built?
+                    </td>
+                    <td>
+                        {{ user.hacker.application.whyJacobsHack|safe }}
+                    </td>
                 </tr>
             </tbody>
         </table>

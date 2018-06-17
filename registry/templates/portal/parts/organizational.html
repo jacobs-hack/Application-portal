@@ -8,33 +8,21 @@
         <table class="uk-table uk-table-small">
             <tbody>
                 <tr>
-                    <td>Alumni Mentor</td>
-                    <td>{{ user.hacker.organizational.mentor|print_boolean }}</td>
+                    <td>T-Shirt Size</td>
+                    <td>{{ user.hacker.organizational|get_choice_field:"shirtSize"|safe }}</td>
                 </tr>
-                {% if user.hacker.organizational.otherDegrees %}
-                    <tr>
-                        <td>Other Degrees</td>
-                        <td>{{ user.hacker.organizational.otherDegrees|safe }}</td>
-                    </tr>
-                {% endif %}
-                {% if user.hacker.organizational.spokenLanguages %}
-                    <tr>
-                        <td>Spoken Languages</td>
-                        <td>{{ user.hacker.organizational.spokenLanguages|safe }}</td>
-                    </tr>
-                {% endif %}
-                {% if user.hacker.organizational.programmingLanguages %}
-                    <tr>
-                        <td>Programming Languages</td>
-                        <td>{{ user.hacker.organizational.programmingLanguages|safe }}</td>
-                    </tr>
-                {% endif %}
-                {% if user.hacker.organizational.areasOfInterest %}
-                    <tr>
-                        <td>Areas of Interest</td>
-                        <td>{{ user.hacker.organizational.areasOfInterest|safe }}</td>
-                    </tr>
-                {% endif %}
+                <tr>
+                    <td>Visa Needed</td>
+                    <td>{{ user.hacker.organizational.needVisa|print_boolean }}</td>
+                </tr>
+                <tr>
+                    <td>Dietary Requirements</td>
+                    <td>{{ user.hacker.organizational.dietaryRequirements|safe }}</td>
+                </tr>
+                <tr>
+                    <td>Organisational Comments</td>
+                    <td>{{ user.hacker.organizational.comments|safe }}</td>
+                </tr>
             </tbody>
         </table>
     </div>
