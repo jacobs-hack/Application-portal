@@ -117,6 +117,9 @@ class Organizational(models.Model):
     needVisa = models.BooleanField(default=False, blank=True,
                                    help_text="I need a Visa to come to Germany and attend JacobsHack")
 
+    needReimbursement = models.BooleanField(default=False, blank=True, 
+                                    help_text="Are you coming from outside of Bremen?")
+
     dietaryRequirements = models.TextField(blank=True,
                                            help_text="e.g. Vegan, Vegetarian, Gluten-free ...")
 

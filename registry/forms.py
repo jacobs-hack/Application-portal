@@ -148,11 +148,12 @@ class OrganizationalForm(forms.ModelForm):
     class Meta:
         model = Organizational
         fields = [
-            'shirtSize', 'needVisa', 'dietaryRequirements', 'comments'
+            'shirtSize', 'needVisa', 'needReimbursement', 'dietaryRequirements', 'comments'
         ]
         labels = {
             'shirtSize': 'T-Shirt Size',
             'needVisa': '',
+            'needReimbursement': '',
             'dietaryRequirements': 'Dietary Requirements',
             'comments': 'Other Organizational Comments'
         }
