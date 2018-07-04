@@ -137,6 +137,12 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# The prefix for internal URLs
+INTERNAL_PREFIX = '/internal'
+
 # Import Local settings if available
 try:
     from local_settings import *

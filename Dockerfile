@@ -30,6 +30,9 @@ RUN mkdir -p /var/www/static/ \
 
 ### ALL THE CONFIGURATION
 
+# Where to store all the uploaded media (i.e. django cvs)
+ENV DJANGO_MEDIA_ROOT /data/media/
+
 # disable / enable the devel warning shown on the page
 ENV DJANGO_ENABLE_DEVEL_WARNING "1"
 
@@ -54,7 +57,6 @@ ENV STRIPE_PUBLISHABLE_KEY ""
 
 # Raven -- optional
 ENV DJANGO_RAVEN_DSN ""
-
 
 # Volume and ports
 VOLUME /data/

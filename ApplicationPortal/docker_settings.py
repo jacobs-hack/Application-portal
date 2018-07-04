@@ -31,6 +31,7 @@ DATABASES = {
 
 # add the static file root
 STATIC_ROOT = "/var/www/static/"
+MEDIA_ROOT = os.environ.setdefault("DJANGO_MEDIA_ROOT", MEDIA_ROOT)
 
 # Sentry
 if os.environ.get('DJANGO_RAVEN_DSN'):

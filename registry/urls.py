@@ -13,13 +13,19 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.conf.urls import url
+from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
 
 from .views import registry as registry_views
 from .views import setup as setup_views
 from .views import edit as edit_views
+from .views import cv as cv_views
+
+# Side-effect import: Initialize hooks
+import hacker.hooks
 
 
 urlpatterns = [
@@ -43,6 +49,7 @@ urlpatterns = [
     url(r'^setup/academic/$', setup_views.academic, name='setup_academic'),
     url(r'^setup/application/$', setup_views.application, name='setup_application'),
     url(r'^setup/organizational/$', setup_views.organizational, name='setup_organizational'),
+    url(r'^setup/cv/$', setup_views.cv, name='setup_cv'),
 
     # the portal for the user
     url(r'portal/', registry_views.portal, name='portal'),
@@ -53,4 +60,8 @@ urlpatterns = [
     url(r'^edit/academic/$', edit_views.academic, name='edit_academic'),
     url(r'^edit/application/$', edit_views.application, name='edit_application'),
     url(r'^edit/organizational/$', edit_views.organizational, name='edit_organizational'),
+    url(r'^edit/cv/$', edit_views.cv, name='edit_cv'),
+
+    # CV Media URL
+    url('^{}cvs/(?P<username>[\w.@+-]+)\.pdf$'.format(settings.MEDIA_URL[1:]), cv_views.cv, name='view_cv')
 ]

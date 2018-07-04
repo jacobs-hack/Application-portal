@@ -1,9 +1,12 @@
 import collections
+from django.conf import settings
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
 from . import fields
+from .validators import validate_extension
 
 
 class Hacker(models.Model):
@@ -125,3 +128,33 @@ class Organizational(models.Model):
 
     comments = models.TextField(blank=True,
                                 help_text="If you are applying as a Team, mention the names of your teammates here. ")
+
+import os.path
+def upload_to(instance, filename):
+    return 'cvs/{0}{1}'.format(instance.hacker.profile.username, os.path.splitext(filename)[1])
+
+@Hacker.register_component
+class CV(models.Model):
+    """ The CV of a Hacker """
+
+    hacker = models.OneToOneField(Hacker, related_name='cv')
+    cv = models.FileField(
+        upload_to=upload_to,
+        validators=[validate_extension([".pdf"])],
+        null=True,
+        blank=True,
+        help_text="Your CV (optional)"
+    )
+
+    @property
+    def has_cv(self):
+        return self.cv and hasattr(self.cv, 'url')
+    
+    @property
+    def internal_url(self):
+        if self.has_cv:
+            return settings.INTERNAL_PREFIX + self.cv.url
+    
+    @property
+    def filename(self):
+        return '{}.pdf'.format(self.hacker.profile.username)

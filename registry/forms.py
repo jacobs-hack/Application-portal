@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import password_validation
 
-from hacker.models import Hacker, HackathonApplication, AcademicData, Organizational
+from hacker.models import Hacker, HackathonApplication, AcademicData, Organizational, CV
 from django.contrib.auth.models import User
 
 
@@ -157,3 +157,11 @@ class OrganizationalForm(forms.ModelForm):
             'dietaryRequirements': 'Dietary Requirements',
             'comments': 'Other Organizational Comments'
         }
+
+class CVForm(forms.ModelForm):
+    """ A form for saving CV Data"""
+    class Meta:
+        model = CV
+        fields = [
+            'cv'
+        ]

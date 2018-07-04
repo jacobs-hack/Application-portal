@@ -1,0 +1,25 @@
+{% load registry_display %}
+
+<div class="uk-card uk-card-default">
+    <div class="uk-card-header">
+        <h3 class="uk-card-title uk-margin-remove-bottom">My CV</h3>
+    </div>
+    <div class="uk-card-body">
+        <table class="uk-table uk-table-small">
+            <caption>CV</caption>
+            <tbody>
+                <tr>
+                    <td>Uploaded CV</td>
+                    <td>{% if user.hacker.cv.has_cv %}
+                        <a href="{{user.hacker.cv.cv.url}}">{{user.hacker.cv.filename}}</a>
+                    {% else %}
+                        (none)
+                    {% endif %}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="uk-card-footer">
+        <a href="{% url 'edit_cv' %}" class="uk-button uk-button-text">Edit CV</a>
+    </div>
+</div>

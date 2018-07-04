@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from hacker.actions import export_as_xslx_action
 from .models import Hacker, HackathonApplication, \
-    AcademicData, Approval, Organizational
+    AcademicData, Approval, Organizational, CV
 
 
 class HackerApprovalInline(admin.StackedInline):
@@ -19,6 +19,9 @@ class HackerHackathonApplicationInline(admin.StackedInline):
 
 class HackerOrganizationalInline(admin.StackedInline):
     model = Organizational
+
+class HackerCVIncline(admin.StackedInline):
+    model = CV
 
 
 class SetupCompleted(admin.SimpleListFilter):
@@ -46,7 +49,8 @@ class HackerAdmin(admin.ModelAdmin):
         HackerApprovalInline,
         HackerAcademicDataInline,
         HackerHackathonApplicationInline,
-        HackerOrganizationalInline
+        HackerOrganizationalInline,
+        HackerCVIncline
     ]
 
     # Fields that should be searchable

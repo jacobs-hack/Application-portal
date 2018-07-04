@@ -21,7 +21,7 @@
     {% endif %}
 
     <div>
-        <form class="uk-form-horizontal" method="POST">
+        <form class="uk-form-horizontal" method="POST" {% if with_files %}enctype="multipart/form-data"{% endif %}>
             {% csrf_token %}
             {{ form | as_uikit_form }}
             <input type="submit" class="uk-button uk-button-primary" value="Update">

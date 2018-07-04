@@ -114,5 +114,8 @@ venv.bak/
 # the database
 db.sqlite3
 
+# media (for local development)
+/media/
+
 # Stupid jetbrains stuff
 .idea/

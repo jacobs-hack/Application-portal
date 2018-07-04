@@ -29,7 +29,7 @@ python manage.py runserver
 
 ## Docker Deployment
 
-This project has a Dockerfile and can be found on [DockerHub]().
+This project has a Dockerfile and can be found on [DockerHub](https://hub.docker.com/r/jacobshack/portal/).
 
 ```bash
 
@@ -47,3 +47,6 @@ docker pull jacobshack/portal:prod
 # see the Dockerfile for details
 docker run -p 8080:80 -e DJANGO_SECRET_KEY=dummy -v data:/data/ jacobshack/portal
 ```
+
+The database is stored inside the data volume. 
+The CVs are stored in the subfolder cvs/ of the data volume. 

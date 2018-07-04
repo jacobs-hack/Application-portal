@@ -7,7 +7,7 @@ from django.urls import reverse
 from hacker.models import Approval
 from registry.decorators import require_unset_component
 from registry.views.registry import default_alternative
-from ..forms import RegistrationForm, ApplicationForm, AcademicForm, OrganizationalForm
+from ..forms import RegistrationForm, ApplicationForm, AcademicForm, OrganizationalForm, CVForm
 
 # TODO: Update Components
 
@@ -56,7 +56,8 @@ def register(request):
         'form': form,
         'title': 'Register',
         'subtitle': 'Enter your General Information',
-        'next_text': 'Start JacobsHack Application'
+        'next_text': 'Start JacobsHack Application',
+        'with_files': False
     })
 
 
@@ -76,7 +77,7 @@ def setup(request):
         return redirect(reverse('setup_{}'.format(component)))
 
 
-def setupViewFactory(prop, FormClass, name, subtitle):
+def setupViewFactory(prop, FormClass, name, subtitle, with_files=False):
     """ Generates a setup view for a given section of the profile """
 
     @require_unset_component(prop, default_alternative)
@@ -86,8 +87,14 @@ def setupViewFactory(prop, FormClass, name, subtitle):
         url = reverse('setup')
 
         if request.method == 'POST':
+            # load files from request (if set)
+            if with_files:
+                files = request.FILES or None
+            else:
+                files = None
+
             # load the form
-            form = FormClass(request.POST)
+            form = FormClass(data=request.POST, files=files)
 
             # check that the form is valid
             if form.is_valid():
@@ -111,7 +118,8 @@ def setupViewFactory(prop, FormClass, name, subtitle):
                           'form': form,
                           'title': name,
                           'subtitle': subtitle,
-                          'next_text': 'Continue'
+                          'next_text': 'Continue',
+                          'with_files': with_files
                       })
 
     return setup
@@ -123,7 +131,11 @@ application = setupViewFactory('application', ApplicationForm,
                                'JacobsHack Application',
                                'tell us your reasons for applying')
 
-# TODO: Update Edits
 organizational = setupViewFactory('organizational', OrganizationalForm,
                                   'Organizational Details',
                                   'some more organizational details we need to work out')
+
+cv = setupViewFactory('cv', CVForm,
+                      'CV',
+                      'upload your CV',
+                      with_files=True)

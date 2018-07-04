@@ -8,10 +8,10 @@ from django.shortcuts import render, redirect
 from registry.views.registry import default_alternative
 from ..decorators import require_setup_completed
 
-from ..forms import HackerForm, AcademicForm, ApplicationForm, OrganizationalForm
+from ..forms import HackerForm, AcademicForm, ApplicationForm, OrganizationalForm, CVForm
 
 
-def editViewFactory(prop, FormClass, name):
+def editViewFactory(prop, FormClass, name, with_files=False):
     """ Generates an edit view for a given section of the profile """
 
     @require_setup_completed(default_alternative)
@@ -30,8 +30,14 @@ def editViewFactory(prop, FormClass, name):
             instance = getattr(request.user.hacker, prop)
 
         if request.method == 'POST':
+            # load files from request (if set)
+            if with_files:
+                files = request.FILES or None
+            else:
+                files = None
+
             # load the form
-            form = FormClass(request.POST, instance=instance)
+            form = FormClass(data=request.POST, files=files, instance=instance)
 
             # check that the form is valid
             if form.is_valid():
@@ -56,7 +62,8 @@ def editViewFactory(prop, FormClass, name):
                       {
                           'form': form,
                           'name': name,
-                          'messsages': get_messages(request)
+                          'messsages': get_messages(request),
+                          'with_files': with_files
                       })
 
     return edit
@@ -75,6 +82,11 @@ application = editViewFactory('application',
 organizational = editViewFactory('organizational',
                                  OrganizationalForm,
                                  'Organizational Details')
+
+cv = editViewFactory('cv', 
+                     CVForm,
+                     'CV', 
+                     with_files=True)
 
 
 @require_setup_completed(default_alternative)
@@ -98,5 +110,6 @@ def password(request):
     return render(request, 'portal/edit.html', {
         'form': form,
         'name': 'Password',
-        'messsages': get_messages(request)
+        'messsages': get_messages(request),
+        'with_files': False
     })
