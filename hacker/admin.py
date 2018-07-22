@@ -2,8 +2,10 @@ from django.contrib import admin
 
 from hacker.actions import export_as_xslx_action
 from .models import Hacker, HackathonApplication, \
-    AcademicData, Approval, Organizational, CV
+    AcademicData, Approval, Organizational, CV, DataRetentionAccept
 
+
+# TODO: Update Privacy Policy UI for admin
 
 class HackerApprovalInline(admin.StackedInline):
     model = Approval
@@ -23,6 +25,8 @@ class HackerOrganizationalInline(admin.StackedInline):
 class HackerCVIncline(admin.StackedInline):
     model = CV
 
+class HackerDRAIncline(admin.StackedInline):
+    model = DataRetentionAccept
 
 class SetupCompleted(admin.SimpleListFilter):
     title = 'Setup Status'
@@ -50,7 +54,8 @@ class HackerAdmin(admin.ModelAdmin):
         HackerAcademicDataInline,
         HackerHackathonApplicationInline,
         HackerOrganizationalInline,
-        HackerCVIncline
+        HackerCVIncline,
+        HackerDRAIncline
     ]
 
     # Fields that should be searchable

@@ -106,9 +106,6 @@ class HackathonApplication(models.Model):
 
     whatHaveYouBuilt = models.TextField(help_text="E.g. GitHub Link, Devpost, Personal Projects ...")
 
-    # TODO: Add a field for CV
-
-
 @Hacker.register_component
 class Organizational(models.Model):
     """ The organizational information about a Hacker """
@@ -140,7 +137,7 @@ class CV(models.Model):
     hacker = models.OneToOneField(Hacker, related_name='cv')
     cv = models.FileField(
         upload_to=upload_to,
-        validators=[validate_extension([".pdf"])],
+        validators=[validate_extension],
         null=True,
         blank=True,
         help_text="Your CV (optional)"
@@ -158,3 +155,15 @@ class CV(models.Model):
     @property
     def filename(self):
         return '{}.pdf'.format(self.hacker.profile.username)
+
+@Hacker.register_component
+class DataRetentionAccept(models.Model):
+
+    hacker = models.OneToOneField(Hacker, related_name='privacy_agreement')
+
+    mlhContestTerms = models.BooleanField(help_text="", blank=False)
+
+    mlhCodeOfConduct = models.BooleanField(help_text="", blank=False)
+
+    GDPRClause = models.BooleanField(help_text="", blank= True)
+

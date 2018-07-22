@@ -1,9 +1,9 @@
 from django import forms
 from django.contrib.auth import password_validation
 
-from hacker.models import Hacker, HackathonApplication, AcademicData, Organizational, CV
+from hacker.models import Hacker, HackathonApplication, AcademicData, Organizational, CV, DataRetentionAccept
 from django.contrib.auth.models import User
-
+from django.utils.safestring import mark_safe
 
 class RegistrationForm(forms.ModelForm):
     """ A form for registering users """
@@ -30,41 +30,6 @@ class RegistrationForm(forms.ModelForm):
     )
 
     # TODO: Update text for terms and conditions
-    _tos_help_text = """
-        I confirm that I have read, understood, and agree to each of the following:
-        
-        <p>
-            <ul>
-                <li>
-                    <a href="/terms/" target="_blank">
-                        JacobsHack Terms, Conditions &amp; Privacy Policy
-                    </a>
-                </li>
-                <li>
-                    <a href="https://github.com/MLH/mlh-policies/blob/master/prize-terms-and-conditions/contest-terms.md" target="_blank">
-                        MLH Contest Terms and Conditions
-                    </a>
-                </li>
-                <li>
-                    <a href="https://mlh.io/privacy" target="_blank">
-                        MLH Privacy Policy
-                    </a>
-                </li>
-                <li>
-                    <a href="https://mlh.io/code-of-conduct" target="_blank">
-                        Major League Hacking Code of Conduct
-                    </a>
-                </li>
-            </ul>
-            
-            In particular, I understand that I may be contacted via email by
-            JacobsHack, MLH, or any of the sponsors as detailed in the 
-            documents above. 
-        </p>
-    """
-
-    tos = forms.BooleanField(label='Terms and Conditions',
-                             help_text=_tos_help_text)
 
     class Meta:
         model = Hacker
@@ -96,11 +61,6 @@ class RegistrationForm(forms.ModelForm):
                 "This username is already taken, please pick another. "))
             raise forms.ValidationError("Please correct the error below.")
 
-        # check that we have accepted the terms and conditions
-        if not self.cleaned_data['tos']:
-            self.add_error('tos', forms.ValidationError(
-                "You need to accept the terms and conditions to continue. "))
-            raise forms.ValidationError("Please correct the error below.")
 
         return super(RegistrationForm, self).clean()
 
@@ -132,7 +92,7 @@ class ApplicationForm(forms.ModelForm):
     class Meta:
         model = HackathonApplication
         fields = [
-            'whyJacobsHack', 'whatHaveYouBuilt', 'firstHackathon',
+            'whyJacobsHack', 'whatHaveYouBuilt', 'firstHackathon'
         ]
         labels = {
             'whyJacobsHack': 'Why do you want to come to JacobsHack?',
@@ -165,3 +125,26 @@ class CVForm(forms.ModelForm):
         fields = [
             'cv'
         ]
+
+class DataRetentionAcceptForm(forms.ModelForm):
+    """ A form for privacy statements """
+    class Meta:
+        model = DataRetentionAccept
+        fields = [
+            'mlhContestTerms', 'mlhCodeOfConduct', 'GDPRClause'
+        ]
+
+        labels = {
+            "mlhContestTerms" : mark_safe("StatementI agree to the terms of "
+                                              "both the <a href='https://github.com/MLH/mlh-policies/tree/master/prize-terms-and-conditions'>"
+                                              "MLH Contest Terms and Conditions</a> and the <a href='https://mlh.io/privacy'>"
+                                              "MLH Privacy Policy </a>. Please note that you may receive pre and post-event "
+                                              "informational e-mails and occasional messages about hackathons from MLH as "
+                                              "per the MLH Privacy Policy."),
+
+            "mlhCodeOfConduct" : mark_safe("I will at all times abide by and conform to the Major League Hacking "
+                                               "<a href='https://mlh.io/code-of-conduct'>Code of Conduct </a> while at "
+                                               "the event."),
+
+            "GDPRClause" : mark_safe("I give consent to blah blah")
+        }

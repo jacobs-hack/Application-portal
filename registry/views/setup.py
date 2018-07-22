@@ -7,7 +7,7 @@ from django.urls import reverse
 from hacker.models import Approval
 from registry.decorators import require_unset_component
 from registry.views.registry import default_alternative
-from ..forms import RegistrationForm, ApplicationForm, AcademicForm, OrganizationalForm, CVForm
+from ..forms import RegistrationForm, ApplicationForm, AcademicForm, OrganizationalForm, CVForm, DataRetentionAcceptForm
 
 # TODO: Update Components
 
@@ -139,3 +139,8 @@ cv = setupViewFactory('cv', CVForm,
                       'CV',
                       'upload your CV',
                       with_files=True)
+
+draAgreement = setupViewFactory('privacy_agreement', DataRetentionAcceptForm,
+                                'Privacy Terms and Data Protection',
+                                '')
+
