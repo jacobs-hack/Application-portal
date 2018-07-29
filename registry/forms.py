@@ -47,8 +47,6 @@ class RegistrationForm(forms.ModelForm):
         help_text='Re-enter your password'
     )
 
-    # TODO: Update text for terms and conditions
-
     class Meta:
         model = Hacker
         fields = ['firstName', 'middleName', 'lastName', 'email', 'nationality', 'jacobsHackTerms', 'mlhCodeOfConduct', 'mlhContestTerms', 'mlhEmailConsent']

@@ -9,8 +9,6 @@ from registry.decorators import require_unset_component
 from registry.views.registry import default_alternative
 from ..forms import RegistrationForm, ApplicationForm, AcademicForm, OrganizationalForm, CVForm
 
-# TODO: Update Components
-
 def register(request):
     """ Implements the Hackathon Application Page"""
 

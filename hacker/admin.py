@@ -4,9 +4,6 @@ from hacker.actions import export_as_xslx_action
 from .models import Hacker, HackathonApplication, \
     AcademicData, Approval, Organizational, CV
 
-
-# TODO: Update Privacy Policy UI for admin
-
 class HackerApprovalInline(admin.StackedInline):
     model = Approval
 
@@ -36,7 +33,6 @@ class SetupCompleted(admin.SimpleListFilter):
         ]
     
     def queryset(self, request, queryset):
-        # TODO: Check if this still works
         if self.value() == '1':
             return queryset.filter(organizational__isnull=False)
         elif self.value() == '0':
