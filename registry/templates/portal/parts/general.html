@@ -36,6 +36,33 @@
                 </tr>
             </tbody>
         </table>
+
+        <table class="uk-table uk-table-small">
+            <caption>Terms & Conditions</caption>
+            <tbody>
+
+                <tr>
+                    <td>JacobsHack Terms & Conditions</td>
+                    <td>{{ user.hacker.jacobsHackTerms|print_boolean }}</td>
+                </tr>
+                
+                <tr>
+                    <td>MLH Code Of Conduct</td>
+                    <td>{{ user.hacker.mlhCodeOfConduct|print_boolean }}</td>
+                </tr>
+
+                <tr>
+                    <td>MLH Contest Terms & Privacy Policy</td>
+                    <td>{{ user.hacker.mlhContestTerms|print_boolean }}</td>
+                </tr>
+                
+                <tr>
+                    <td>MLH E-Mail Consent</td>
+                    <td>{{ user.hacker.mlhEMailConsent|print_boolean }}</td>
+                </tr>
+                
+            </tbody>
+        </table>
     </div>
     <div class="uk-card-footer">
         <a href="{% url 'edit' %}" class="uk-button uk-button-text">Edit General Information</a>

@@ -37,6 +37,18 @@ class Hacker(models.Model):
         help_text="You can select multiple options by holding the <em>Ctrl</em> key (or <em>Command</em> on Mac) while clicking",
         multiple=True)
 
+    _terms_help_text = "I have read and agree to the <a href='/terms/' target='_blank'>JacobsHack Terms and Conditions</a>, including the <a href='/privacy/' target='_blank'>Privacy Policy</a>. "
+    jacobsHackTerms = models.BooleanField(help_text=_terms_help_text, blank=False)
+
+    _mlh_coc_help_text = "I will at all times abide by and conform to the Major League Hacking <a href='https://mlh.io/code-of-conduct'>Code of Conduct</a> while at the event. "
+    mlhCodeOfConduct = models.BooleanField(help_text=_mlh_coc_help_text, blank=False)
+
+    _mlh_contest_terms = "I agree to the terms of both the <a href='https://github.com/MLH/mlh-policies/tree/master/prize-terms-and-conditions'>MLH Contest Terms and Conditions</a> and the <a href='https://mlh.io/privacy' target='_blank'>MLH Privacy Policy</a>. "
+    mlhContestTerms = models.BooleanField(help_text=_mlh_contest_terms, blank=False)
+
+    _mlh_email_consent = "Yes, I would like to receive informational e-mails and occasional messages about hackathons from MLH as per the MLH Privacy Policy above. "
+    mlhEmailConsent = models.BooleanField(help_text=_mlh_email_consent, blank=True)
+
     #
     # COMPONENTS MANAGEMENT
     #
@@ -155,15 +167,3 @@ class CV(models.Model):
     @property
     def filename(self):
         return '{}.pdf'.format(self.hacker.profile.username)
-
-@Hacker.register_component
-class DataRetentionAccept(models.Model):
-
-    hacker = models.OneToOneField(Hacker, related_name='privacy_agreement')
-
-    mlhContestTerms = models.BooleanField(help_text="", blank=False)
-
-    mlhCodeOfConduct = models.BooleanField(help_text="", blank=False)
-
-    GDPRClause = models.BooleanField(help_text="", blank= True)
-

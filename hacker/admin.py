@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from hacker.actions import export_as_xslx_action
 from .models import Hacker, HackathonApplication, \
-    AcademicData, Approval, Organizational, CV, DataRetentionAccept
+    AcademicData, Approval, Organizational, CV
 
 
 # TODO: Update Privacy Policy UI for admin
@@ -24,9 +24,6 @@ class HackerOrganizationalInline(admin.StackedInline):
 
 class HackerCVIncline(admin.StackedInline):
     model = CV
-
-class HackerDRAIncline(admin.StackedInline):
-    model = DataRetentionAccept
 
 class SetupCompleted(admin.SimpleListFilter):
     title = 'Setup Status'
@@ -54,8 +51,7 @@ class HackerAdmin(admin.ModelAdmin):
         HackerAcademicDataInline,
         HackerHackathonApplicationInline,
         HackerOrganizationalInline,
-        HackerCVIncline,
-        HackerDRAIncline
+        HackerCVIncline
     ]
 
     # Fields that should be searchable
@@ -90,6 +86,9 @@ class HackerAdmin(admin.ModelAdmin):
         # Profile data
         'profile__username', 'profile__is_staff', 'profile__is_superuser',
         'profile__date_joined', 'profile__last_login',
+
+        # Consent
+        'jacobsHackTerms', 'mlhCodeOfConduct', 'mlhContestTerms', 'mlhEmailConsent',
 
         # 'Approval' Data
         'approval__approval',

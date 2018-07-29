@@ -1,9 +1,27 @@
 from django import forms
 from django.contrib.auth import password_validation
 
-from hacker.models import Hacker, HackathonApplication, AcademicData, Organizational, CV, DataRetentionAccept
+from hacker.models import Hacker, HackathonApplication, AcademicData, Organizational, CV
 from django.contrib.auth.models import User
-from django.utils.safestring import mark_safe
+
+def _check_legal(self, cleaned_data):
+    # check that we have accepted the terms and conditions
+    if not cleaned_data.get('jacobsHackTerms'):
+        self.add_error('jacobsHackTerms', forms.ValidationError(
+            "You need to accept the JacobsHack Terms and Conditions to apply to JacobsHack. "))
+        raise forms.ValidationError("Please correct the error below.")
+    
+    # check that we have accepted the MLH Code Of Conduct
+    if not cleaned_data.get('mlhCodeOfConduct'):
+        self.add_error('mlhCodeOfConduct', forms.ValidationError(
+            "You need to accept the MLH Code of Conduct to apply to JacobsHack. "))
+        raise forms.ValidationError("Please correct the error below.")
+    
+    # check that we have accepted the MLT Terms & Conditions
+    if not cleaned_data.get('mlhContestTerms'):
+        self.add_error('mlhContestTerms', forms.ValidationError(
+            "You need to accept the MLH Contest Terms & Conditions to apply to JacobsHack. "))
+        raise forms.ValidationError("Please correct the error below.")  
 
 class RegistrationForm(forms.ModelForm):
     """ A form for registering users """
@@ -33,11 +51,16 @@ class RegistrationForm(forms.ModelForm):
 
     class Meta:
         model = Hacker
-        fields = ['firstName', 'middleName', 'lastName', 'email', 'nationality']
+        fields = ['firstName', 'middleName', 'lastName', 'email', 'nationality', 'jacobsHackTerms', 'mlhCodeOfConduct', 'mlhContestTerms', 'mlhEmailConsent']
         labels = {
             "firstName": "First Name",
             "middleName": "Middle Name",
             "lastName": "Last Name",
+            
+            "jacobsHackTerms": "JacobsHack Terms & Conditions",
+            "mlhCodeOfConduct": "MLH Code Of Conduct",
+            "mlhContestTerms": "MLH Contest Terms & Privacy Policy",
+            "mlhEmailConsent": "MLH Newsletter",
         }
 
     def clean(self):
@@ -60,7 +83,8 @@ class RegistrationForm(forms.ModelForm):
             self.add_error('username', forms.ValidationError(
                 "This username is already taken, please pick another. "))
             raise forms.ValidationError("Please correct the error below.")
-
+        
+        _check_legal(self, cleaned_data)
 
         return super(RegistrationForm, self).clean()
 
@@ -68,7 +92,21 @@ class RegistrationForm(forms.ModelForm):
 class HackerForm(forms.ModelForm):
     class Meta:
         model = Hacker
-        fields = ['firstName', 'middleName', 'lastName', 'email', 'nationality']
+        fields = ['firstName', 'middleName', 'lastName', 'email', 'nationality', 'jacobsHackTerms', 'mlhCodeOfConduct', 'mlhContestTerms', 'mlhEmailConsent']
+        labels = {
+            "jacobsHackTerms": "JacobsHack Terms & Conditions",
+            "mlhCodeOfConduct": "MLH Code Of Conduct",
+            "mlhContestTerms": "MLH Contest Terms & Privacy Policy",
+            "mlhEmailConsent": "MLH Newsletter",
+        }
+    
+    def clean(self):
+        # individual field's clean methods have already been called
+        cleaned_data = self.cleaned_data
+
+        _check_legal(self, cleaned_data)
+
+        return super(HackerForm, self).clean()
 
 
 class AcademicForm(forms.ModelForm):
@@ -125,26 +163,3 @@ class CVForm(forms.ModelForm):
         fields = [
             'cv'
         ]
-
-class DataRetentionAcceptForm(forms.ModelForm):
-    """ A form for privacy statements """
-    class Meta:
-        model = DataRetentionAccept
-        fields = [
-            'mlhContestTerms', 'mlhCodeOfConduct', 'GDPRClause'
-        ]
-
-        labels = {
-            "mlhContestTerms" : mark_safe("StatementI agree to the terms of "
-                                              "both the <a href='https://github.com/MLH/mlh-policies/tree/master/prize-terms-and-conditions'>"
-                                              "MLH Contest Terms and Conditions</a> and the <a href='https://mlh.io/privacy'>"
-                                              "MLH Privacy Policy </a>. Please note that you may receive pre and post-event "
-                                              "informational e-mails and occasional messages about hackathons from MLH as "
-                                              "per the MLH Privacy Policy."),
-
-            "mlhCodeOfConduct" : mark_safe("I will at all times abide by and conform to the Major League Hacking "
-                                               "<a href='https://mlh.io/code-of-conduct'>Code of Conduct </a> while at "
-                                               "the event."),
-
-            "GDPRClause" : mark_safe("I give consent to blah blah")
-        }

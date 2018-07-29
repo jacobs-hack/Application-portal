@@ -50,7 +50,6 @@ urlpatterns = [
     url(r'^setup/application/$', setup_views.application, name='setup_application'),
     url(r'^setup/organizational/$', setup_views.organizational, name='setup_organizational'),
     url(r'^setup/cv/$', setup_views.cv, name='setup_cv'),
-    url(r'^setup/dra/$', setup_views.draAgreement, name="setup_privacy_agreement"),
 
     # the portal for the user
     url(r'portal/', registry_views.portal, name='portal'),
