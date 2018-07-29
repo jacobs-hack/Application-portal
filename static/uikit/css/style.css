@@ -232,7 +232,7 @@ h4, .uk-h4,
 h5, .uk-h5,
 h6, .uk-h6 {
   margin: 0 0 20px 0;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Menlo";
   font-weight: normal;
   color: #333;
   text-transform: none; }
@@ -3672,7 +3672,7 @@ ul.uk-nav-sub {
   padding: 0 15px;
   /* 3 */
   font-size: 16px;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Menlo";
   /* 4 */
   text-decoration: none; }
 
@@ -7452,7 +7452,7 @@ td.uk-text-break {
  */
 .uk-logo {
   font-size: 1.5rem;
-  font-family: "PT Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Menlo";
   color: #666;
   /* 1 */
   text-decoration: none; }
