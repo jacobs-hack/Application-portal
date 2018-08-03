@@ -95,6 +95,7 @@ class DegreeField(models.CharField):
     MASTER_SCIENCE = 'msc'
     PHD = 'phd'
     MBA = 'mba'
+    OTHER = 'other'
 
     DEGREE_CHOICES = (
         (BACHELOR_SCIENCE, 'Bachelor of Science'),
@@ -103,6 +104,7 @@ class DegreeField(models.CharField):
         (MASTER_ARTS, 'Master of Arts'),
         (PHD, 'PhD'),
         (MBA, 'MBA'),
+        (OTHER, 'Other')
     )
 
     def __init__(self, *args, **kwargs):

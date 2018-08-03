@@ -96,7 +96,7 @@ class HackerAdmin(admin.ModelAdmin):
         'nationality', 'countryOfResidence',
 
         # Academic Data
-        'academic__school', 'academic__degree', 'academic__year',
+        'academic__school', 'academic__degree', 'academic__major', 'academic__year',
 
         # Hackathon Application
         'application__whyJacobsHack', 'application__firstHackathon',

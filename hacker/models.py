@@ -115,6 +115,7 @@ class AcademicData(models.Model):
     hacker = models.OneToOneField(Hacker, related_name='academic')
 
     degree = fields.DegreeField(help_text="Which academic degree are you hoping to achieve?")
+    major = models.CharField(max_length=255, help_text="What is your current major?")
     year = fields.YearField(help_text="estimate the year during which you are expected to graduate")
     school = fields.FuzzyChoiceField(data=fields.schools, max_length=255)
 

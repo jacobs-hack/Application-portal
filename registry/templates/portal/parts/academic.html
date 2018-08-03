@@ -16,6 +16,10 @@
                     <td>{{ user.hacker.academic|get_choice_field:"degree"|safe }}</td>
                 </tr>
                 <tr>
+                    <td>Major</td>
+                    <td>{{ user.hacker.academic.major|safe }}</td>
+                </tr>
+                <tr>
                     <td>Graduation Year</td>
                     <td>{{ user.hacker.academic|get_choice_field:"year"|safe }}</td>
                 </tr>
