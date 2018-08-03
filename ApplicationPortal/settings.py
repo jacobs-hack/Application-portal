@@ -28,6 +28,8 @@ ENABLE_DEVEL_WARNING = True
 
 ALLOWED_HOSTS = []
 
+PHONENUMBER_DB_FORMAT = 'INTERNATIONAL'
+PHONENUMBER_DEFAULT_REGION = 'DE'
 
 # Application definition
 
@@ -38,6 +40,7 @@ INSTALLED_APPS = [
     'hacker',
     'django_forms_uikit',
     'django_countries',
+    'phonenumber_field',
     'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

@@ -8,6 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from . import fields
 from .validators import validate_extension
 
+from phonenumber_field.modelfields import PhoneNumberField
 
 class Hacker(models.Model):
     """ The information about a Hacker """
@@ -31,6 +32,8 @@ class Hacker(models.Model):
         return ' '.join(names)
 
     email = models.EmailField(help_text="Your email address", unique=True)
+
+    phoneNumber = fields.PhoneField()
     
     # TODO: Better handling of multiple nationalities
     nationality = fields.CountryField(

@@ -4,6 +4,9 @@ from django.contrib.auth import password_validation
 from hacker.models import Hacker, HackathonApplication, AcademicData, Organizational, CV
 from django.contrib.auth.models import User
 
+from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
+
+
 def _check_legal(self, cleaned_data):
     # check that we have accepted the terms and conditions
     if not cleaned_data.get('jacobsHackTerms'):
@@ -25,7 +28,8 @@ def _check_legal(self, cleaned_data):
 
 _general_fields_ = [
     'firstName', 'middleName', 'lastName', 
-    'email', 
+
+    'email', 'phoneNumber',
     
     'nationality', 'countryOfResidence', 
     
@@ -35,6 +39,8 @@ _general_labels_ = {
     "firstName": "First Name",
     "middleName": "Middle Name",
     "lastName": "Last Name",
+
+    "phoneNumber": "Phone Number",
     "countryOfResidence": "Country Of Residence",
     
     "jacobsHackTerms": "JacobsHack Terms & Conditions",
@@ -42,6 +48,7 @@ _general_labels_ = {
     "mlhContestTerms": "MLH Contest Terms & Privacy Policy",
     "mlhSharingConsent": "MLH Data Sharing Consent",
 }
+_general_widgets_ = {}
 
 class RegistrationForm(forms.ModelForm):
     """ A form for registering users """
@@ -71,6 +78,7 @@ class RegistrationForm(forms.ModelForm):
         model = Hacker
         fields = _general_fields_
         labels = _general_labels_
+        widgets = _general_widgets_
 
     def clean(self):
         # individual field's clean methods have already been called
@@ -103,6 +111,7 @@ class HackerForm(forms.ModelForm):
         model = Hacker
         fields = _general_fields_
         labels = _general_labels_
+        widgets = _general_widgets_
     
     def clean(self):
         # individual field's clean methods have already been called

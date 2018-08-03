@@ -29,6 +29,11 @@
                     <td>E-Mail</td>
                     <td>{{ user.hacker.email|safe }}</td>
                 </tr>
+
+                <tr>
+                    <td>Phone Number</td>
+                    <td>{{ user.hacker.phoneNumber|safe }}</td>
+                </tr>
                 
                 <tr>
                     <td>Nationality</td>
@@ -37,7 +42,7 @@
 
                 <tr>
                     <td>Country Of Residence</td>
-                    <td>{{ user.hacker |get_choice_field:"countryOfResidence"|join:"\n"|safe }}</td>
+                    <td>{{ user.hacker.countryOfResidence.name|safe }}</td>
                 </tr>
             </tbody>
         </table>

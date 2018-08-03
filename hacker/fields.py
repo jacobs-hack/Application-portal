@@ -2,6 +2,9 @@ from django.db import models
 from django_countries.fields import CountryField as OriginalCountryField
 from django_countries.fields import Country
 
+from phonenumber_field.modelfields import PhoneNumberField
+from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
+
 
 class CountryField(OriginalCountryField):
     def __init__(self, *args, **kwargs):
@@ -46,6 +49,11 @@ class ShirtSizeField(models.CharField):
         del kwargs['default']
         return name, path, args, kwargs
 
+class PhoneField(PhoneNumberField):
+    def formfield(self, **kwargs):
+        defaults = {'widget': PhoneNumberInternationalFallbackWidget()}
+        defaults.update(kwargs)
+        return super().formfield(**defaults)
 
 class DegreeField(models.CharField):
     BACHELOR_ARTS = 'ba'
