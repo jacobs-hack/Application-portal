@@ -32,6 +32,9 @@ DATE_INPUT_FORMATS = ['%Y-%m-%d']
 PHONENUMBER_DB_FORMAT = 'INTERNATIONAL'
 PHONENUMBER_DEFAULT_REGION = 'DE'
 
+# Minimum Age to participate in JacobsHack
+MIN_HACKER_AGE = 18
+
 # Application definition
 
 INSTALLED_APPS = [

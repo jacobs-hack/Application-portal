@@ -8,8 +8,9 @@ from django.conf import settings
 
 from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
 
+import datetime
 
-def _check_legal(self, cleaned_data):
+def _check_hacker_(self, cleaned_data):
     # check that we have accepted the terms and conditions
     if not cleaned_data.get('jacobsHackTerms'):
         self.add_error('jacobsHackTerms', forms.ValidationError(
@@ -27,6 +28,17 @@ def _check_legal(self, cleaned_data):
         self.add_error('mlhContestTerms', forms.ValidationError(
             "You need to accept the MLH Contest Terms & Conditions to apply to JacobsHack. "))
         raise forms.ValidationError("Please correct the error below.")
+    
+    dob = cleaned_data.get('dob')
+    today = datetime.date.today()
+    age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
+
+    if age < settings.MIN_HACKER_AGE:
+        self.add_error('dob', forms.ValidationError(
+            "We are not allowed to accept applications of minors for JacobsHack. Please apply once you are older than {} years of age. ".format(settings.MIN_HACKER_AGE)))
+        raise forms.ValidationError("Please correct the error below.")
+    
+        
 
 _general_fields_ = [
     'firstName', 'middleName', 'lastName', 
@@ -109,7 +121,7 @@ class RegistrationForm(forms.ModelForm):
                 "This username is already taken, please pick another. "))
             raise forms.ValidationError("Please correct the error below.")
         
-        _check_legal(self, cleaned_data)
+        _check_hacker_(self, cleaned_data)
 
         return super(RegistrationForm, self).clean()
 
@@ -127,7 +139,7 @@ class HackerForm(forms.ModelForm):
         # individual field's clean methods have already been called
         cleaned_data = self.cleaned_data
 
-        _check_legal(self, cleaned_data)
+        _check_hacker_(self, cleaned_data)
 
         return super(HackerForm, self).clean()
 
