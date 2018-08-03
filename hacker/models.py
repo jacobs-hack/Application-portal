@@ -20,6 +20,14 @@ class Hacker(models.Model):
     middleName = models.CharField(max_length=255, blank=True, null=True,
                                   help_text="Your middle name(s)")
     lastName = models.CharField(max_length=255, help_text="Your last name")
+    
+    _gender_choices_ = ['Male', 'Female', 'Prefer Not to Answer']
+    _gender_help_string_ = 'Pick one of {} or specify a custom one. '.format(' , '.join(map(repr, _gender_choices_)))
+    gender = fields.FuzzyChoiceField(data=_gender_choices_, max_length=255, help_text=_gender_help_string_)
+    
+    _race_choices = ['American Indian or Alaskan Native', 'Asian / Pacific Islander', 'Black or African American', 'Hispanic', 'White / Caucasian', 'Prefer Not to Answer']
+    _race_help_string = 'Pick one of {} or specify a custom one. '.format(' , '.join(map(repr, _race_choices)))
+    race = fields.FuzzyChoiceField(data=_race_choices, max_length=255, help_text=_race_help_string)
 
     @property
     def fullName(self):

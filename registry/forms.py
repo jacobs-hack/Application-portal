@@ -29,6 +29,8 @@ def _check_legal(self, cleaned_data):
 _general_fields_ = [
     'firstName', 'middleName', 'lastName', 
 
+    'gender', 'race', 
+
     'email', 'phoneNumber',
     
     'nationality', 'countryOfResidence', 
@@ -39,6 +41,8 @@ _general_labels_ = {
     "firstName": "First Name",
     "middleName": "Middle Name",
     "lastName": "Last Name",
+
+    "race": "Race/Ethnicity",
 
     "phoneNumber": "Phone Number",
     "countryOfResidence": "Country Of Residence",

@@ -1,3 +1,5 @@
+from django import forms
+
 from django.db import models
 from django_countries.fields import CountryField as OriginalCountryField
 from django_countries.fields import Country
@@ -54,6 +56,37 @@ class PhoneField(PhoneNumberField):
         defaults = {'widget': PhoneNumberInternationalFallbackWidget()}
         defaults.update(kwargs)
         return super().formfield(**defaults)
+
+
+class ListTextWidget(forms.TextInput):
+    def __init__(self, data_list, name, *args, **kwargs):
+        super(ListTextWidget, self).__init__(*args, **kwargs)
+        self._name = name
+        self._list = data_list
+        self.attrs.update({'list':'list__%s' % self._name})
+
+    def render(self, name, value, attrs=None):
+        text_html = super(ListTextWidget, self).render(name, value, attrs=attrs)
+        data_list = '<datalist id="list__%s">' % self._name
+        for item in self._list:
+            data_list += '<option value="%s">' % item
+        data_list += '</datalist>'
+
+        return (text_html + data_list)
+
+class FuzzyChoiceField(models.CharField):
+    def __init__(self, data=None, *args, **kwargs):
+        self.data = data
+        super().__init__(*args, **kwargs)
+    def formfield(self, **kwargs):
+        defaults = {'widget': ListTextWidget(self.data, self.name)}
+        defaults.update(kwargs)
+        return super().formfield(**defaults)
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        if self.data is not None:
+            kwargs['data'] = self.data
+        return name, path, args, kwargs
 
 class DegreeField(models.CharField):
     BACHELOR_ARTS = 'ba'
