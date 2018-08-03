@@ -57,11 +57,8 @@ class Hacker(models.Model):
     _mlh_coc_help_text = "I have read and agree to the <a href='https://mlh.io/code-of-conduct'>MLH Code of Conduct</a>. "
     mlhCodeOfConduct = models.BooleanField(help_text=_mlh_coc_help_text, blank=False)
 
-    _mlh_contest_terms = "I agree to the terms of both the <a href='https://github.com/MLH/mlh-policies/tree/master/prize-terms-and-conditions'>MLH Contest Terms</a> and the <a href='https://mlh.io/privacy' target='_blank'>MLH Privacy Policy</a>. "
+    _mlh_contest_terms = "I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the <a href='https://mlh.io/privacy' target='_blank'>MLH Privacy Policy</a>. I agree to the terms of both the <a href='https://github.com/MLH/mlh-policies/tree/master/prize-terms-and-conditions'>MLH Contest Terms</a> and the <a href='https://mlh.io/privacy' target='_blank'>MLH Privacy Policy</a>. "
     mlhContestTerms = models.BooleanField(help_text=_mlh_contest_terms, blank=False)
-
-    _mlh_sharing_terms = "I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the <a href='https://mlh.io/privacy' target='_blank'>MLH Privacy Policy</a>. "
-    mlhSharingConsent = models.BooleanField(help_text=_mlh_sharing_terms, blank=True)
 
     #
     # COMPONENTS MANAGEMENT

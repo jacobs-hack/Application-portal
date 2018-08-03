@@ -37,7 +37,7 @@ _general_fields_ = [
     
     'nationality', 'countryOfResidence', 
     
-    'jacobsHackTerms', 'mlhCodeOfConduct', 'mlhContestTerms', 'mlhSharingConsent'
+    'jacobsHackTerms', 'mlhCodeOfConduct', 'mlhContestTerms',
 ]
 _general_labels_ = {
     "firstName": "First Name",
@@ -53,7 +53,6 @@ _general_labels_ = {
     "jacobsHackTerms": "JacobsHack Terms & Conditions",
     "mlhCodeOfConduct": "MLH Code Of Conduct",
     "mlhContestTerms": "MLH Contest Terms & Privacy Policy",
-    "mlhSharingConsent": "MLH Data Sharing Consent",
 }
 _general_widgets_ = {}
 
