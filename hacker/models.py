@@ -40,14 +40,14 @@ class Hacker(models.Model):
     _terms_help_text = "I have read and agree to the <a href='/terms/' target='_blank'>JacobsHack Terms and Conditions</a>, including the <a href='/privacy/' target='_blank'>Privacy Policy</a>. "
     jacobsHackTerms = models.BooleanField(help_text=_terms_help_text, blank=False)
 
-    _mlh_coc_help_text = "I will at all times abide by and conform to the Major League Hacking <a href='https://mlh.io/code-of-conduct'>Code of Conduct</a> while at the event. "
+    _mlh_coc_help_text = "I have read and agree to the <a href='https://mlh.io/code-of-conduct'>MLH Code of Conduct</a>. "
     mlhCodeOfConduct = models.BooleanField(help_text=_mlh_coc_help_text, blank=False)
 
-    _mlh_contest_terms = "I agree to the terms of both the <a href='https://github.com/MLH/mlh-policies/tree/master/prize-terms-and-conditions'>MLH Contest Terms and Conditions</a> and the <a href='https://mlh.io/privacy' target='_blank'>MLH Privacy Policy</a>. "
+    _mlh_contest_terms = "I agree to the terms of both the <a href='https://github.com/MLH/mlh-policies/tree/master/prize-terms-and-conditions'>MLH Contest Terms</a> and the <a href='https://mlh.io/privacy' target='_blank'>MLH Privacy Policy</a>. "
     mlhContestTerms = models.BooleanField(help_text=_mlh_contest_terms, blank=False)
 
-    _mlh_email_consent = "Yes, I would like to receive informational e-mails and occasional messages about hackathons from MLH as per the MLH Privacy Policy above. "
-    mlhEmailConsent = models.BooleanField(help_text=_mlh_email_consent, blank=True)
+    _mlh_sharing_terms = "I authorize you to share my application/registration information for event administration, ranking, MLH administration, pre- and post-event informational e-mails, and occasional messages about hackathons in-line with the <a href='https://mlh.io/privacy' target='_blank'>MLH Privacy Policy</a>. "
+    mlhSharingConsent = models.BooleanField(help_text=_mlh_sharing_terms, blank=True)
 
     #
     # COMPONENTS MANAGEMENT

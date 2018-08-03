@@ -49,7 +49,7 @@ class RegistrationForm(forms.ModelForm):
 
     class Meta:
         model = Hacker
-        fields = ['firstName', 'middleName', 'lastName', 'email', 'nationality', 'jacobsHackTerms', 'mlhCodeOfConduct', 'mlhContestTerms', 'mlhEmailConsent']
+        fields = ['firstName', 'middleName', 'lastName', 'email', 'nationality', 'jacobsHackTerms', 'mlhCodeOfConduct', 'mlhContestTerms', 'mlhSharingConsent']
         labels = {
             "firstName": "First Name",
             "middleName": "Middle Name",
@@ -58,7 +58,7 @@ class RegistrationForm(forms.ModelForm):
             "jacobsHackTerms": "JacobsHack Terms & Conditions",
             "mlhCodeOfConduct": "MLH Code Of Conduct",
             "mlhContestTerms": "MLH Contest Terms & Privacy Policy",
-            "mlhEmailConsent": "MLH Newsletter",
+            "mlhSharingConsent": "MLH Data Sharing Consent",
         }
 
     def clean(self):
@@ -90,12 +90,12 @@ class RegistrationForm(forms.ModelForm):
 class HackerForm(forms.ModelForm):
     class Meta:
         model = Hacker
-        fields = ['firstName', 'middleName', 'lastName', 'email', 'nationality', 'jacobsHackTerms', 'mlhCodeOfConduct', 'mlhContestTerms', 'mlhEmailConsent']
+        fields = ['firstName', 'middleName', 'lastName', 'email', 'nationality', 'jacobsHackTerms', 'mlhCodeOfConduct', 'mlhContestTerms', 'mlhSharingConsent']
         labels = {
             "jacobsHackTerms": "JacobsHack Terms & Conditions",
             "mlhCodeOfConduct": "MLH Code Of Conduct",
             "mlhContestTerms": "MLH Contest Terms & Privacy Policy",
-            "mlhEmailConsent": "MLH Newsletter",
+            "mlhSharingConsent": "MLH Data Sharing Consent",
         }
     
     def clean(self):

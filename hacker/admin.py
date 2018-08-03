@@ -84,7 +84,7 @@ class HackerAdmin(admin.ModelAdmin):
         'profile__date_joined', 'profile__last_login',
 
         # Consent
-        'jacobsHackTerms', 'mlhCodeOfConduct', 'mlhContestTerms', 'mlhEmailConsent',
+        'jacobsHackTerms', 'mlhCodeOfConduct', 'mlhContestTerms', 'mlhSharingConsent',
 
         # 'Approval' Data
         'approval__approval',
