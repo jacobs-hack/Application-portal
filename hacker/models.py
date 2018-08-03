@@ -37,6 +37,8 @@ class Hacker(models.Model):
         help_text="You can select multiple options by holding the <em>Ctrl</em> key (or <em>Command</em> on Mac) while clicking",
         multiple=True)
 
+    countryOfResidence = fields.CountryField()
+
     _terms_help_text = "I have read and agree to the <a href='/terms/' target='_blank'>JacobsHack Terms and Conditions</a>, including the <a href='/privacy/' target='_blank'>Privacy Policy</a>. "
     jacobsHackTerms = models.BooleanField(help_text=_terms_help_text, blank=False)
 

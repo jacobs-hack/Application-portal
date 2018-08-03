@@ -90,7 +90,7 @@ class HackerAdmin(admin.ModelAdmin):
         'approval__approval',
 
         # Hacker Model
-        'firstName', 'middleName', 'lastName', 'email', 'nationality',
+        'firstName', 'middleName', 'lastName', 'email', 'nationality', 'countryOfResidence',
 
         # Academic Data
         'academic__university', 'academic__degree', 'academic__year',

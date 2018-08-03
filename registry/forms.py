@@ -21,7 +21,27 @@ def _check_legal(self, cleaned_data):
     if not cleaned_data.get('mlhContestTerms'):
         self.add_error('mlhContestTerms', forms.ValidationError(
             "You need to accept the MLH Contest Terms & Conditions to apply to JacobsHack. "))
-        raise forms.ValidationError("Please correct the error below.")  
+        raise forms.ValidationError("Please correct the error below.")
+
+_general_fields_ = [
+    'firstName', 'middleName', 'lastName', 
+    'email', 
+    
+    'nationality', 'countryOfResidence', 
+    
+    'jacobsHackTerms', 'mlhCodeOfConduct', 'mlhContestTerms', 'mlhSharingConsent'
+]
+_general_labels_ = {
+    "firstName": "First Name",
+    "middleName": "Middle Name",
+    "lastName": "Last Name",
+    "countryOfResidence": "Country Of Residence",
+    
+    "jacobsHackTerms": "JacobsHack Terms & Conditions",
+    "mlhCodeOfConduct": "MLH Code Of Conduct",
+    "mlhContestTerms": "MLH Contest Terms & Privacy Policy",
+    "mlhSharingConsent": "MLH Data Sharing Consent",
+}
 
 class RegistrationForm(forms.ModelForm):
     """ A form for registering users """
@@ -49,17 +69,8 @@ class RegistrationForm(forms.ModelForm):
 
     class Meta:
         model = Hacker
-        fields = ['firstName', 'middleName', 'lastName', 'email', 'nationality', 'jacobsHackTerms', 'mlhCodeOfConduct', 'mlhContestTerms', 'mlhSharingConsent']
-        labels = {
-            "firstName": "First Name",
-            "middleName": "Middle Name",
-            "lastName": "Last Name",
-            
-            "jacobsHackTerms": "JacobsHack Terms & Conditions",
-            "mlhCodeOfConduct": "MLH Code Of Conduct",
-            "mlhContestTerms": "MLH Contest Terms & Privacy Policy",
-            "mlhSharingConsent": "MLH Data Sharing Consent",
-        }
+        fields = _general_fields_
+        labels = _general_labels_
 
     def clean(self):
         # individual field's clean methods have already been called
@@ -90,13 +101,8 @@ class RegistrationForm(forms.ModelForm):
 class HackerForm(forms.ModelForm):
     class Meta:
         model = Hacker
-        fields = ['firstName', 'middleName', 'lastName', 'email', 'nationality', 'jacobsHackTerms', 'mlhCodeOfConduct', 'mlhContestTerms', 'mlhSharingConsent']
-        labels = {
-            "jacobsHackTerms": "JacobsHack Terms & Conditions",
-            "mlhCodeOfConduct": "MLH Code Of Conduct",
-            "mlhContestTerms": "MLH Contest Terms & Privacy Policy",
-            "mlhSharingConsent": "MLH Data Sharing Consent",
-        }
+        fields = _general_fields_
+        labels = _general_labels_
     
     def clean(self):
         # individual field's clean methods have already been called

@@ -34,6 +34,11 @@
                     <td>Nationality</td>
                     <td>{{ user.hacker |get_choice_field:"nationality"|join:"\n"|safe }}</td>
                 </tr>
+
+                <tr>
+                    <td>Country Of Residence</td>
+                    <td>{{ user.hacker |get_choice_field:"countryOfResidence"|join:"\n"|safe }}</td>
+                </tr>
             </tbody>
         </table>
 
