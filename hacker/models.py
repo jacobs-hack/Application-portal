@@ -40,8 +40,9 @@ class Hacker(models.Model):
         return ' '.join(names)
 
     email = models.EmailField(help_text="Your email address", unique=True)
-
     phoneNumber = fields.PhoneField()
+
+    dob = models.DateField()
     
     # TODO: Better handling of multiple nationalities
     nationality = fields.CountryField(

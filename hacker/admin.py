@@ -91,7 +91,7 @@ class HackerAdmin(admin.ModelAdmin):
 
         # Hacker Model
         'firstName', 'middleName', 'lastName', 
-        'gender', 'race',
+        'dob', 'gender', 'race',
         'email', 'phoneNumber', 
         'nationality', 'countryOfResidence',
 

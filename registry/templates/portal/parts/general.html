@@ -26,13 +26,8 @@
                 </tr>
 
                 <tr>
-                    <td>E-Mail</td>
-                    <td>{{ user.hacker.email|safe }}</td>
-                </tr>
-
-                <tr>
-                    <td>Phone Number</td>
-                    <td>{{ user.hacker.phoneNumber|safe }}</td>
+                    <td>Date Of Birth</td>
+                    <td>{{ user.hacker.dob|date:"Y-m-d" }}</td>
                 </tr>
 
                 <tr>
@@ -43,6 +38,16 @@
                 <tr>
                     <td>Race</td>
                     <td>{{ user.hacker.race|safe }}</td>
+                </tr>
+
+                <tr>
+                    <td>E-Mail</td>
+                    <td>{{ user.hacker.email|safe }}</td>
+                </tr>
+
+                <tr>
+                    <td>Phone Number</td>
+                    <td>{{ user.hacker.phoneNumber|safe }}</td>
                 </tr>
                 
                 <tr>

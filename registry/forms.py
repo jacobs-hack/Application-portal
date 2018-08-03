@@ -4,6 +4,8 @@ from django.contrib.auth import password_validation
 from hacker.models import Hacker, HackathonApplication, AcademicData, Organizational, CV
 from django.contrib.auth.models import User
 
+from django.conf import settings
+
 from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
 
 
@@ -29,7 +31,7 @@ def _check_legal(self, cleaned_data):
 _general_fields_ = [
     'firstName', 'middleName', 'lastName', 
 
-    'gender', 'race', 
+    'dob', 'gender', 'race', 
 
     'email', 'phoneNumber',
     
@@ -42,6 +44,7 @@ _general_labels_ = {
     "middleName": "Middle Name",
     "lastName": "Last Name",
 
+    "dob": "Date Of Birth",
     "race": "Race/Ethnicity",
 
     "phoneNumber": "Phone Number",
@@ -77,6 +80,8 @@ class RegistrationForm(forms.ModelForm):
         widget=forms.PasswordInput,
         help_text='Re-enter your password'
     )
+
+    dob = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, label="Date Of Birth", help_text="Date of birth in <em>yyyy-mm-dd</em> format")
 
     class Meta:
         model = Hacker
@@ -116,6 +121,8 @@ class HackerForm(forms.ModelForm):
         fields = _general_fields_
         labels = _general_labels_
         widgets = _general_widgets_
+    
+    dob = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, label="Date Of Birth", help_text="Date of birth in <em>yyyy-mm-dd</em> format")
     
     def clean(self):
         # individual field's clean methods have already been called
