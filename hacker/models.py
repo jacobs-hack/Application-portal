@@ -115,7 +115,7 @@ class AcademicData(models.Model):
 
     degree = fields.DegreeField(help_text="Which academic degree are you hoping to achieve?")
     year = fields.YearField(help_text="estimate the year during which you are expected to graduate")
-    university = fields.UniField(help_text="use other if not listed")
+    school = fields.FuzzyChoiceField(data=fields.schools, max_length=255)
 
 
 @Hacker.register_component

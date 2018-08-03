@@ -8,8 +8,8 @@
         <table class="uk-table uk-table-small">
             <tbody>
                 <tr>
-                    <td>University</td>
-                    <td>{{ user.hacker.academic|get_choice_field:"university"|safe }}</td>
+                    <td>School</td>
+                    <td>{{ user.hacker.academic.school|safe }}</td>
                 </tr>
                 <tr>
                     <td>Degree</td>

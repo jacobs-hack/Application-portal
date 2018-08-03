@@ -60,7 +60,7 @@ class HackerAdmin(admin.ModelAdmin):
         # basic information
         'fullName', 'email', 'userApproval', 'completedSetup',
 
-        'university', 'degree', 'year',
+        'school', 'degree', 'year',
 
         'shirtSize',
     )
@@ -69,7 +69,7 @@ class HackerAdmin(admin.ModelAdmin):
     list_filter = (
         'approval__approval', SetupCompleted,
 
-        'academic__university', 'academic__degree', 'academic__year',
+        'academic__school', 'academic__degree', 'academic__year',
 
         'application__firstHackathon',
 
@@ -96,7 +96,7 @@ class HackerAdmin(admin.ModelAdmin):
         'nationality', 'countryOfResidence',
 
         # Academic Data
-        'academic__university', 'academic__degree', 'academic__year',
+        'academic__school', 'academic__degree', 'academic__year',
 
         # Hackathon Application
         'application__whyJacobsHack', 'application__firstHackathon',
@@ -129,20 +129,20 @@ class HackerAdmin(admin.ModelAdmin):
     userApproval.boolean = 'true'
     userApproval.admin_order_field = 'approval__approval'
 
-    def university(self, x):
-        return x.academic.university
-    university.short_description = 'University'
-    university.admin_order_field = 'academic__university'
+    def school(self, x):
+        return x.academic.school
+    school.short_description = 'School'
+    school.admin_order_field = 'academic__school'
 
     def degree(self, x):
         return x.academic.degree
-    university.short_description = 'Degree'
-    university.admin_order_field = 'academic__degree'
+    degree.short_description = 'Degree'
+    degree.admin_order_field = 'academic__degree'
 
     def year(self, x):
         return x.academic.year
-    university.short_description = 'Year'
-    university.admin_order_field = 'academic__year'
+    year.short_description = 'Year'
+    year.admin_order_field = 'academic__year'
 
     def shirtSize(self, x):
         return x.organizational.shirtSize

@@ -132,10 +132,10 @@ class AcademicForm(forms.ModelForm):
     class Meta:
         model = AcademicData
         fields = [
-            'university', 'degree', 'year',
+            'school', 'degree', 'year',
         ]
         labels = {
-            'university': 'Which university are you from?',
+            'school': 'Which school are you from?',
             'degree': 'Degree',
             'year': 'Expected Graduation',
         }

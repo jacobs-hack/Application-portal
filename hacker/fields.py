@@ -151,8 +151,21 @@ class YearField(models.IntegerField):
         return name, path, args, kwargs
 
 
+def _clean_school_name(name):
+    name = name.strip()
+    if name[0] == '"' and name[-1] == '"':
+        name = name[1:-1]
+    return name
+def _read_school_choices():
+    import os.path
+    schoolcsv = os.path.join(os.path.dirname(__file__), "schools.csv")
+    with open(schoolcsv) as f:
+        content = f.readlines()
+    return [_clean_school_name(l) for l in content][1:]
+schools = _read_school_choices()
+
+# This isn't used anymore, but we still need the class because of migrations
 class UniField(models.CharField):
-    # TODO: Update this list
     JACOBS = "JACOBS"
     OTHER = "OTHER"
 
