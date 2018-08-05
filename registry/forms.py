@@ -26,7 +26,7 @@ class HackerForm(forms.ModelForm):
             "lastName": "Last Name",
             
             "dob": "Date Of Birth",
-            "race": "Race/Ethnicity",
+            "race": "Race / Ethnicity",
             
             "phoneNumber": "Phone Number",
             "countryOfResidence": "Country Of Residence",
@@ -39,7 +39,7 @@ class HackerForm(forms.ModelForm):
     dob = forms.DateField(
         input_formats=settings.DATE_INPUT_FORMATS, 
         label="Date Of Birth", 
-        help_text="Date of birth in <em>yyyy-mm-dd</em> format",
+        help_text="The date you were born. You need to be at least {} years of age to participate in jacobsHack!. ".format(settings.MIN_HACKER_AGE),
         widget=DatePickerInput()
     )
     
@@ -51,19 +51,19 @@ class HackerForm(forms.ModelForm):
         if not cleaned_data.get('jacobsHackTerms'):
             self.add_error('jacobsHackTerms', forms.ValidationError(
                 "You need to accept the JacobsHack Terms and Conditions to apply to JacobsHack. "))
-            raise forms.ValidationError("Please correct the error below.")
+            raise forms.ValidationError("Please correct the error below. ")
         
         # check that we have accepted the MLH Code Of Conduct
         if not cleaned_data.get('mlhCodeOfConduct'):
             self.add_error('mlhCodeOfConduct', forms.ValidationError(
                 "You need to accept the MLH Code of Conduct to apply to JacobsHack. "))
-            raise forms.ValidationError("Please correct the error below.")
+            raise forms.ValidationError("Please correct the error below. ")
         
         # check that we have accepted the MLT Terms & Conditions
         if not cleaned_data.get('mlhContestTerms'):
             self.add_error('mlhContestTerms', forms.ValidationError(
                 "You need to accept the MLH Contest Terms & Conditions to apply to JacobsHack. "))
-            raise forms.ValidationError("Please correct the error below.")
+            raise forms.ValidationError("Please correct the error below. ")
         
         dob = cleaned_data.get('dob')
         today = datetime.date.today()
@@ -72,7 +72,7 @@ class HackerForm(forms.ModelForm):
         if age < settings.MIN_HACKER_AGE:
             self.add_error('dob', forms.ValidationError(
                 "We are not allowed to accept applications of minors for JacobsHack. Please apply once you are older than {} years of age. ".format(settings.MIN_HACKER_AGE)))
-            raise forms.ValidationError("Please correct the error below.")
+            raise forms.ValidationError("Please correct the error below. ")
         
         return super(HackerForm, self).clean()
 
@@ -82,8 +82,8 @@ class RegistrationForm(HackerForm):
 
     _username_help_text = """
         Select your username for the JacobsHack Application Portal. 
-        We recommend the first leter of your first name and full last name 
-        e.g. <em>hackerman</em> for <em>Huber Ackerman</em>
+        We recommend the first letter of your first name and full last name 
+        e.g. <em>hackerman</em> for <em>Huber Ackerman</em>. 
     """
 
     username = forms.SlugField(label='Username',
@@ -98,7 +98,7 @@ class RegistrationForm(HackerForm):
         label="Password Confirmation",
         strip=False,
         widget=forms.PasswordInput,
-        help_text='Re-enter your password'
+        help_text='Re-enter your password. '
     )
 
     def clean(self):
@@ -112,7 +112,7 @@ class RegistrationForm(HackerForm):
         if password1 != password2:
             self.add_error('password2', forms.ValidationError(
                 "Please make sure that the password you entered is correct. "))
-            raise forms.ValidationError("Please correct the error below.")
+            raise forms.ValidationError("Please correct the error below. ")
 
         # check that the username doesn't already exist
         username = cleaned_data.get("username")
@@ -120,7 +120,7 @@ class RegistrationForm(HackerForm):
         if User.objects.filter(username=username).exists():
             self.add_error('username', forms.ValidationError(
                 "This username is already taken, please pick another. "))
-            raise forms.ValidationError("Please correct the error below.")
+            raise forms.ValidationError("Please correct the error below. ")
         
         return super().clean()
 
@@ -133,8 +133,6 @@ class AcademicForm(forms.ModelForm):
             'school', 'degree', 'major', 'year',
         ]
         labels = {
-            'school': 'Which school are you from?',
-            'degree': 'Degree',
             'year': 'Expected Graduation',
         }
 
@@ -165,8 +163,8 @@ class OrganizationalForm(forms.ModelForm):
         ]
         labels = {
             'shirtSize': 'T-Shirt Size',
-            'needVisa': '',
-            'needReimbursement': '',
+            'needVisa': 'Visa',
+            'needReimbursement': 'Travel Reimbursement',
             'dietaryRequirements': 'Dietary Requirements',
             'comments': 'Other Organizational Comments'
         }

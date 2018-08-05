@@ -16,10 +16,10 @@ class Hacker(models.Model):
     profile = models.OneToOneField(User)
 
     # name and basic contact information
-    firstName = models.CharField(max_length=255, help_text="Your first name")
+    firstName = models.CharField(max_length=255, help_text="Your first name. ")
     middleName = models.CharField(max_length=255, blank=True, null=True,
-                                  help_text="Your middle name(s)")
-    lastName = models.CharField(max_length=255, help_text="Your last name")
+                                  help_text="Your middle name(s). ")
+    lastName = models.CharField(max_length=255, help_text="Your last name. ")
     
     _gender_choices_ = ['Male', 'Female', 'Prefer Not to Answer']
     _gender_help_string_ = 'Pick one of {} or specify a custom one. '.format(' , '.join(map(repr, _gender_choices_)))
@@ -39,14 +39,14 @@ class Hacker(models.Model):
         names.append(self.lastName)
         return ' '.join(names)
 
-    email = models.EmailField(help_text="Your email address", unique=True)
-    phoneNumber = fields.PhoneField()
+    email = models.EmailField(help_text="Your email address. ", unique=True)
+    phoneNumber = fields.PhoneField(help_text="A phone number where we can contact you in case of emergencies. Ideally a mobile number you are reachable at during the event. ", )
 
     dob = models.DateField()
     
     # TODO: Better handling of multiple nationalities
     nationality = fields.CountryField(
-        help_text="You can select multiple options by holding the <em>Ctrl</em> key (or <em>Command</em> on Mac) while clicking",
+        help_text="You can select multiple options by holding the <em>Ctrl</em> key (or <em>Command</em> on Mac) while clicking on your nationality. ",
         multiple=True)
 
     countryOfResidence = fields.CountryField()
@@ -111,10 +111,10 @@ class AcademicData(models.Model):
 
     hacker = models.OneToOneField(Hacker, related_name='academic')
 
-    degree = fields.DegreeField(help_text="Which academic degree are you hoping to achieve?")
-    major = models.CharField(max_length=255, help_text="What is your current major?")
-    year = fields.YearField(help_text="estimate the year during which you are expected to graduate")
-    school = fields.FuzzyChoiceField(data=fields.schools, max_length=255)
+    degree = fields.DegreeField(help_text="Which academic degree are you hoping to achieve? ")
+    major = models.CharField(max_length=255, help_text="What is your current major? ")
+    year = fields.YearField(help_text="What year do you expect to graduate? ")
+    school = fields.FuzzyChoiceField(data=fields.schools, max_length=255, help_text="Which school do you come from? Pick one from the list or type your own if it is not listed. ")
 
 
 @Hacker.register_component
@@ -126,7 +126,7 @@ class HackathonApplication(models.Model):
     whyJacobsHack = models.TextField()
 
     firstHackathon = models.BooleanField(default=False, blank=True,
-                                   help_text="JacobsHack is my first Hackathon")
+                                   help_text="JacobsHack is my first Hackathon. ")
 
     whatHaveYouBuilt = models.TextField(help_text="E.g. GitHub Link, Devpost, Personal Projects ...")
 
@@ -139,10 +139,10 @@ class Organizational(models.Model):
     shirtSize = fields.ShirtSizeField(help_text="Select your EU T-Shirt size. ")
 
     needVisa = models.BooleanField(default=False, blank=True,
-                                   help_text="I need a Visa to come to Germany and attend JacobsHack")
+                                   help_text="I need a Visa to come to Germany and attend JacobsHack. ")
 
     needReimbursement = models.BooleanField(default=False, blank=True, 
-                                    help_text="Are you coming from outside of Bremen?")
+                                    help_text="I am coming from outside of Bremen and would like to apply for travel reimbursement. Subject to the <a href='/terms/' target='_blank'>Terms &amp; Conditions</a>. ")
 
     dietaryRequirements = models.TextField(blank=True,
                                            help_text="e.g. Vegan, Vegetarian, Gluten-free ...")
@@ -164,7 +164,7 @@ class CV(models.Model):
         validators=[validate_extension],
         null=True,
         blank=True,
-        help_text="Your CV (optional)"
+        help_text="Optionally upload your CV here. Uploading your CV <b>does not</b> constitute consent to transmitting the CV to our sponsors. We will contact you regarding this seperatly. "
     )
 
     @property

@@ -16,6 +16,10 @@
                     <td>{{ user.hacker.organizational.needVisa|print_boolean }}</td>
                 </tr>
                 <tr>
+                    <td>Travel Reimbursment</td>
+                    <td>{{ user.hacker.organizational.needReimbursement|print_boolean }}</td>
+                </tr>
+                <tr>
                     <td>Dietary Requirements</td>
                     <td>{{ user.hacker.organizational.dietaryRequirements|safe }}</td>
                 </tr>
