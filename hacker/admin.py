@@ -62,18 +62,18 @@ class HackerAdmin(admin.ModelAdmin):
 
         'school', 'degree', 'year',
 
-        'shirtSize',
+        'shirtSize', 'needVisa', 'needReimbursement'
     )
 
     # Fields that can be dynamically filtered for
     list_filter = (
-        'approval__approval', SetupCompleted,
+        'approval__approval', SetupCompleted, 
 
         'academic__school', 'academic__degree', 'academic__year',
 
         'application__firstHackathon',
 
-        'organizational__shirtSize',
+        'organizational__shirtSize', 'organizational__needVisa', 'organizational__needReimbursement',
     )
 
     # List of all fields, for the xslx export
@@ -148,6 +148,18 @@ class HackerAdmin(admin.ModelAdmin):
         return x.organizational.shirtSize
     shirtSize.short_description = 'Shirt Size'
     shirtSize.admin_order_field = 'organizational__shirtSize'
+
+    def needVisa(self, x):
+        return x.organizational.needVisa
+    needVisa.short_description = 'Visa'
+    needVisa.boolean = True
+    needVisa.admin_order_field = 'organizational__needVisa'
+
+    def needReimbursement(self, x):
+        return x.organizational.needReimbursement
+    needReimbursement.short_description = 'Reimbursment'
+    needReimbursement.boolean = True
+    needReimbursement.admin_order_field = 'organizational__needReimbursement'
 
     def completedSetup(self, x):
         try:
