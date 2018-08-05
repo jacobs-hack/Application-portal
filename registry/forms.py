@@ -10,65 +10,69 @@ from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
 
 import datetime
 
-def _check_hacker_(self, cleaned_data):
-    # check that we have accepted the terms and conditions
-    if not cleaned_data.get('jacobsHackTerms'):
-        self.add_error('jacobsHackTerms', forms.ValidationError(
-            "You need to accept the JacobsHack Terms and Conditions to apply to JacobsHack. "))
-        raise forms.ValidationError("Please correct the error below.")
+class HackerForm(forms.ModelForm):
+    class Meta:
+        model = Hacker
+        fields = [
+            'firstName', 'middleName', 'lastName', 
+            'dob', 'gender', 'race',
+            'email', 'phoneNumber',
+            'nationality', 'countryOfResidence', 
+            'jacobsHackTerms', 'mlhCodeOfConduct', 'mlhContestTerms',
+        ]
+        labels = {
+            "firstName": "First Name",
+            "middleName": "Middle Name",
+            "lastName": "Last Name",
+            
+            "dob": "Date Of Birth",
+            "race": "Race/Ethnicity",
+            
+            "phoneNumber": "Phone Number",
+            "countryOfResidence": "Country Of Residence",
+            
+            "jacobsHackTerms": "JacobsHack Terms & Conditions",
+            "mlhCodeOfConduct": "MLH Code Of Conduct",
+            "mlhContestTerms": "MLH Contest Terms & Privacy Policy",
+        }
     
-    # check that we have accepted the MLH Code Of Conduct
-    if not cleaned_data.get('mlhCodeOfConduct'):
-        self.add_error('mlhCodeOfConduct', forms.ValidationError(
-            "You need to accept the MLH Code of Conduct to apply to JacobsHack. "))
-        raise forms.ValidationError("Please correct the error below.")
+    dob = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, label="Date Of Birth", help_text="Date of birth in <em>yyyy-mm-dd</em> format")
     
-    # check that we have accepted the MLT Terms & Conditions
-    if not cleaned_data.get('mlhContestTerms'):
-        self.add_error('mlhContestTerms', forms.ValidationError(
-            "You need to accept the MLH Contest Terms & Conditions to apply to JacobsHack. "))
-        raise forms.ValidationError("Please correct the error below.")
-    
-    dob = cleaned_data.get('dob')
-    today = datetime.date.today()
-    age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
+    def clean(self):
+        # individual field's clean methods have already been called
+        cleaned_data = self.cleaned_data
 
-    if age < settings.MIN_HACKER_AGE:
-        self.add_error('dob', forms.ValidationError(
-            "We are not allowed to accept applications of minors for JacobsHack. Please apply once you are older than {} years of age. ".format(settings.MIN_HACKER_AGE)))
-        raise forms.ValidationError("Please correct the error below.")
-    
+        # check that we have accepted the terms and conditions
+        if not cleaned_data.get('jacobsHackTerms'):
+            self.add_error('jacobsHackTerms', forms.ValidationError(
+                "You need to accept the JacobsHack Terms and Conditions to apply to JacobsHack. "))
+            raise forms.ValidationError("Please correct the error below.")
         
+        # check that we have accepted the MLH Code Of Conduct
+        if not cleaned_data.get('mlhCodeOfConduct'):
+            self.add_error('mlhCodeOfConduct', forms.ValidationError(
+                "You need to accept the MLH Code of Conduct to apply to JacobsHack. "))
+            raise forms.ValidationError("Please correct the error below.")
+        
+        # check that we have accepted the MLT Terms & Conditions
+        if not cleaned_data.get('mlhContestTerms'):
+            self.add_error('mlhContestTerms', forms.ValidationError(
+                "You need to accept the MLH Contest Terms & Conditions to apply to JacobsHack. "))
+            raise forms.ValidationError("Please correct the error below.")
+        
+        dob = cleaned_data.get('dob')
+        today = datetime.date.today()
+        age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
 
-_general_fields_ = [
-    'firstName', 'middleName', 'lastName', 
+        if age < settings.MIN_HACKER_AGE:
+            self.add_error('dob', forms.ValidationError(
+                "We are not allowed to accept applications of minors for JacobsHack. Please apply once you are older than {} years of age. ".format(settings.MIN_HACKER_AGE)))
+            raise forms.ValidationError("Please correct the error below.")
+        
+        return super(HackerForm, self).clean()
 
-    'dob', 'gender', 'race', 
 
-    'email', 'phoneNumber',
-    
-    'nationality', 'countryOfResidence', 
-    
-    'jacobsHackTerms', 'mlhCodeOfConduct', 'mlhContestTerms',
-]
-_general_labels_ = {
-    "firstName": "First Name",
-    "middleName": "Middle Name",
-    "lastName": "Last Name",
-
-    "dob": "Date Of Birth",
-    "race": "Race/Ethnicity",
-
-    "phoneNumber": "Phone Number",
-    "countryOfResidence": "Country Of Residence",
-    
-    "jacobsHackTerms": "JacobsHack Terms & Conditions",
-    "mlhCodeOfConduct": "MLH Code Of Conduct",
-    "mlhContestTerms": "MLH Contest Terms & Privacy Policy",
-}
-_general_widgets_ = {}
-
-class RegistrationForm(forms.ModelForm):
+class RegistrationForm(HackerForm):
     """ A form for registering users """
 
     _username_help_text = """
@@ -92,14 +96,6 @@ class RegistrationForm(forms.ModelForm):
         help_text='Re-enter your password'
     )
 
-    dob = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, label="Date Of Birth", help_text="Date of birth in <em>yyyy-mm-dd</em> format")
-
-    class Meta:
-        model = Hacker
-        fields = _general_fields_
-        labels = _general_labels_
-        widgets = _general_widgets_
-
     def clean(self):
         # individual field's clean methods have already been called
         cleaned_data = self.cleaned_data
@@ -121,28 +117,7 @@ class RegistrationForm(forms.ModelForm):
                 "This username is already taken, please pick another. "))
             raise forms.ValidationError("Please correct the error below.")
         
-        _check_hacker_(self, cleaned_data)
-
-        return super(RegistrationForm, self).clean()
-
-
-class HackerForm(forms.ModelForm):
-    class Meta:
-        model = Hacker
-        fields = _general_fields_
-        labels = _general_labels_
-        widgets = _general_widgets_
-    
-    dob = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, label="Date Of Birth", help_text="Date of birth in <em>yyyy-mm-dd</em> format")
-    
-    def clean(self):
-        # individual field's clean methods have already been called
-        cleaned_data = self.cleaned_data
-
-        _check_hacker_(self, cleaned_data)
-
-        return super(HackerForm, self).clean()
-
+        return super().clean()
 
 class AcademicForm(forms.ModelForm):
     """ A form for saving the users academic data """
