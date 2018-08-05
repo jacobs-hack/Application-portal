@@ -54,7 +54,7 @@ def register(request):
         'form': form,
         'title': 'Register',
         'subtitle': 'Enter your General Information',
-        'next_text': 'Start JacobsHack Application',
+        'next_text': 'Start JacobsHack! Application',
         'with_files': False
     })
 
@@ -124,9 +124,9 @@ def setupViewFactory(prop, FormClass, name, subtitle, with_files=False):
 
 academic = setupViewFactory('academic', AcademicForm,
                             'Academic Data',
-                            'tell us why you are eligible for JacobsHack')
+                            'tell us why you are eligible for jacobsHack!')
 application = setupViewFactory('application', ApplicationForm,
-                               'JacobsHack Application',
+                               'jacobsHack! Application',
                                'tell us your reasons for applying')
 
 organizational = setupViewFactory('organizational', OrganizationalForm,

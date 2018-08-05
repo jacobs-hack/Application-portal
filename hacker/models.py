@@ -51,7 +51,7 @@ class Hacker(models.Model):
 
     countryOfResidence = fields.CountryField()
 
-    _terms_help_text = "I have read and agree to the <a href='/terms/' target='_blank'>JacobsHack Terms and Conditions</a>, including the <a href='/privacy/' target='_blank'>Privacy Policy</a>. "
+    _terms_help_text = "I have read and agree to the <a href='/terms/' target='_blank'>JacobsHack! Terms and Conditions</a>, including the <a href='/privacy/' target='_blank'>Privacy Policy</a>. "
     jacobsHackTerms = models.BooleanField(help_text=_terms_help_text, blank=False)
 
     _mlh_coc_help_text = "I have read and agree to the <a href='https://mlh.io/code-of-conduct'>MLH Code of Conduct</a>. "
@@ -126,7 +126,7 @@ class HackathonApplication(models.Model):
     whyJacobsHack = models.TextField()
 
     firstHackathon = models.BooleanField(default=False, blank=True,
-                                   help_text="JacobsHack is my first Hackathon. ")
+                                   help_text="JacobsHack! is my first Hackathon. ")
 
     whatHaveYouBuilt = models.TextField(help_text="E.g. GitHub Link, Devpost, Personal Projects ...")
 
@@ -139,7 +139,7 @@ class Organizational(models.Model):
     shirtSize = fields.ShirtSizeField(help_text="Select your EU T-Shirt size. ")
 
     needVisa = models.BooleanField(default=False, blank=True,
-                                   help_text="I need a Visa to come to Germany and attend JacobsHack. ")
+                                   help_text="I need a Visa to come to Germany and attend JacobsHack!. ")
 
     needReimbursement = models.BooleanField(default=False, blank=True, 
                                     help_text="I am coming from outside of Bremen and would like to apply for travel reimbursement. Subject to the <a href='/terms/' target='_blank'>Terms &amp; Conditions</a>. ")

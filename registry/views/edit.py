@@ -77,7 +77,7 @@ academic = editViewFactory('academic',
 
 application = editViewFactory('application',
                               ApplicationForm,
-                               'JacobsHack Application')
+                               'jacobsHack! Application')
 
 organizational = editViewFactory('organizational',
                                  OrganizationalForm,

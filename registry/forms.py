@@ -31,7 +31,7 @@ class HackerForm(forms.ModelForm):
             "phoneNumber": "Phone Number",
             "countryOfResidence": "Country Of Residence",
             
-            "jacobsHackTerms": "JacobsHack Terms & Conditions",
+            "jacobsHackTerms": "JacobsHack! Terms & Conditions",
             "mlhCodeOfConduct": "MLH Code Of Conduct",
             "mlhContestTerms": "MLH Contest Terms & Privacy Policy",
         }
@@ -81,7 +81,7 @@ class RegistrationForm(HackerForm):
     """ A form for registering users """
 
     _username_help_text = """
-        Select your username for the JacobsHack Application Portal. 
+        Select your username for the JacobsHack! Application Portal. 
         We recommend the first letter of your first name and full last name 
         e.g. <em>hackerman</em> for <em>Huber Ackerman</em>. 
     """
