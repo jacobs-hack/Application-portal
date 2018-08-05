@@ -1,12 +1,12 @@
 from django import forms
+from django.conf import settings
 from django.contrib.auth import password_validation
-
-from hacker.models import Hacker, HackathonApplication, AcademicData, Organizational, CV
 from django.contrib.auth.models import User
 
-from django.conf import settings
+from hacker.models import Hacker, HackathonApplication, AcademicData, Organizational, CV
 
 from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
+from django_forms_uikit.widgets import DatePickerInput
 
 import datetime
 
@@ -36,7 +36,12 @@ class HackerForm(forms.ModelForm):
             "mlhContestTerms": "MLH Contest Terms & Privacy Policy",
         }
     
-    dob = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS, label="Date Of Birth", help_text="Date of birth in <em>yyyy-mm-dd</em> format")
+    dob = forms.DateField(
+        input_formats=settings.DATE_INPUT_FORMATS, 
+        label="Date Of Birth", 
+        help_text="Date of birth in <em>yyyy-mm-dd</em> format",
+        widget=DatePickerInput()
+    )
     
     def clean(self):
         # individual field's clean methods have already been called
