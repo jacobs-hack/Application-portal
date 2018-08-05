@@ -18,6 +18,7 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
+from django.shortcuts import redirect
 
 from .views import registry as registry_views
 from .views import setup as setup_views
@@ -33,9 +34,9 @@ urlpatterns = [
     url(r'^$', registry_views.home, name='portal'),
 
     # Static requirements
-    url(r'^imprint/$', TemplateView.as_view(template_name="static/imprint.html"), name='imprint'),
-    url(r'^terms/$', TemplateView.as_view(template_name="static/terms.html"), name='terms'),
-    url(r'^privacy/$', TemplateView.as_view(template_name="static/privacy.html"), name='privacy'),
+    url(r'^imprint/$', lambda request: redirect(settings.IMPRINT_URL), name='imprint'),
+    url(r'^terms/$', lambda request: redirect(settings.TERMS_URL), name='terms'),
+    url(r'^privacy/$', lambda request: redirect(settings.PRIVACY_URL), name='privacy'),
 
     # Login / Logout
     url(r'^login/$', auth_views.login, {'template_name': 'auth/login.html'},

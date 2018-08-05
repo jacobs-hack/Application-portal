@@ -35,6 +35,11 @@ PHONENUMBER_DEFAULT_REGION = 'DE'
 # Minimum Age to participate in JacobsHack
 MIN_HACKER_AGE = 18
 
+# External URL for Legal stuffs
+IMPRINT_URL = "https://jacobshack.com/imprint/"
+TERMS_URL = "https://jacobshack.com/terms/"
+PRIVACY_URL = "https://jacobshack.com/privacy/"
+
 # Application definition
 
 INSTALLED_APPS = [
