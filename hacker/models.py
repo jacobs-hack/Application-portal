@@ -4,9 +4,9 @@ from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.validators import FileExtensionValidator
 
 from . import fields
-from .validators import validate_extension
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -161,7 +161,7 @@ class CV(models.Model):
     hacker = models.OneToOneField(Hacker, related_name='cv')
     cv = models.FileField(
         upload_to=upload_to,
-        validators=[validate_extension],
+        validators=[FileExtensionValidator(allowed_extensions=["pdf"])],
         null=True,
         blank=True,
         help_text="Optionally upload your CV here. Uploading your CV <b>does not</b> constitute consent to transmitting the CV to our sponsors. We will contact you regarding this seperatly. "

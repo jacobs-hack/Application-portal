@@ -1,4 +1,5 @@
 # https://code.djangoproject.com/ticket/22999
+### This file is broken, but still needed by some of the old migrations
 
 from django.utils.deconstruct import deconstructible
 import os
