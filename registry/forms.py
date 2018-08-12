@@ -39,7 +39,7 @@ class HackerForm(forms.ModelForm):
     dob = forms.DateField(
         input_formats=settings.DATE_INPUT_FORMATS, 
         label="Date Of Birth", 
-        help_text="The date you were born. You need to be at least {} years of age to participate in jacobsHack!. ".format(settings.MIN_HACKER_AGE),
+        help_text="The date you were born. You need to be at least {} years of age to participate in jacobsHack!. Use either the datepicker widget or enter it in <em>%Y-%m-%d</em> format. ".format(settings.MIN_HACKER_AGE),
         widget=DatePickerInput()
     )
     
