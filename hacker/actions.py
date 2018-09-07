@@ -1,10 +1,11 @@
 import unicodecsv
 import openpyxl
-from openpyxl import styles
-from openpyxl.cell import cell
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 
+from openpyxl import styles
+from openpyxl.cell import cell
 
 def get_direct_prop(obj, fields):
     """ Gets a model property of an object """
@@ -46,6 +47,44 @@ def get_model_prop(modeladmin, obj, field, default=None):
                 return default
     except ObjectDoesNotExist:
         return default
+
+
+def export_as_csv_action(description="Export selected objects as CSV file",
+                         fields=None, header=True):
+    """
+        Return an action that exports the given fields as CSV files
+    """
+
+    def export_as_csv(modeladmin, request, queryset):
+
+        # Get fields to export
+        opts = modeladmin.model._meta
+        if not fields:
+            field_names = [field.name for field in opts.fields]
+        else:
+            field_names = fields
+
+        # write a response header
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=%s.csv' % str(
+            opts).replace('.', '_')
+
+        # Create a CSV file
+        writer = unicodecsv.writer(response, encoding='utf-8')
+
+        # Write the header
+        if header:
+            writer.writerow(field_names)
+
+        # Write the content rows
+        for row in queryset.values_list(*field_names):
+            writer.writerow(row)
+
+        # And return
+        return response
+
+    export_as_csv.short_description = description
+    return export_as_csv
 
 def to_excel(value):
     """ Turns any value into a value understood by excel """
@@ -89,41 +128,35 @@ def export_as_xslx_action(description="Export selected objects as XSLX file",
 
         # Create a new workbook
         wb = openpyxl.Workbook()
-        wb_row = 0
-        ws = wb.get_active_sheet()
+        ws = wb.active
         ws.title = str(opts).replace('.', '_')
-
 
         # Write the header (if desired)
         if header:
-            for i, field in enumerate(field_names):
-                c = ws.cell(row=wb_row + 1, column=i + 1)
-                c.value = field
+            def makeHeaderCell(field):
+                c = cell.Cell(ws, value=field)
                 c.font = styles.Font(bold=True)
-            wb_row += 1
+                return c
+            ws.append([makeHeaderCell(field) for field in field_names])
 
         # Write each of the rows
-        for obj in queryset:
-            for i, field in enumerate(field_names):
-                c = ws.cell(row=wb_row + 1, column=i + 1)
-
-                # Get the excel value and store it into the field
-                prop = get_model_prop(modeladmin, obj, field)
+        for row in queryset.values_list(*field_names):
+            def makeCell(prop):
                 try:
-                    c.value = to_excel(prop)
+                    return to_excel(prop)
                 except:
-                    c.value = str(prop)
-            wb_row += 1
+                    return str(prop)
+            ws.append([makeCell(c) for c in row])
 
         # adjust column widths
         # adapted from https://stackoverflow.com/a/39530676
         for col in ws.columns:
             max_length = 0
             column = col[0].column  # Get the column name
-            for cell in col:
+            for c in col:
                 try:
-                    if len(str(cell.value)) > max_length:
-                        max_length = len(cell.value)
+                    if len(str(c.value)) > max_length:
+                        max_length = len(c.value)
                 except:
                     pass
             adjusted_width = (max_length + 2) * 1.2
