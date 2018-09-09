@@ -8,7 +8,9 @@ from django.shortcuts import render, redirect
 from registry.views.registry import default_alternative
 from ..decorators import require_setup_completed
 
-from ..forms import HackerForm, AcademicForm, ApplicationForm, OrganizationalForm, CVForm
+from ..forms import HackerForm, AcademicForm, ApplicationForm, OrganizationalForm, CVForm, RSVPForm
+
+from hacker.models import RSVP
 
 
 def editViewFactory(prop, FormClass, name, with_files=False):
@@ -87,6 +89,54 @@ cv = editViewFactory('cv',
                      CVForm,
                      'CV', 
                      with_files=True)
+
+
+@require_setup_completed(default_alternative)
+def rsvp(request):
+    
+    hacker = request.user.hacker
+
+    # if we have something that needs to be setup return to the main page
+    if hacker.get_first_unset_component() is not None:
+        return redirect(reverse('portal'))
+    
+    # if we are not approved, return to the portal
+    if not hacker.approval.approval:
+        return redirect(reverse('portal'))
+    
+    # if we do not yet have an RSVP, make one
+    try:
+        instance = hacker.rsvp
+    except RSVP.DoesNotExist:
+        instance = RSVP(hacker=hacker, going=False)
+    
+    if request.method == 'POST':
+        form = RSVPForm(data=request.POST, instance=instance)
+        # check that the form is valid
+        if form.is_valid():
+            form.clean()
+
+            # Save the changes
+            instance = form.save(commit=False)
+            instance.save()
+
+            # tell the user that we have saved the changes
+            messages.success(request, 'Changes saved. ')
+            
+            # and go back to the edit page
+            return redirect(reverse('edit_rsvp'))
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = RSVPForm(instance=instance)
+    
+    return render(request, 'portal/edit.html', {
+        'form': form,
+        'name': 'RSVP',
+        'nowarn': True,
+        'messsages': get_messages(request),
+        'with_files': False
+    })
 
 
 @require_setup_completed(default_alternative)

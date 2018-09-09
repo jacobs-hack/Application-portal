@@ -8,10 +8,14 @@
 </div>
 
 {% else %}
+{% if user.hacker.rsvp %}{% else %}
+{% if nowarn %}{% else %}
 <div class="uk-alert uk-alert-warning" uk-alert>
     <h3>Congratulations, you've been accepted to participate in jacobsHack! 2018!</h3>
-    <p>         
-        We will get in touch with you with some important information. Looking forward to hacking with you!
+    <p>
+        <a href="{% url 'edit_rsvp' %}" class="uk-button uk-button-small uk-button-default">Answer to the RSVP</a>
     </p>
 </div>
+{% endif %}
+{% endif %}
 {% endif %}

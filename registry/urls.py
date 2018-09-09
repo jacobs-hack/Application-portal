@@ -63,6 +63,7 @@ urlpatterns = [
     url(r'^edit/application/$', edit_views.application, name='edit_application'),
     url(r'^edit/organizational/$', edit_views.organizational, name='edit_organizational'),
     url(r'^edit/cv/$', edit_views.cv, name='edit_cv'),
+    url(r'^edit/rsvp/$', edit_views.rsvp, name='edit_rsvp'),
 
     # CV Media URL
     url('^{}cvs/(?P<username>[\w.@+-]+)\.pdf$'.format(settings.MEDIA_URL[1:]), cv_views.cv, name='view_cv')

@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib.auth import password_validation
 from django.contrib.auth.models import User
 
-from hacker.models import Hacker, HackathonApplication, AcademicData, Organizational, CV
+from hacker.models import Hacker, HackathonApplication, AcademicData, Organizational, CV, RSVP
 
 from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
 from django_forms_uikit.widgets import DatePickerInput
@@ -135,6 +135,21 @@ class AcademicForm(forms.ModelForm):
         labels = {
             'year': 'Expected Graduation',
         }
+
+class RSVPForm(forms.ModelForm):
+    """ A form for saving the users RSVP data """
+    class Meta:
+        model = RSVP
+        fields = [
+            'going',
+        ]
+        labels = {
+            'going': 'RSVP'
+        }
+        help_texts = {
+            'going': 'Yes, I will come to jacobsHack! 2018'
+        }
+    
 
 
 class ApplicationForm(forms.ModelForm):

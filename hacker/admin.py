@@ -2,10 +2,13 @@ from django.contrib import admin
 
 from hacker.actions import export_as_xslx_action
 from .models import Hacker, HackathonApplication, \
-    AcademicData, Approval, Organizational, CV
+    AcademicData, Approval, Organizational, CV, RSVP
 
 class HackerApprovalInline(admin.StackedInline):
     model = Approval
+
+class HackerRSVPInline(admin.StackedInline):
+    model = RSVP
 
 
 class HackerAcademicDataInline(admin.StackedInline):
@@ -14,7 +17,6 @@ class HackerAcademicDataInline(admin.StackedInline):
 
 class HackerHackathonApplicationInline(admin.StackedInline):
     model = HackathonApplication
-
 
 class HackerOrganizationalInline(admin.StackedInline):
     model = Organizational
@@ -44,6 +46,7 @@ class SetupCompleted(admin.SimpleListFilter):
 class HackerAdmin(admin.ModelAdmin):
     inlines = [
         HackerApprovalInline,
+        HackerRSVPInline,
         HackerAcademicDataInline,
         HackerHackathonApplicationInline,
         HackerOrganizationalInline,
@@ -58,7 +61,7 @@ class HackerAdmin(admin.ModelAdmin):
     # Fields that are displayed in the admin view
     list_display = (
         # basic information
-        'fullName', 'email', 'userApproval', 'completedSetup',
+        'fullName', 'email', 'userApproval', 'userRSVP', 'completedSetup',
 
         'school', 'degree', 'year',
 
@@ -67,7 +70,7 @@ class HackerAdmin(admin.ModelAdmin):
 
     # Fields that can be dynamically filtered for
     list_filter = (
-        'approval__approval', SetupCompleted, 
+        'approval__approval', 'rsvp__going', SetupCompleted, 
 
         'academic__school', 'academic__degree', 'academic__year',
 
@@ -84,10 +87,13 @@ class HackerAdmin(admin.ModelAdmin):
         'profile__date_joined', 'profile__last_login',
 
         # Consent
-        'jacobsHackTerms', 'mlhCodeOfConduct', 'mlhContestTerms', 'mlhSharingConsent',
+        'jacobsHackTerms', 'mlhCodeOfConduct', 'mlhContestTerms',
 
         # 'Approval' Data
         'approval__approval',
+
+        # 'RSVP' data
+        'rsvp__going',
 
         # Hacker Model
         'firstName', 'middleName', 'lastName', 
@@ -128,6 +134,12 @@ class HackerAdmin(admin.ModelAdmin):
     userApproval.short_description = 'Approved'
     userApproval.boolean = 'true'
     userApproval.admin_order_field = 'approval__approval'
+
+    def userRSVP(self, x):
+        return x.rsvp.going
+    userRSVP.short_description = 'RSVP'
+    userRSVP.boolean = 'true'
+    userRSVP.admin_order_field = 'rsvp__going'
 
     def school(self, x):
         return x.academic.school

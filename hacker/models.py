@@ -104,6 +104,13 @@ class Approval(models.Model):
     approval = models.BooleanField(default=False, blank=True,
                                    help_text="Has the application been approved?")
 
+class RSVP(models.Model):
+    """ The approval status of a hacker """
+    hacker = models.OneToOneField(Hacker, related_name='rsvp')
+
+    going = models.BooleanField(default=False, blank=True,
+                                   help_text="Are you coming to jacobsHack! 2018?")
+
 
 @Hacker.register_component
 class AcademicData(models.Model):

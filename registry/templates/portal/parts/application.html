@@ -7,6 +7,32 @@
     <div class="uk-card-body">
         <table class="uk-table uk-table-small">
             <tbody>
+                <caption>Application Status</caption>
+                {% if user.hacker.approval.approval %}
+                    <tr>
+                        <td>Acceptance</td>
+                        <td>Accepted</td>
+                    </tr>
+                    <tr>
+                        <td>RSVP</td>
+                        <td>{{ user.hacker.rsvp.going | print_boolean }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>Acceptance</td>
+                        <td>Pending</td>
+                    </tr>
+                    <tr>
+                        <td>RSVP</td>
+                        <td>N/A</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+        
+        <table class="uk-table uk-table-small">
+            <tbody>
+                <caption>Application Data</caption>
                 <tr>
                     <td>Why do you want to come to JacobsHack?</td>
                     <td>
@@ -33,5 +59,10 @@
     </div>
     <div class="uk-card-footer">
         <a href="{% url 'edit_application' %}" class="uk-button uk-button-text">Edit Application</a>
+
+        {% if user.hacker.approval.approval %}
+            &nbsp;
+            <a href="{% url 'edit_rsvp' %}" class="uk-button uk-button-text">Change RSVP</a>
+        {% endif %}
     </div>
 </div>
