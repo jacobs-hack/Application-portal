@@ -55,7 +55,7 @@ class HackerAdmin(admin.ModelAdmin):
 
     # Fields that should be searchable
     search_fields = [
-        'firstName', 'middleName', 'lastName', 'email', 'academic__university',
+        'firstName', 'middleName', 'lastName', 'email', 'academic__school',
     ]
 
     # Fields that are displayed in the admin view
