@@ -108,7 +108,7 @@ class DegreeField(models.CharField):
     )
 
     def __init__(self, *args, **kwargs):
-        kwargs['max_length'] = 3
+        kwargs['max_length'] = 5
         kwargs['choices'] = DegreeField.DEGREE_CHOICES
         kwargs['default'] = DegreeField.BACHELOR_SCIENCE
         super(DegreeField, self).__init__(*args, **kwargs)
