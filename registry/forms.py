@@ -138,6 +138,11 @@ class AcademicForm(forms.ModelForm):
 
 class RSVPForm(forms.ModelForm):
     """ A form for saving the users RSVP data """
+    going = forms.TypedChoiceField(
+        coerce=lambda x: x == 'True',
+        choices=((True, 'Yes'), (False, 'No')),
+        widget=forms.RadioSelect
+    )
     class Meta:
         model = RSVP
         fields = [
