@@ -8,6 +8,8 @@ from hacker.models import Hacker, HackathonApplication, AcademicData, Organizati
 from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
 from django_forms_uikit.widgets import DatePickerInput
 
+from django.utils.safestring import mark_safe
+
 import datetime
 
 class HackerForm(forms.ModelForm):
@@ -140,7 +142,7 @@ class RSVPForm(forms.ModelForm):
     """ A form for saving the users RSVP data """
     going = forms.TypedChoiceField(
         coerce=lambda x: x == 'True',
-        choices=((True, 'Yes'), (False, 'No')),
+        choices=((True, mark_safe('Yes, I will attend jacobs<i>Hack!</i>')), (False, mark_safe('No, I will not attend jacobs<i>Hack!</i>'))),
         widget=forms.RadioSelect
     )
     class Meta:
