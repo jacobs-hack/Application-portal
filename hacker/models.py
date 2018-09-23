@@ -148,6 +148,8 @@ class Organizational(models.Model):
     needVisa = models.BooleanField(default=False, blank=True,
                                    help_text="I need a Visa to come to Germany and attend JacobsHack!. ")
 
+    passportNumber = models.CharField(max_length=255, default="", blank=True, null=True, help_text="Your passport number (if you need a visa)")
+
     needReimbursement = models.BooleanField(default=False, blank=True, 
                                     help_text="I am coming from outside of Bremen and would like to apply for travel reimbursement. Subject to the <a href='/terms/' target='_blank'>Terms &amp; Conditions</a>. ")
 
