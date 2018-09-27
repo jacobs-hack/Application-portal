@@ -132,7 +132,7 @@ class HackerAdmin(admin.ModelAdmin):
 
         # Organizational Data
         'organizational__shirtSize', 'organizational__needVisa', 'organizational__passportNumber', 
-        'organizational__dietaryRequirements', 'organizational__comments'
+        'organizational__visaLetterAddress', 'organizational__dietaryRequirements', 'organizational__comments'
     )
 
 

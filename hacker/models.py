@@ -150,6 +150,8 @@ class Organizational(models.Model):
 
     passportNumber = models.CharField(max_length=255, default="", blank=True, null=True, help_text="Your passport number (if you need a visa)")
 
+    visaLetterAddress = models.TextField(default="", blank=True, null=True, help_text="Your address (to send you a visa letter)")
+
     needReimbursement = models.BooleanField(default=False, blank=True, 
                                     help_text="I am coming from outside of Bremen and would like to apply for travel reimbursement. Subject to the <a href='/terms/' target='_blank'>Terms &amp; Conditions</a>. ")
 
