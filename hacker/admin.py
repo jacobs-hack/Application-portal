@@ -42,6 +42,27 @@ class SetupCompleted(admin.SimpleListFilter):
         else:
             return queryset
 
+class ApprovalFilter(admin.SimpleListFilter):
+    title = 'Approval'
+    parameter_name = 'approval'
+    
+    def lookups(self, request, modeladmin):
+        return [
+            ('true',  'Accepted'), 
+            ('false', 'Rejected'),
+            ('null',  'Pending')
+        ]
+    
+    def queryset(self, request, queryset):
+        if self.value() == 'true':
+            return queryset.filter(approval__approval=True)
+        elif self.value() == 'false':
+            return queryset.filter(approval__approval=False)
+        elif self.value() == 'null':
+            return queryset.filter(approval__isnull=True)
+        else:
+            return queryset
+
 
 class HackerAdmin(admin.ModelAdmin):
     inlines = [
@@ -70,7 +91,7 @@ class HackerAdmin(admin.ModelAdmin):
 
     # Fields that can be dynamically filtered for
     list_filter = (
-        'approval__approval', 'rsvp__going', SetupCompleted, 
+        ApprovalFilter, 'rsvp__going', SetupCompleted, 
 
         'academic__school', 'academic__degree', 'academic__year',
 
@@ -116,13 +137,46 @@ class HackerAdmin(admin.ModelAdmin):
 
 
     # Actions
+    def get_actions(self, request):
+        actions = super(HackerAdmin, self).get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
+
 
     xslx_export = export_as_xslx_action("Export as XSLX",
                                         fields=full_export_fields)
+    
+    # Approval and rejection options
+    def approve_hacker(modeladmin, request, queryset):
+        for hacker in queryset:
+            (approval, created) = Approval.objects.get_or_create(hacker=hacker)
+            approval.approval = True
+            approval.save()
+    approve_hacker.short_description = "Approve Application(s)"
+    
+    def reject_hacker(modeladmin, request, queryset):
+        for hacker in queryset:
+            (approval, created) = Approval.objects.get_or_create(hacker=hacker)
+            approval.approval = False
+            approval.save()
+    reject_hacker.short_description = "Reject Application(s)"
+
+    def autopend_hackers(modeladmin, request, queryset):
+        for hacker in queryset:
+            try:
+                hacker.approval.delete()
+            except Approval.DoesNotExist:
+                pass
+    autopend_hackers.short_description = "Pendify Applications(s)"
 
     actions = [
         'xslx_export',
-        'csv_export'
+        'csv_export',
+
+        'approve_hacker',
+        'reject_hacker',
+        'autopend_hackers'
     ]
 
     def fullName(self, x):

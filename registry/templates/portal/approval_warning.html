@@ -1,21 +1,30 @@
-{% if not user.hacker.approval.approval %}
-<div class="uk-alert uk-alert-warning" uk-alert>
-    <h3>Application pending</h3>
-    <p>
-        Thank you for your submission to jacobsHack! 2018. 
-        Your application is now under review; we will get in touch with you shortly.
-    </p>
-</div>
-
+{% if not user.hacker.approval %}
+    <div class="uk-alert uk-alert-warning" uk-alert>
+        <h3>Application pending</h3>
+        <p>
+            Thank you for your submission to jacobsHack! 2018. 
+            Your application is now under review; we will get in touch with you shortly.
+        </p>
+    </div>
 {% else %}
-{% if user.hacker.rsvp %}{% else %}
-{% if nowarn %}{% else %}
-<div class="uk-alert uk-alert-warning" uk-alert>
-    <h3>Congratulations, you've been accepted to participate in jacobsHack! 2018!</h3>
-    <p>
-        <a href="{% url 'edit_rsvp' %}" class="uk-button uk-button-small uk-button-default">Answer to the RSVP</a>
-    </p>
-</div>
-{% endif %}
-{% endif %}
+    {% if user.hacker.approval.approval %}
+        {% if user.hacker.rsvp %}{% else %}
+            {% if nowarn %}{% else %}
+            <div class="uk-alert uk-alert-warning" uk-alert>
+                <h3>Congratulations, you've been accepted to participate in jacobsHack! 2018!</h3>
+                <p>
+                    <a href="{% url 'edit_rsvp' %}" class="uk-button uk-button-small uk-button-default">Answer to the RSVP</a>
+                </p>
+            </div>
+            {% endif %}
+        {% endif %}
+    {% else %}
+        <div class="uk-alert uk-alert-danger" uk-alert>
+            <h3>Application rejected</h3>
+            <p>
+                Thank you for your submission to jacobsHack! 2018. 
+                Unfortunatly, your application has been rejected. 
+            </p>
+        </div>
+    {% endif %}
 {% endif %}

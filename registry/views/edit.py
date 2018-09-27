@@ -10,7 +10,7 @@ from ..decorators import require_setup_completed
 
 from ..forms import HackerForm, AcademicForm, ApplicationForm, OrganizationalForm, CVForm, RSVPForm
 
-from hacker.models import RSVP
+from hacker.models import RSVP, Approval
 
 
 def editViewFactory(prop, FormClass, name, with_files=False):
@@ -101,9 +101,11 @@ def rsvp(request):
         return redirect(reverse('portal'))
     
     # if we are not approved, return to the portal
-    if not hacker.approval.approval:
+    try:
+        if not hacker.approval.approval:
+            return redirect(reverse('portal'))
+    except Approval.DoesNotExist:
         return redirect(reverse('portal'))
-    
     # if we do not yet have an RSVP, make one
     try:
         instance = hacker.rsvp

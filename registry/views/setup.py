@@ -35,10 +35,6 @@ def register(request):
             instance.profile = user
             instance.save()
 
-            # create an empty approval object
-            approval = Approval(hacker=instance, approval=False)
-            approval.save()
-
             # Authenticate the user for this request
             login(request, user)
 

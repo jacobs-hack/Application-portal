@@ -8,15 +8,26 @@
         <table class="uk-table uk-table-small">
             <tbody>
                 <caption>Application Status</caption>
-                {% if user.hacker.approval.approval %}
-                    <tr>
-                        <td>Acceptance</td>
-                        <td>Accepted</td>
-                    </tr>
-                    <tr>
-                        <td>RSVP</td>
-                        <td>{{ user.hacker.rsvp.going | print_boolean }}</td>
-                    </tr>
+                {% if user.hacker.approval %}
+                    {% if user.hacker.approval.approval %}
+                        <tr>
+                            <td>Acceptance</td>
+                            <td>Accepted</td>
+                        </tr>
+                        <tr>
+                            <td>RSVP</td>
+                            <td>{{ user.hacker.rsvp.going | print_boolean }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td>Acceptance</td>
+                            <td>Rejected</td>
+                        </tr>
+                        <tr>
+                            <td>RSVP</td>
+                            <td>N/A</td>
+                        </tr>
+                    {% endif %}
                 {% else %}
                     <tr>
                         <td>Acceptance</td>
