@@ -10,7 +10,7 @@ def home(request):
     """ Renders either the home page or the portal. """
 
     # if the user is signed in, redirect to the main portal
-    if request.user.is_authenticated() and request.user.hacker:
+    if request.user.is_authenticated and request.user.hacker:
         return redirect(reverse('portal'))
 
     # else render the home page

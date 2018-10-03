@@ -13,7 +13,7 @@ def register(request):
     """ Implements the Hackathon Application Page"""
 
     # not for already logged in users
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return redirect('/')
 
     if request.method == 'POST':
