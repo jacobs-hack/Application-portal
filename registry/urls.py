@@ -16,7 +16,6 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.static import static
-from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
 
@@ -24,6 +23,7 @@ from .views import registry as registry_views
 from .views import setup as setup_views
 from .views import edit as edit_views
 from .views import cv as cv_views
+from .views import auth as auth_views
 
 # Side-effect import: Initialize hooks
 import hacker.hooks
@@ -39,9 +39,8 @@ urlpatterns = [
     url(r'^privacy/$', lambda request: redirect(settings.PRIVACY_URL), name='privacy'),
 
     # Login / Logout
-    url(r'^login/$', auth_views.login, {'template_name': 'auth/login.html'},
-        name='login'),
-    url('^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
+    url(r'^login/$', auth_views.LoginView.as_view(), name='login'),
+    url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
 
     # Registration
     url('^register/$', setup_views.register, name='register'),
