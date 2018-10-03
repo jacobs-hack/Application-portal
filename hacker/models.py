@@ -13,7 +13,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 class Hacker(models.Model):
     """ The information about a Hacker """
 
-    profile = models.OneToOneField(User)
+    profile = models.OneToOneField(User, on_delete=models.CASCADE)
 
     # name and basic contact information
     firstName = models.CharField(max_length=255, help_text="Your first name. ")
@@ -99,14 +99,14 @@ class Hacker(models.Model):
 
 class Approval(models.Model):
     """ The approval status of a hacker """
-    hacker = models.OneToOneField(Hacker, related_name='approval')
+    hacker = models.OneToOneField(Hacker, related_name='approval', on_delete=models.CASCADE)
 
     approval = models.BooleanField(default=False, blank=True,
                                    help_text="Has the application been approved?")
 
 class RSVP(models.Model):
     """ The approval status of a hacker """
-    hacker = models.OneToOneField(Hacker, related_name='rsvp')
+    hacker = models.OneToOneField(Hacker, related_name='rsvp', on_delete=models.CASCADE)
 
     going = models.BooleanField(default=False, blank=True,
                                    help_text="Are you coming to jacobsHack! 2018?")
@@ -116,7 +116,7 @@ class RSVP(models.Model):
 class AcademicData(models.Model):
     """ The academic data of a Hacker """
 
-    hacker = models.OneToOneField(Hacker, related_name='academic')
+    hacker = models.OneToOneField(Hacker, related_name='academic', on_delete=models.CASCADE)
 
     degree = fields.DegreeField(help_text="Which academic degree are you hoping to achieve? ")
     major = models.CharField(max_length=255, help_text="What is your current major? ")
@@ -128,7 +128,7 @@ class AcademicData(models.Model):
 class HackathonApplication(models.Model):
     """ The hackathon application  """
 
-    hacker = models.OneToOneField(Hacker, related_name='application')
+    hacker = models.OneToOneField(Hacker, related_name='application', on_delete=models.CASCADE)
 
     whyJacobsHack = models.TextField()
 
@@ -141,7 +141,7 @@ class HackathonApplication(models.Model):
 class Organizational(models.Model):
     """ The organizational information about a Hacker """
 
-    hacker = models.OneToOneField(Hacker, related_name='organizational')
+    hacker = models.OneToOneField(Hacker, related_name='organizational', on_delete=models.CASCADE)
 
     shirtSize = fields.ShirtSizeField(help_text="Select your EU T-Shirt size. ")
 
@@ -169,7 +169,7 @@ def upload_to(instance, filename):
 class CV(models.Model):
     """ The CV of a Hacker """
 
-    hacker = models.OneToOneField(Hacker, related_name='cv')
+    hacker = models.OneToOneField(Hacker, related_name='cv', on_delete=models.CASCADE)
     cv = models.FileField(
         upload_to=upload_to,
         validators=[FileExtensionValidator(allowed_extensions=["pdf"])],
