@@ -43,7 +43,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 
     # Registration
-    path('register/', setup_views.register, name='register'),
+    #path('register/', setup_views.register, name='register'),
+    path('register/', registry_views.register, name='register'),
 
     # Initial data Setup
     path('setup/', setup_views.setup, name='setup'),

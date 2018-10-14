@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -15,6 +16,12 @@ def home(request):
 
     # else render the home page
     return render(request, 'registry/index.html')
+
+def register(request):
+    """ Renders either the home page or the portal. """
+
+    raise Http404
+     
 
 
 @require_setup_completed(lambda request: redirect(reverse('setup')))
